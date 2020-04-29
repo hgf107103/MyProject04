@@ -18,7 +18,7 @@
   <a href="/Login"><button>로그인 페이지로 이동</button></a><br>
   <a href="/SignUp"><button>회원가입 페이지로 이동</button></a>
   <%} else if(session.getAttribute("mylogin") != null) { %>
-  <a href="/Logout"><button onclick="logoutEvent()">로그아웃 페이지로 이동</button></a>
+  <a href="/Logout"><button onclick="logoutEvent()">로그아웃</button></a>
   <%} %>
 </body>
 </html>

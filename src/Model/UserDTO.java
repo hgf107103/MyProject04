@@ -76,15 +76,27 @@ public class UserDTO {
     
 	public boolean signUp(UserVO uv) {
     	try {
-			
+    		String sql = "INSERT INTO user (userid, userpass, name, sex) values ('" + uv.getId() + "', '" + uv.getPwd() + "', '" + uv.getName() + "', '" + uv.getSex() + "')";
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            pstmt = conn.prepareStatement(sql);
+            System.out.println("회원가입 쿼리 성공");
+            
+            cutConnect();
+            return true;
 		} catch (Exception e) {
-			// TODO: handle exception
-		} finally {
+			
+			cutConnect();
 			return false;
 		}
     }
     
-    public void cutConnect() {
+    private void cutConnect() {
     	try {
     		
 			if (conn != null) conn.close();
