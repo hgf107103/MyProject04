@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Log In</title>
+<title>LogIn</title>
 </head>
 <body>
 <h1>로그인 페이지 입니다.</h1>

@@ -5,16 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Sign Up</title>
+<script type="text/javascript" src="/View/User/JS/SignUpScript.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
-<form action="/SignUp" method="post">
+
+<form id="SignUpForm" name="SignUpForm" action="/SignUp" method="post">
 	<fieldset>
 	
 		<legend>회원가입</legend>
-			
+		
 			<label>아이디<br>
 			<input type="text" name="id" id="id">
 			</label>
+			<br>
+			<input type="button" value="아이디 중복검사" onclick="SignUpIDCheakPopUp()">
 			
 			<br>
 			
@@ -31,13 +36,13 @@
 			<br>
 			
 			<label>성별<br>
-			<input type="radio" name="sex" value="남자" checked="checked">
-			<input type="radio" name="sex" value="여자">
-			<input type="radio" name="sex" value="기타">
+			남자 <input type="radio" class="sex" name="sex" value="남자" checked="checked">
+			여자 <input type="radio" class="sex" name="sex" value="여자">
+			기타 <input type="radio" class="sex" name="sex" value="기타">
 			</label>
 			
 	</fieldset>
-	<input type="submit" value="회원가입">
+	<input type="button" value="회원가입" onclick="SignUpCheak()">
 </form>
 </body>
 </html>

@@ -35,22 +35,30 @@ public class SignUpServlet extends HttpServlet {
 				UserVO uv = new UserVO(request.getParameter("name"), request.getParameter("id"), request.getParameter("pwd"), request.getParameter("sex"));
 				
 				UserDTO ud = UserDTO.getInstance();
-				boolean cheak = ud.signUp(uv);
-				
-				if (cheak) {
-					
-					System.out.println("회원가입 서블릿 성공");
-					
-					PrintWriter out = response.getWriter();
-					out.print("<head></head><body><script>alert('회원가입 성공했습니다.');</script></body>");
-					
-					RequestDispatcher rd = request.getRequestDispatcher("/Login");
-					rd.forward(request, response);
-					
+				boolean idCheak = ud.idCheak(uv);
+				if (idCheak) {
+					boolean cheak = ud.signUp(uv);
+					if (cheak) {
+						
+						System.out.println("회원가입 서블릿 성공");
+						
+						PrintWriter out = response.getWriter();
+						out.print("<head></head><body><script>alert('회원가입 성공했습니다.'); location.href='/Login';</script></body>");
+						
+						//response.sendRedirect("/Login");
+						
+						/*RequestDispatcher rd = request.getRequestDispatcher("/Login");
+						rd.forward(request, response);*/
+						
+					} else {
+						PrintWriter out = response.getWriter();
+						out.print("<head></head><body><script>alert('회원가입 실패했습니다.'); history.go(-1);</script></body>");
+					}
 				} else {
 					PrintWriter out = response.getWriter();
-					out.print("<head></head><body><script>alert('회원가입 실패했습니다.'); history.go(-1);</script></body>");
+					out.print("<head></head><body><script>alert('이미 존재하는 아이디입니다.'); history.go(-1);</script></body>");
 				}
+				
 			}
 			
 		} catch (Exception e) {
