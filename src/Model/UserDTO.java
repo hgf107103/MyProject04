@@ -134,6 +134,44 @@ public class UserDTO {
 			return false;
 		}
 	}
+	
+	public boolean idCheak(String id) {
+		try {
+    		String sql = "SELECT * FROM user WHERE userid = '" + id + "'";
+    		String userid = null;
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            System.out.println("아이디 체크 쿼리실행완료");
+            
+            while(rs.next()) {
+            	userid = rs.getString("userid");
+            }
+            System.out.println("아이디 체크 값 적재 완료");
+            
+            cutConnect();
+            
+            if (userid == null) {
+            	System.out.println("아이디 체크 이상없음");
+            	return true;
+			} else {
+				System.out.println("아이디 체크 중복아이디 있음");
+				return false;
+			}
+            
+		} catch (Exception e) {
+			
+			cutConnect();
+			System.out.println("아이디 체크 오류 발생");
+			return false;
+		}
+	}
     
     private void cutConnect() {
     	try {

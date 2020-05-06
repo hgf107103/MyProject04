@@ -14,7 +14,7 @@
 	<fieldset>
 	
 		<legend>회원가입</legend>
-		
+		<input type="hidden" id="idcheak" value="false">
 			<label>아이디<br>
 			<input type="text" name="id" id="id">
 			</label>

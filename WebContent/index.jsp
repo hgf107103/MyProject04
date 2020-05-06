@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="Model.UserVO"  %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>index</title>
 <script type="text/javascript">
 	function logoutEvent() {
 		alert("로그아웃 되었습니다.");
@@ -19,6 +20,12 @@
   <a href="/SignUp"><button>회원가입 페이지로 이동</button></a>
   <%} else if(session.getAttribute("mylogin") != null) { %>
   <a href="/Logout"><button onclick="logoutEvent()">로그아웃</button></a>
+  		<%
+  			UserVO nowLoginVO = (UserVO)session.getAttribute("mylogin");
+  			if(nowLoginVO.getId().equals("admin")) {
+  		%>
+  		<a href="/RestaurantMaster"><button>레스토랑 : 마스터</button></a>
+  		<%} %>
   <%} %>
 </body>
 </html>

@@ -52,7 +52,7 @@ function SignUpNullCheak(){
 function SignUpPWDRegExp() {
 	try {
 		var pwd = document.getElementById("pwd").value;
-		var pwdReg = new RegExp('/(?!^[0-9]*$)(?!^[a-zA-Z!@#$%^&*()_+=<>?]*$)^([a-zA-Z!@#$%^&*()_+=<>?0-9]{6,15})$/', 'gm');
+		var pwdReg = new RegExp('(?!^[0-9]*$)(?!^[a-zA-Z!@#$%^&*()_+=<>?]*$)^([a-zA-Z!@#$%^&*()_+=<>?0-9]{6,15})$', 'gm');
 		
 		if (pwd != '') {
 			
@@ -84,7 +84,7 @@ function SignUpIDRegExp() {
 	try {
 		
 		var id = document.getElementById("id").value;
-		var idReg = new RegExp('/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,20})$/', 'gm');
+		var idReg = new RegExp('(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,20})$', 'gm');
 		
 		if (id != '') {
 			if (idReg.test(id)) {
