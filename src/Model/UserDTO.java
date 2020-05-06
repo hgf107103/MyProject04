@@ -13,9 +13,9 @@ public class UserDTO {
     private Statement st = null;
     private ResultSet rs = null;
 
-    private String url="jdbc:mysql://117.17.113.248:3306/postboard?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
-    private String uid="master";
-    private String upass="123456";
+    private String url="jdbc:mysql://localhost:3306/postboard?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    private String uid="root";
+    private String upass="hwt0147258";
     private UserVO uv = null;
     
     private UserDTO() {}

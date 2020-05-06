@@ -19,13 +19,14 @@
   <a href="/Login"><button>로그인 페이지로 이동</button></a><br>
   <a href="/SignUp"><button>회원가입 페이지로 이동</button></a>
   <%} else if(session.getAttribute("mylogin") != null) { %>
-  <a href="/Logout"><button onclick="logoutEvent()">로그아웃</button></a>
+  <a href="/Logout"><button onclick="logoutEvent()">로그아웃</button></a><br>
   		<%
   			UserVO nowLoginVO = (UserVO)session.getAttribute("mylogin");
   			if(nowLoginVO.getId().equals("admin")) {
   		%>
-  		<a href="/RestaurantMaster"><button>레스토랑 : 마스터</button></a>
+  		<a href="/Restaurant?isMaster=true"><button>레스토랑 : 마스터</button></a><br>
   		<%} %>
+  <a href="/Restaurant?isMaster=false"><button>레스토랑 : 게스트</button></a>
   <%} %>
 </body>
 </html>
