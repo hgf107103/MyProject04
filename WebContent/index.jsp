@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="Model.UserVO"  %>
+<%@ page import="Model.UserModel.UserVO"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +24,11 @@
   			UserVO nowLoginVO = (UserVO)session.getAttribute("mylogin");
   			if(nowLoginVO.getId().equals("admin")) {
   		%>
-  		<a href="/Restaurant?isMaster=true"><button>레스토랑 : 마스터</button></a><br>
+  		<form action="/Restaurant" method="post">
+  			<input type="submit" value="레스토랑 : 마스터">
+  		</form>
   		<%} %>
-  <a href="/Restaurant?isMaster=false"><button>레스토랑 : 게스트</button></a>
+  <a href="/Restaurant"><button>레스토랑 : 게스트</button></a>
   <%} %>
 </body>
 </html>

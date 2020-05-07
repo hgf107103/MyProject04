@@ -15,6 +15,7 @@
 <%if (request.getParameter("isIdCheakd") != null) {%>
 <div>
 	<%if (request.getParameter("isIdCheakd").equals("cheakok")) {%>
+	
 	<p><%= request.getParameter("id")%>는 사용가능한 아이디 입니다.</p>
 	
 	<script type="text/javascript">
