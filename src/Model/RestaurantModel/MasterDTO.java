@@ -13,10 +13,10 @@ public class MasterDTO {
     private Statement st = null;
     private ResultSet rs = null;
 
-    private String url="jdbc:mysql://117.17.113.248:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    //private String url="jdbc:mysql://117.17.113.248:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    private String url="jdbc:mysql://192.168.1.100:3306/postboard?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
     private String uid="master";
     private String upass="123456";
-    private MasterDTO uv = null;
     
     private MasterDTO() {}
     

@@ -12,10 +12,11 @@ public class UserDTO {
     private PreparedStatement pstmt = null;
     private Statement st = null;
     private ResultSet rs = null;
-
-    private String url="jdbc:mysql://117.17.113.248:3306/postboard?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    
+    //private String url="jdbc:mysql://117.17.113.248:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    private String url="jdbc:mysql://192.168.1.100:3306/postboard?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
     private String uid="master";
-    private String upass="123456";
+    private String upass="hwt0147258";
     private UserVO uv = null;
     
     private UserDTO() {}
@@ -53,6 +54,7 @@ public class UserDTO {
                 sex = rs.getString("sex");
             }
 
+            System.out.println(name + " : " +  userid + " : " +  userpass + " : " +  sex);
             System.out.println("Result°ª »ý¼ºµÊ");
             
             if (userid != null && userpass != null && name != null && sex != null) {
