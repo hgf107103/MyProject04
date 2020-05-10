@@ -19,30 +19,42 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("View/User/LoginView.jsp");
-		rd.forward(request, response);
+		try {
+			RequestDispatcher rd = request.getRequestDispatcher("View/User/LoginView.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			response.sendRedirect("/");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		
-		HttpSession session = request.getSession(true);
-		
-		UserDTO ud = UserDTO.getInstance();
-		System.out.println(1);
-		UserVO nowLogin = ud.login(request.getParameter("id"), request.getParameter("pwd"));
-		System.out.println(2);
-		if (nowLogin != null) {
-			session.setAttribute("mylogin", nowLogin);
-			RequestDispatcher rd = request.getRequestDispatcher("/");
-			rd.forward(request, response);
-		} else {
-			PrintWriter out = response.getWriter();
-			System.out.println("로그인 실패");
-			out.print("<head></head><body><script>alert('아이디와 비밀번호가 일치하지 않습니다.'); history.go(-1);</script></body>");
+		try {
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
+			HttpSession session = request.getSession(true);
+			
+			UserDTO ud = UserDTO.getInstance();
+			System.out.println("loginServlet : Created UserDTO");
+			
+			UserVO nowLogin = ud.login(request.getParameter("id"), request.getParameter("pwd"));
+			System.out.println("loginServlet : Created UserVO");
+			
+			if (nowLogin != null) {
+				session.setAttribute("mylogin", nowLogin);
+				/*RequestDispatcher rd = request.getRequestDispatcher("/");
+				rd.forward(request, response);*/
+				response.sendRedirect("/");
+			} else {
+				PrintWriter out = response.getWriter();
+				System.out.println("로그인 실패");
+				out.print("<head></head><body><script>alert('아이디와 비밀번호가 일치하지 않습니다.'); history.go(-1);</script></body>");
+			}
+		} catch (Exception e) {
+			response.sendRedirect("/");
 		}
+		
 		
 	}
 

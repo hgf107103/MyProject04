@@ -1,4 +1,4 @@
-package Controller.RestaurantController;
+package Controller.RestaurantController.MasterController.MenuController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +15,7 @@ import Model.RestaurantModel.MenuVO;
 import Model.UserModel.UserVO;
 
 
-@WebServlet("/Restaurant/Master/AddMenu")
+@WebServlet("/Restaurant/Master/Menu/AddMenu")
 public class AddMenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,8 +26,7 @@ public class AddMenuServlet extends HttpServlet {
 			rd.forward(request, response);
 		} catch (Exception e) {
 			 System.out.println("doGet AddMenu¿À·ù");
-			 RequestDispatcher rd = request.getRequestDispatcher("/");
-				rd.forward(request, response);
+			 response.sendRedirect("/");
 		}
 		
 	}
