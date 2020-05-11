@@ -22,7 +22,7 @@ public class AddMenuServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/MasterMenuControll.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/MenuAddPage.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			 System.out.println("doGet AddMenu¿À·ù");

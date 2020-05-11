@@ -1,4 +1,4 @@
-package Controller.RestaurantController.GuestController;
+package Controller.RestaurantController.MasterController.MenuController;
 
 import java.io.IOException;
 
@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class GuestIndexServlet
+ * Servlet implementation class MenuMainServlet
  */
-@WebServlet("/Restaurant/Guest")
-public class GuestIndexServlet extends HttpServlet {
+@WebServlet("/MenuMainServlet")
+public class MenuMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -25,13 +26,10 @@ public class GuestIndexServlet extends HttpServlet {
 		}
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Guest/GuestMain.jsp");
-			rd.forward(request, response);
-		} catch (Exception e) {
-			response.sendRedirect("/");
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

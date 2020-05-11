@@ -2,7 +2,6 @@ package Controller.RestaurantController;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +20,9 @@ public class RestaurantServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			
-			RequestDispatcher rd = request.getRequestDispatcher("View/Restaurant/Guest/GuestMain.jsp");
-			rd.forward(request, response);
+			/*RequestDispatcher rd = request.getRequestDispatcher("/Restaurant/Guest");
+			rd.forward(request, response);*/
+			response.sendRedirect("/Restaurant/Guest");
 		} catch (Exception e) {
 			response.sendRedirect("/");
 		}
@@ -46,8 +46,9 @@ public class RestaurantServlet extends HttpServlet {
 				rd.forward(request, response);*/
 				response.sendRedirect("/Restaurant/Master");
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher("View/Restaurant/Guest/GuestMain.jsp");
-				rd.forward(request, response);
+				/*RequestDispatcher rd = request.getRequestDispatcher("/Restaurant/Guest");
+				rd.forward(request, response);*/
+				response.sendRedirect("/Restaurant/Guest");
 			}
 			
 			
