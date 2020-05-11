@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class UserDTO {
+public class UserDAO {
 	
 	private Connection conn = null;
     private PreparedStatement pstmt = null;
@@ -19,10 +19,10 @@ public class UserDTO {
     private String upass="Hwt0147258!";
     private UserVO uv = null;
     
-    private UserDTO() {}
+    private UserDAO() {}
     
-    public static UserDTO getInstance() {
-    	return new UserDTO();
+    public static UserDAO getInstance() {
+    	return new UserDAO();
     } 
 
     public UserVO login(String id, String pwd) {

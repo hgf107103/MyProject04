@@ -24,7 +24,7 @@ public class RestaurantServlet extends HttpServlet {
 			rd.forward(request, response);*/
 			response.sendRedirect("/Restaurant/Guest");
 		} catch (Exception e) {
-			response.sendRedirect("/");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 		
 
@@ -43,7 +43,7 @@ public class RestaurantServlet extends HttpServlet {
 			
 			
 		} catch (Exception e) {
-			response.sendRedirect("/");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

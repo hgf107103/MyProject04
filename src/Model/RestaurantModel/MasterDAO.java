@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class MasterDTO {
+public class MasterDAO {
 	
 	private Connection conn = null;
     private PreparedStatement pstmt = null;
@@ -18,10 +18,10 @@ public class MasterDTO {
     private String uid="hgf107103";
     private String upass="Hwt0147258!";
     
-    private MasterDTO() {}
+    private MasterDAO() {}
     
-    public static MasterDTO getInstance() {
-    	return new MasterDTO();
+    public static MasterDAO getInstance() {
+    	return new MasterDAO();
     }
     
     private final void cutConnect() {
@@ -39,7 +39,7 @@ public class MasterDTO {
     
     public boolean addNewMenu(MenuVO mv) {
     	try {
-    		String sql = "INSERT INTO menu (menuName, menuCost) values ('" + mv.getMenuName() + "', " + mv.getMenuCost() + ")";
+    		String sql = "INSERT INTO menu (menuName, menuCost, categoryNumber) values ('" + mv.getMenuName() + "', " + mv.getMenuCost() + ", " + mv.getCategoryNumber() +")";
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -56,11 +56,76 @@ public class MasterDTO {
             cutConnect();
 			return true;
 		} catch (Exception e) {
-			System.out.println("메뉴 추가 DTO 오류 발생");
+			System.out.println("메뉴 추가 DAO 오류 발생");
 			cutConnect();
 			return false;
 		}
     }
+    
+    public boolean addMenuNameCheck(String menuName) {
+    	try {
+    		String sql = "SELECT * FROM menu WHERE menuName = '" + menuName + "'";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            
+            while (rs.next()) {
+				if (rs.getString("menuName").equals(menuName)) {
+					return false;
+				}
+			}
+            
+            cutConnect();
+            return true;
+            
+		} catch (Exception e) {
+			System.out.println("메뉴 추가 이름체크 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public int checkCategory (String category) {
+    	try {
+    		String sql = "SELECT * FROM menucategory WHERE categoryName = '" + category + "'";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            int categoryNumber = 0;
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 셋 객체 생성됨");
+            
+            while (rs.next()) {
+				categoryNumber = rs.getInt("idx");
+			}
+            
+            cutConnect();
+            return categoryNumber;
+            
+		} catch (Exception e) {
+			System.out.println("카테고리 체크 DAO 오류 발생");
+			cutConnect();
+			return -1;
+		}
+    }
+    
     
     //데이터베이스의 오토인크리먼트값 sort
     public void DBAutoIncrementSort() {

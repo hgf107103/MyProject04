@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.UserModel.UserDTO;
+import Model.UserModel.UserDAO;
 
 
 @WebServlet("/IdCheak")
@@ -27,7 +27,7 @@ public class SignUpCheakIdServlet extends HttpServlet {
 			
 			String URL = "View/User/SignUpPopUp.jsp?id=" + request.getParameter("popId");
 			
-			UserDTO ud = UserDTO.getInstance();
+			UserDAO ud = UserDAO.getInstance();
 
 			boolean idCheak =  ud.idCheak(request.getParameter("popId"));
 			

@@ -22,7 +22,7 @@ public class MenuMainServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/MenuMainPage.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			response.sendRedirect("/");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 
@@ -32,7 +32,7 @@ public class MenuMainServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/MenuMainPage.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			response.sendRedirect("/");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

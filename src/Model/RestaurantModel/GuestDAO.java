@@ -1,5 +1,5 @@
 package Model.RestaurantModel;
 
-public class GuestDTO {
+public class GuestDAO {
 
 }

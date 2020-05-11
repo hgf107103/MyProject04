@@ -2,6 +2,7 @@ function AddMenu() {
 	try {
 		var name = document.getElementById("menuName").value;
 		var cost = document.getElementById("menuCost").value;
+		var category = document.querySelector('input[name="category"]:checked').value;
 		var form = document.AddMenuForm;
 		
 		if (AddNameCheak()) {
@@ -9,10 +10,10 @@ function AddMenu() {
 			
 			if (AddCostCheak()) {
 				
-				var lastQuestion = confirm("메뉴 이름 : " + name + "\n메뉴 가격 : " + cost + "\n이상의 내역이 맞습니까?")
+				var lastQuestion = confirm("메뉴 이름 : " + name + "\n메뉴 가격 : " + cost + "\n카테고리 : " + category + "\n이상의 내역이 맞습니까?")
 				if (lastQuestion) {
 					console.log("AddMenu_log : Allow submit");
-					alert("메뉴 이름 : " + name + "\n메뉴 가격 : " + cost + "\n메뉴를 추가합니다.");
+					alert("메뉴 이름 : " + name + "\n메뉴 가격 : " + cost + "\n카테고리 : " + category + "\n메뉴를 추가합니다.");
 					form.submit();
 				} else {
 					console.log("AddMenu_log : Denied submit");
@@ -74,6 +75,7 @@ function AddCostCheak() {
 		if(costValue != '') {
 			if(Number(costValue) % 100 == 0){
 				console.log("AddCostCheak_log : menuCost " + costValue);
+				return true;
 			} else {
 				console.log("AddCostCheak_not : Not Found menuCost value");
 				alert("메뉴 가격은 100원 단위로 적어야합니다.");

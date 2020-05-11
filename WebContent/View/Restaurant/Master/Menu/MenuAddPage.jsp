@@ -9,19 +9,22 @@
 <body>
 <script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuAddControllScript.js"></script>
 
-<form action="/Restaurant/Master/AddMenu" method="post" name="AddMenuForm">
+<form action="/Restaurant/Master/Menu/AddMenu" method="post" name="AddMenuForm">
 	<fieldset>
 		<legend>메뉴 추가</legend>
 		<label>메뉴 이름 : <input type="text" name="menuName" id="menuName" autocomplete="off" placeholder="메뉴 이름"></label><br>
 		<label>메뉴 가격 : <input type="number" min="0" max="500000" step="100" name="menuCost" id="menuCost" placeholder="메뉴 가격"></label><br>
 		<br>
-		<label>전채요리<input type="radio" class="category" name="category" value="전채요리" checked="checked"></label>
-		<label>　　육류<input type="radio" class="category" name="category" value="육류"></label>
-		<label>　해산물<input type="radio" class="category" name="category" value="해산물"></label>
-		<br>
-		<label>　식사류<input type="radio" class="category" name="category" value="식사류"></label>
-		<label>　디저트<input type="radio" class="category" name="category" value="디저트"></label>
-		<label>　　음료<input type="radio" class="category" name="category" value="음료"></label>
+		<fieldset>
+			<legend>메뉴 카테고리</legend>
+			<label>전채요리<input type="radio" class="category" name="category" value="전채요리" checked="checked"></label>
+			<label>　　육류<input type="radio" class="category" name="category" value="육류"></label>
+			<label>　해산물<input type="radio" class="category" name="category" value="해산물"></label>
+			<br>
+			<label>　식사류<input type="radio" class="category" name="category" value="식사류"></label>
+			<label>　디저트<input type="radio" class="category" name="category" value="디저트"></label>
+			<label>　　음료<input type="radio" class="category" name="category" value="음료"></label>
+		</fieldset>
 		<br>
 		<input type="button" name="menuButton" onclick="AddMenu()" id="menuButton" value="추가">
 	</fieldset>

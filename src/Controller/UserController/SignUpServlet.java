@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.UserModel.UserDTO;
+import Model.UserModel.UserDAO;
 import Model.UserModel.UserVO;
 
 
@@ -34,7 +34,7 @@ public class SignUpServlet extends HttpServlet {
 				
 				UserVO uv = new UserVO(request.getParameter("name"), request.getParameter("id"), request.getParameter("pwd"), request.getParameter("sex"));
 				
-				UserDTO ud = UserDTO.getInstance();
+				UserDAO ud = UserDAO.getInstance();
 				boolean idCheak = ud.idCheak(uv.getId());
 				if (idCheak) {
 					boolean cheak = ud.signUp(uv);

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Model.UserModel.UserDTO;
+import Model.UserModel.UserDAO;
 import Model.UserModel.UserVO;
 
 @WebServlet("/Login")
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 			
 			HttpSession session = request.getSession(true);
 			
-			UserDTO ud = UserDTO.getInstance();
+			UserDAO ud = UserDAO.getInstance();
 			System.out.println("loginServlet : Created UserDTO");
 			
 			UserVO nowLogin = ud.login(request.getParameter("id"), request.getParameter("pwd"));
