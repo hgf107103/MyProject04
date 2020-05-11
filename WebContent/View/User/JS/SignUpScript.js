@@ -159,7 +159,7 @@ function SignUpIDCheckPopUp() {
 
 				var url = "/View/User/SignUpPopUp.jsp?id=" + id;
 			    var name = "ID Check";
-			    var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+			    var option = "width = 500, height = 500, top = 100, left = 200, location = no";
 			    	
 			    window.open(url, name, option);
 			    
