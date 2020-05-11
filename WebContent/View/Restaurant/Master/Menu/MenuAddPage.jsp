@@ -1,19 +1,12 @@
-<%@ page import="Model.UserModel.UserVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마스터 : 메뉴 관리</title>
+<title>마스터 : 메뉴 추가</title>
 </head>
 <body>
-<%
-	UserVO uv = (UserVO)session.getAttribute("mylogin");
-	if(!uv.getId().equals("admin")) {
-		response.sendRedirect("/");
-	}
-%>
 <script type="text/javascript" src="/View/Restaurant/Master/JS/MenuControllScript.js"></script>
 
 <form action="/Restaurant/Master/AddMenu" method="post" name="AddMenuForm">

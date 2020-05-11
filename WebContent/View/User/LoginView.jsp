@@ -7,6 +7,7 @@
 <title>LogIn</title>
 </head>
 <body>
+<jsp:include page="/View/JspHeader.jsp"></jsp:include>
 <h1>로그인 페이지 입니다.</h1>
 <% if (session.getAttribute("mylogin") != null) {%>
 <script type="text/javascript">
@@ -19,5 +20,6 @@ history.go(-1);
 	<input type="password" name="pwd" placeholder="비밀번호를 입력하십시오"><br>
 	<input type="submit" value="로그인">
 </form>
+<jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>
 </html>

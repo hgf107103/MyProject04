@@ -17,11 +17,11 @@
 	<%if (request.getParameter("isIdCheakd").equals("cheakok")) {%>
 	
 	<p><%= request.getParameter("id")%>는 사용가능한 아이디 입니다.</p>
-	
+	<input type="hidden" id="checkedid" value="<%= request.getParameter("id")%>">
 	<script type="text/javascript">
 	function pickId() {
-		window.opener.document.getElementById("id").value = document.getElementById("popId").value;
-		window.opener.document.getElementById("idcheak").value = "true"
+		window.opener.document.getElementById("id").value = document.getElementById("checkedid").value;
+		window.opener.document.getElementById("idcheck").value = "true"
 		self.close();
 	}
 	</script>

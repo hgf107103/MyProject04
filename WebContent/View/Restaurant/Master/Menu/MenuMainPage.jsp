@@ -5,19 +5,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>레스토랑 : 마스터</title>
 <%
 	UserVO uv = (UserVO)session.getAttribute("mylogin");
 	if(!uv.getId().equals("admin")) {
 		response.sendRedirect("/");
 	}
 %>
+<title>마스터 : 메뉴 관련 페이지</title>
 </head>
 <body>
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
-<h1>레스토랑 마스터 화면입니다.</h1>
-<a href="/Restaurant/Master/Menu"><button>메뉴 관리</button></a>
-<h2>테이블 관리</h2>
+
+<button id="menuAddButton">메뉴 추가</button>
+
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>
 </html>

@@ -30,5 +30,6 @@
   		<%} %>
   <a href="/Restaurant"><button>레스토랑 : 게스트</button></a>
   <%} %>
+<jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>
 </html>

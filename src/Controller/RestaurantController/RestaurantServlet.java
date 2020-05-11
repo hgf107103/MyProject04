@@ -38,18 +38,8 @@ public class RestaurantServlet extends HttpServlet {
 			
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
+			response.sendRedirect("/Restaurant/Master");
 			
-			UserVO uv = (UserVO)request.getSession().getAttribute("mylogin");
-			
-			if(uv.getId().equals("admin")) {
-				/*RequestDispatcher rd = request.getRequestDispatcher("View/Restaurant/Master/MasterMain.jsp");
-				rd.forward(request, response);*/
-				response.sendRedirect("/Restaurant/Master");
-			} else {
-				/*RequestDispatcher rd = request.getRequestDispatcher("/Restaurant/Guest");
-				rd.forward(request, response);*/
-				response.sendRedirect("/Restaurant/Guest");
-			}
 			
 			
 		} catch (Exception e) {

@@ -9,12 +9,12 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
-
+<jsp:include page="/View/JspHeader.jsp"></jsp:include>
 <form id="SignUpForm" name="SignUpForm" action="/SignUp" method="post">
 	<fieldset>
 	
 		<legend>회원가입</legend>
-		<input type="hidden" id="idcheak" value="false">
+		<input type="hidden" id="idcheck" value="false">
 			<label>아이디<br>
 			<input type="text" name="id" id="id">
 			</label>
@@ -44,5 +44,6 @@
 	</fieldset>
 	<input type="button" value="회원가입" onclick="SignUpCheak()">
 </form>
+<jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>
 </html>

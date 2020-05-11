@@ -4,36 +4,45 @@ function SignUpNullCheak(){
 		var id = document.getElementById("id").value;
 		var pwd = document.getElementById("pwd").value;
 		var name = document.getElementById("name").value;
+		var idcheck = document.getElementById("idcheck").value;
 		var sex = document.querySelector('input[name="sex"]:checked').value;
 		
 		if(id != '') {
 			console.log("SignUpNullCheak_log : ID " + id);
 			
-			if(pwd != '') {
-				console.log("SignUpNullCheak_log : PWD " + pwd);
-				
-				if (name != '') {
-					console.log("SignUpNullCheak_log : NAME " + name);
+			if(idcheck != 'false'){
+				console.log("SignUpNullCheak_log : IDCHECK " + id);
+				if(pwd != '') {
+					console.log("SignUpNullCheak_log : PWD " + pwd);
 					
-					if(sex != '') {
-						console.log("SignUpNullCheak_log : SEX " + sex);
-						return true;
+					if (name != '') {
+						console.log("SignUpNullCheak_log : NAME " + name);
 						
-					}else {
-						console.log("SignUpNullCheak_not : Not Found sex value");
-						alert("성별을 입력해 주십시오");
+						if(sex != '') {
+							console.log("SignUpNullCheak_log : SEX " + sex);
+							return true;
+							
+						}else {
+							console.log("SignUpNullCheak_not : Not Found sex value");
+							alert("성별을 입력해 주십시오");
+							return false;
+						}
+						
+					} else {
+						console.log("SignUpNullCheak_not : Not Found name value");
+						alert("이름을 입력해 주십시오");
 						return false;
 					}
 					
 				} else {
-					console.log("SignUpNullCheak_not : Not Found name value");
-					alert("이름을 입력해 주십시오");
+					console.log("SignUpNullCheak_not : Not Found pwd value");
+					alert("비밀번호를 입력해 주십시오");
 					return false;
 				}
 				
 			} else {
-				console.log("SignUpNullCheak_not : Not Found pwd value");
-				alert("비밀번호를 입력해 주십시오");
+				console.log("SignUpNullCheak_not : Not True idcheak value");
+				alert("아이디 중복 체크를 해 주십시오");
 				return false;
 			}
 			
