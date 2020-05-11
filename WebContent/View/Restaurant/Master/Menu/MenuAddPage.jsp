@@ -7,7 +7,7 @@
 <title>마스터 : 메뉴 추가</title>
 </head>
 <body>
-<script type="text/javascript" src="/View/Restaurant/Master/JS/MenuControllScript.js"></script>
+<script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuAddControllScript.js"></script>
 
 <form action="/Restaurant/Master/AddMenu" method="post" name="AddMenuForm">
 	<fieldset>

@@ -12,11 +12,12 @@
 	}
 %>
 <title>마스터 : 메뉴 관련 페이지</title>
+<script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuPopUpScript.js"></script>
 </head>
 <body>
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
 
-<button id="menuAddButton">메뉴 추가</button>
+<button id="menuAddButton" onclick="MenuAddPopUp('<%=uv.getId()%>')">메뉴 추가</button>
 
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>

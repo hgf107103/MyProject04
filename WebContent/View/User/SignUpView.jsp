@@ -19,7 +19,7 @@
 			<input type="text" name="id" id="id">
 			</label>
 			<br>
-			<input type="button" value="아이디 중복검사" onclick="SignUpIDCheakPopUp()">
+			<input type="button" value="아이디 중복검사" onclick="SignUpIDCheckPopUp()">
 			
 			<br>
 			

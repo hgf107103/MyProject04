@@ -121,14 +121,14 @@ function SignUpCheak() {
 		var form = document.SignUpForm;
 		if (SignUpNullCheak()) {
 			
-			console.log("SignUpCheak_log : PASS SignUpNullCheak");
+			console.log("SignUpCheck_log : PASS SignUpNullCheak");
 			if (SignUpIDRegExp()) {
 				
-				console.log("SignUpCheak_log : PASS SignUpIDRegExp");
+				console.log("SignUpCheck_log : PASS SignUpIDRegExp");
 				
 				if (SignUpPWDRegExp()) {
 					
-					console.log("SignUpCheak_log : PASS SignUpPWDRegExp");
+					console.log("SignUpCheck_log : PASS SignUpPWDRegExp");
 					form.submit();
 					
 				} else {
@@ -138,19 +138,19 @@ function SignUpCheak() {
 				}
 			} else {
 				
-				console.log("SignUpCheak_ERROR : ERROR SignUpIDRegExp");
+				console.log("SignUpCheck_ERROR : ERROR SignUpIDRegExp");
 				
 			}
 			
 		} else {
-			console.log("SignUpCheak_ERROR : ERROR SignUpNullCheak");
+			console.log("SignUpCheck_ERROR : ERROR SignUpNullCheak");
 		}
 	} catch (e) {
-		console.log("SignUpCheak_ERROR : " + e);
+		console.log("SignUpCheck_ERROR : " + e);
 	}
 }
 
-function SignUpIDCheakPopUp() {
+function SignUpIDCheckPopUp() {
 	try {
 		var id = document.getElementById("id").value;
 		
@@ -158,21 +158,21 @@ function SignUpIDCheakPopUp() {
 			if(SignUpIDRegExp()) {
 
 				var url = "/View/User/SignUpPopUp.jsp?id=" + id;
-			    var name = "popup test";
+			    var name = "ID Check";
 			    var option = "width = 500, height = 500, top = 100, left = 200, location = no"
 			    	
 			    window.open(url, name, option);
 			    
-			    console.log("SignUpIDCheakPopUp_log : OPEN URL " + url);
+			    console.log("SignUpIDCheckPopUp_log : OPEN URL " + url);
 			    
 			} else {
 
-				console.log("SignUpIDCheakPopUp_ERROR : this ID did not pass the RegExp : " + id);
+				console.log("SignUpIDCheckPopUp_ERROR : this ID did not pass the RegExp : " + id);
 				return false;
 			}
 		} else {
 
-			console.log("SignUpIDCheakPopUp_not : Not Found id value");
+			console.log("SignUpIDCheckPopUp_not : Not Found id value");
 			alert("아이디를 입력해 주십시오");
 			return false;
 		}
@@ -180,6 +180,6 @@ function SignUpIDCheakPopUp() {
 		
 	    
 	} catch (e) {
-		console.log("SignUpIDCheakPopUp_ERROR : " + e);
+		console.log("SignUpIDCheckPopUp_ERROR : " + e);
 	}
 }
