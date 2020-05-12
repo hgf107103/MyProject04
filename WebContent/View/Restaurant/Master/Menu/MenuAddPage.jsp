@@ -5,6 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>마스터 : 메뉴 추가</title>
+<style type="text/css">
+	legend {
+		text-align: center;
+	}
+	body {
+		width: 350px;
+	}
+	*{
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 <script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuAddControllScript.js"></script>
@@ -12,8 +23,8 @@
 <form action="/Restaurant/Master/Menu/AddMenu" method="post" name="AddMenuForm">
 	<fieldset>
 		<legend>메뉴 추가</legend>
-		<label>메뉴 이름 : <input type="text" name="menuName" id="menuName" autocomplete="off" placeholder="메뉴 이름"></label><br>
-		<label>메뉴 가격 : <input type="number" min="0" max="500000" step="100" name="menuCost" id="menuCost" placeholder="메뉴 가격"></label><br>
+		<label>메뉴 이름<br><input type="text" name="menuName" id="menuName" autocomplete="off" placeholder="메뉴 이름"></label><br>
+		<label>메뉴 가격<br><input type="number" min="0" max="500000" step="100" name="menuCost" id="menuCost" placeholder="메뉴 가격"></label><br>
 		<br>
 		<fieldset>
 			<legend>메뉴 카테고리</legend>

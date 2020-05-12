@@ -32,11 +32,42 @@
 		border-bottom: 1px solid black;
 		border-collapse: collapse;
 	}
+	form {
+		margin: 15px;
+		width: 80%;
+	}
+	
+	form label {
+		font-size: 17px;
+	}
+	
+	form input{
+		width: 40%;
+		padding: 5px;
+	}
 </style>
 </head>
 <body>
 <h1>메뉴 전체보기</h1>
 <hr>
+<form action="/Restaurant/Master/Menu/ShowMenu" method="post">
+<label>정렬　<input type="text" readonly="readonly" name="showSort" list="sortList"></label>
+	<datalist id="sortList">
+        <option value="메뉴넘버 오름차순"></option>
+        <option value="메뉴넘버 내림차순"></option>
+        <option value="메뉴이름 오름차순"></option>
+        <option value="메뉴이름 내림차순"></option>
+        <option value="같은 카테고리"></option>
+        <option value="메뉴가격 오름차순"></option>
+        <option value="메뉴가격 내림차순"></option>
+    </datalist>
+    <select name="job">
+    <option value="">직업선택</option>
+    <option value="학생">학생</option>
+    <option value="회사원">회사원</option>
+    <option value="기타">기타</option>
+</select>
+</form>
 <table>
 	<tr>
 		<th>번호</th>

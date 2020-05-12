@@ -10,7 +10,7 @@ function MenuAddPopUp(myid) {
 				
 				let url = "/Restaurant/Master/Menu/AddMenu";
 			    let name = "Menu Add";
-			    let option = "width = 350, height = 300, top = 100, left = 200, location = no";
+			    let option = "width = 365, height = 300, top = 100, left = 200, location = no";
 			    
 			    window.open(url, name, option);
 			} else {
