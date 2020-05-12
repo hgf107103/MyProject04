@@ -14,8 +14,16 @@ public class MenuVO {
 		this.categoryNumber = categoryNumber;
 	}
 	
-	public static MenuVO getInstence(int menuNumber, String menuName, int menuCost, int categoryNumber) {
-		return new MenuVO(menuNumber, menuName, menuCost, categoryNumber);
+	private MenuVO(int menuNumber, String menuName, int menuCost, int categoryNumber, String categoryName) {
+		this.menuNumber = menuNumber;
+		this.menuName = menuName;
+		this.menuCost = menuCost;
+		this.categoryNumber = categoryNumber;
+		this.categoryName = categoryName;
+	}
+	
+	public static MenuVO getInstence(int menuNumber, String menuName, int menuCost, int categoryNumber, String categoryName) {
+		return new MenuVO(menuNumber, menuName, menuCost, categoryNumber, categoryName);
 	} //메뉴넘버 붙은 버전
 	
 	public static MenuVO getInstence(String menuName, int menuCost, int categoryNumber) {

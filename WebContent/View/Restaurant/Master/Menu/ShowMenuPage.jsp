@@ -6,6 +6,33 @@
 <head>
 <meta charset="UTF-8">
 <title>마스터 : 메뉴보기</title>
+<style type="text/css">
+	body{
+		width: 500px;
+	}
+	table {
+		width: 100%;
+		
+		border-collapse: collapse;
+	}
+	
+	table th {
+		text-align: center;
+		background-color: black;
+		color: white;
+		padding: 10px;
+		font-size: 18px;
+		border-right: 1px solid black;
+		border-left: 1px solid black;
+	}
+	
+	table td {
+		text-align: center;
+		padding: 10px;
+		border-bottom: 1px solid black;
+		border-collapse: collapse;
+	}
+</style>
 </head>
 <body>
 <h1>메뉴 전체보기</h1>

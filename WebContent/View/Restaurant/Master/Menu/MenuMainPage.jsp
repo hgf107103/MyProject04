@@ -16,7 +16,7 @@
 </head>
 <body>
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
-<button id="showMenuButton">전체 메뉴 확인</button>
+<button id="showMenuButton" onclick="MenuShowPopUp('<%=uv.getId()%>')">전체 메뉴 확인</button>
 <br>
 <button id="menuAddButton" onclick="MenuAddPopUp('<%=uv.getId()%>')">메뉴 추가</button>
 
