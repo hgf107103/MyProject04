@@ -46,14 +46,19 @@
 		padding: 5px;
 		cursor: pointer;
 	}
-	#updateSubmit {
+	td a {
 		cursor: pointer;
 		font-size: 16px;
 		background: none;
 		border: none;
+		color: black;
+		text-decoration: none;
 	}
-	#updateSubmit:hover {
+	td a:hover {
 		color: red;
+	}
+	td a:visited {
+		text-decoration: none;
 	}
 </style>
 </head>
@@ -120,7 +125,7 @@
 		<th>카테고리</th>
 		<th>이름</th>
 		<th>가격</th>
-		<th> </th>
+		<th>처리</th>
 	</tr>
 	<c:forEach items="${menuList}" var="menu">
 	<tr>
@@ -128,12 +133,7 @@
 		<td><c:out value="${menu.categoryName}"></c:out></td>
 		<td><c:out value="${menu.menuName}"></c:out></td>
 		<td><c:out value="${menu.menuCost}원"></c:out></td>
-		<td>
-			<form action="/Restaurant/Master/Menu/UpdateMenu" method="get">
-				<input type="hidden" value="${menu.menuName}" name="updateMenuName">
-				<input id="updateSubmit" type="submit" value="수정, 삭제">
-			</form>
-		</td>
+		<td><a href="/Restaurant/Master/Menu/UpdateMenu?updateMenuName=${menu.menuName}">수정</a> | <a href="/Restaurant/Master/Menu/UpdateMenu?updateMenuName=${menu.menuName}">삭제</a></td>
 	</tr>
 	</c:forEach>
 </table>

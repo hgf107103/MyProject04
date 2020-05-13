@@ -110,7 +110,7 @@
     		</c:choose>
 		</fieldset>
 		<br>
-		<input type="button" name="menuButton" onclick="UpdateMenu()" id="menuButton" value="추가">
+		<input type="button" name="menuButton" onclick="UpdateMenu()" id="menuButton" value="수정">
 	</fieldset>
 </form>
 </body>

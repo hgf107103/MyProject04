@@ -64,8 +64,13 @@ public class UpdateMenuServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			
+			
+		} catch (Exception e) {
+			 System.out.println("doGet UpdateMenu¿À·ù");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
+		}
 	}
 
 }

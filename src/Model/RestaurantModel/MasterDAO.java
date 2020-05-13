@@ -127,6 +127,29 @@ public class MasterDAO {
 		}
     }
     
+    public boolean updateMenu(String name) {
+    	try {
+    		String sql = "INSERT INTO menu (menuName, menuCost, categoryNumber) values ('" + mv.getMenuName() + "', " + mv.getMenuCost() + ", " + mv.getCategoryNumber() +")";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            pstmt = conn.prepareStatement(sql);
+            pstmt.execute();
+            System.out.println("메뉴 추가 쿼리 성공");
+            
+            DBAutoIncrementSort();
+            cutConnect();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    }
+    
     public MenuVO showOneMenu(String name) {
     	try {
     		MenuVO mv = MenuVO.getInstence();
