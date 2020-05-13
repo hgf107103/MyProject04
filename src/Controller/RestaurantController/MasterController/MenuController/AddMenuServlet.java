@@ -45,6 +45,7 @@ public class AddMenuServlet extends HttpServlet {
 				rd.forward(request, response);
 				return;
 			}
+			
 			System.out.println("¾îµå¹Î ÀÌ¿Ü ÅğÃâ");
 			
 			String menuName = request.getParameter("menuName");

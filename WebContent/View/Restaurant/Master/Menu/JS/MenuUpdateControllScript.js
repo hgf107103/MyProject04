@@ -13,7 +13,6 @@ function UpdateMenu() {
 				var lastQuestion = confirm("메뉴 이름 : " + name + "\n메뉴 가격 : " + cost + "원\n카테고리 : " + category + "\n이상의 내역이 맞습니까?")
 				if (lastQuestion) {
 					console.log("UpdateMenu_log : Allow submit");
-					alert("메뉴 이름 : " + name + "\n메뉴 가격 : " + cost + "원\n카테고리 : " + category + "\n메뉴를 수정합니다.");
 					form.submit();
 				} else {
 					console.log("UpdateMenu_log : Denied submit");

@@ -21,9 +21,12 @@
 </head>
 <body>
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
+
+<h1>마스터 : 메뉴관리</h1>
 <button id="showMenuButton" onclick="MenuShowPopUp('<%=uv.getId()%>')">전체 메뉴 확인</button>
 <br>
 <button id="menuAddButton" onclick="MenuAddPopUp('<%=uv.getId()%>')">메뉴 추가</button>
+
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>
 </html>

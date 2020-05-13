@@ -114,22 +114,22 @@ public class MasterDAO {
             System.out.println("리설트 셋 객체 생성됨");
             
             while (rs.next()) {
-				categoryNumber = rs.getInt("idx");
+				categoryNumber = rs.getInt("categoryNumber");
 			}
             
             cutConnect();
             return categoryNumber;
             
 		} catch (Exception e) {
-			System.out.println("카테고리 체크 DAO 오류 발생");
+			System.out.println("카테고리 체크 DAO 오류 발생 : " + e);
 			cutConnect();
 			return -1;
 		}
     }
     
-    public boolean updateMenu(String name) {
+    public boolean isMenuDataChanged(MenuVO mv) {
     	try {
-    		String sql = "INSERT INTO menu (menuName, menuCost, categoryNumber) values ('" + mv.getMenuName() + "', " + mv.getMenuCost() + ", " + mv.getCategoryNumber() +")";
+    		String sql = "SELECT * FROM menu WHERE menuNumber = " + mv.getMenuNumber() + " AND menuName = '" + mv.getMenuName() +" ' AND menuCost = " + mv.getMenuCost() + " AND categoryNumber = " + mv.getCategoryNumber();
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -138,15 +138,73 @@ public class MasterDAO {
             conn = DriverManager.getConnection(url, uid, upass);
             System.out.println("DB 연동됨");
             
-            pstmt = conn.prepareStatement(sql);
-            pstmt.execute();
-            System.out.println("메뉴 추가 쿼리 성공");
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
             
-            DBAutoIncrementSort();
-            cutConnect();
+            rs = st.executeQuery(sql);
+            
+            while (rs.next()) {
+            	System.out.println("수정되지 않음. return false");
+            	return false;
+			}
+            System.out.println("수정체크됨. return true");
 			return true;
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			cutConnect();
+			System.out.println("메뉴 수정 변경점 검사 DAO 오류 발생 : " + e);
+			return false;
+		}
+    }
+    
+    public boolean updateMenu(MenuVO mv) {
+    	try {
+    		if (mv.getCategoryNumber() > 0) {
+    			
+    			String sql = "UPDATE menu SET menuName = '" + mv.getMenuName() + "', menuCost = " + mv.getMenuCost() + ", categoryNumber = " + mv.getCategoryNumber() + " WHERE menuNumber = " + mv.getMenuNumber();
+        		System.out.println(sql);
+        		
+        		Class.forName("com.mysql.cj.jdbc.Driver");
+                System.out.println("드라이브 적재됨");
+
+                conn = DriverManager.getConnection(url, uid, upass);
+                System.out.println("DB 연동됨");
+                
+                pstmt = conn.prepareStatement(sql);
+                pstmt.execute();
+                System.out.println("메뉴 추가 쿼리 성공");
+                
+                DBAutoIncrementSort();
+                cutConnect();
+    			return true;
+    			
+			} else {
+				cutConnect();
+				System.out.println("메뉴 업데이트 DAO 카테고리번호 오류 발생");
+				return false;
+			}
+    		
+		} catch (Exception e) {
+			cutConnect();
+			System.out.println("메뉴 업데이트 DAO 오류 발생 : " + e);
+			return false;
+		}
+    }
+    
+    public boolean deleteMenu(MenuVO mv) {
+    	try {
+    		String sql = "SELECT * FROM menu WHERE menuNumber = " + mv.getMenuNumber() + " AND menuName = '" + mv.getMenuName() +" ' AND menuCost = " + mv.getMenuCost() + " AND categoryNumber = " + mv.getCategoryNumber();
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+    		
+            return true;
+		} catch (Exception e) {
+			return false;
 		}
     }
     
