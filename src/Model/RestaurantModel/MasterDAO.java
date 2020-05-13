@@ -127,11 +127,53 @@ public class MasterDAO {
 		}
     }
     
-    public ArrayList<MenuVO> showAllMenu()	{
+    public MenuVO showOneMenu(String name) {
+    	try {
+    		MenuVO mv = MenuVO.getInstence();
+    		
+    		String sql = "SELECT * FROM menu AS t1 LEFT JOIN menucategory AS t2 ON t1.categoryNumber = t2.categoryNumber WHERE menuName = '" + name + "'"; 
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+            
+            while (rs.next()) {
+				mv.setMenuNumber(rs.getInt("menuNumber"));
+				mv.setMenuName(rs.getString("menuName"));
+				mv.setMenuCost(rs.getInt("menuCost"));
+				mv.setCategoryNumber(rs.getInt("categoryNumber"));
+				mv.setCategoryName(rs.getString("categoryName"));
+			}
+            System.out.println("menu VO 값 저장됨");
+            
+            cutConnect();
+            if (mv.getMenuName() != null) {
+            	return mv;
+			} else {
+				return null;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("메뉴 뷰어 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
+    
+    public ArrayList<MenuVO> showAllMenu(String order, String orderSort)	{
     	try {
     		ArrayList<MenuVO> list = new ArrayList<MenuVO>();
     		
-    		String sql = "SELECT * FROM menu AS t1 LEFT JOIN menucategory AS t2 ON t1.categoryNumber = t2.categoryNumber ORDER BY menuNumber ASC";
+    		String sql = "SELECT * FROM menu AS t1 LEFT JOIN menucategory AS t2 ON t1.categoryNumber = t2.categoryNumber ORDER BY " + order + " " + orderSort;
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -153,7 +195,6 @@ public class MasterDAO {
             	int categoryNumber = rs.getInt("categoryNumber");
             	String categoryName = rs.getString("categoryName");
             	MenuVO mv = MenuVO.getInstence(menuNumber, menuName, menuCost, categoryNumber, categoryName);
-            	System.out.println(mv.getMenuName());
             	list.add(mv);
 			}
             

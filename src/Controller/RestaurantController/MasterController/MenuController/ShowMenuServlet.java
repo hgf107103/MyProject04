@@ -21,7 +21,7 @@ public class ShowMenuServlet extends HttpServlet {
 			
 			MasterDAO md = MasterDAO.getInstance();
 			
-			request.setAttribute("menuList", md.showAllMenu());
+			request.setAttribute("menuList", md.showAllMenu("menuNumber", "ASC"));
 			System.out.println(request.getAttribute("menuList"));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/ShowMenuPage.jsp");
@@ -34,8 +34,25 @@ public class ShowMenuServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
+			System.out.println("카테고리 변경합니다.");
+			MasterDAO md = MasterDAO.getInstance();
+			
+			request.setAttribute("menuList", md.showAllMenu(request.getParameter("listSort"), request.getParameter("listSortOrderBy")));
+			System.out.println(request.getAttribute("menuList"));
+			
+			request.setAttribute("selectName", request.getParameter("listSort"));
+			request.setAttribute("selectSort", request.getParameter("listSortOrderBy"));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/ShowMenuPage.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			System.out.println("없대용!");
+		}
 	}
 
 }

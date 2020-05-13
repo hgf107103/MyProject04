@@ -8,7 +8,7 @@
 <title>마스터 : 메뉴보기</title>
 <style type="text/css">
 	body{
-		width: 500px;
+		width: 560px;
 	}
 	table {
 		width: 100%;
@@ -22,7 +22,7 @@
 		color: white;
 		padding: 10px;
 		font-size: 18px;
-		border-right: 1px solid black;
+		border-right: 1px solid white;
 		border-left: 1px solid black;
 	}
 	
@@ -41,9 +41,19 @@
 		font-size: 17px;
 	}
 	
-	form input{
+	form select{
 		width: 40%;
 		padding: 5px;
+		cursor: pointer;
+	}
+	#updateSubmit {
+		cursor: pointer;
+		font-size: 16px;
+		background: none;
+		border: none;
+	}
+	#updateSubmit:hover {
+		color: red;
 	}
 </style>
 </head>
@@ -51,22 +61,58 @@
 <h1>메뉴 전체보기</h1>
 <hr>
 <form action="/Restaurant/Master/Menu/ShowMenu" method="post">
-<label>정렬　<input type="text" readonly="readonly" name="showSort" list="sortList"></label>
-	<datalist id="sortList">
-        <option value="메뉴넘버 오름차순"></option>
-        <option value="메뉴넘버 내림차순"></option>
-        <option value="메뉴이름 오름차순"></option>
-        <option value="메뉴이름 내림차순"></option>
-        <option value="같은 카테고리"></option>
-        <option value="메뉴가격 오름차순"></option>
-        <option value="메뉴가격 내림차순"></option>
-    </datalist>
-    <select name="job">
-    <option value="">직업선택</option>
-    <option value="학생">학생</option>
-    <option value="회사원">회사원</option>
-    <option value="기타">기타</option>
-</select>
+	<label>정렬　
+    	<select id="listSort" name="listSort" onchange="form.submit()">
+    		<c:choose>
+    		<c:when test="${selectName eq 'menuNumber'}">
+    			<option value="menuNumber" selected="selected">메뉴번호</option>
+    			<option value="categoryName">카테고리</option>
+    			<option value="menuName">메뉴이름</option>
+    			<option value="menuCost">메뉴가격</option>
+    		</c:when>
+    		<c:when test="${selectName eq 'categoryName'}">
+    		    <option value="menuNumber">메뉴번호</option>
+    			<option value="categoryName" selected="selected">카테고리</option>
+    			<option value="menuName">메뉴이름</option>
+    			<option value="menuCost">메뉴가격</option>
+    		</c:when>
+    		<c:when test="${selectName eq 'menuName'}">
+    		    <option value="menuNumber">메뉴번호</option>
+    			<option value="categoryName">카테고리</option>
+    			<option value="menuName" selected="selected">메뉴이름</option>
+    			<option value="menuCost">메뉴가격</option>
+    		</c:when>
+    		<c:when test="${selectName eq 'menuCost'}">
+    		    <option value="menuNumber">메뉴번호</option>
+    			<option value="categoryName">카테고리</option>
+    			<option value="menuName">메뉴이름</option>
+    			<option value="menuCost" selected="selected">메뉴가격</option>
+    		</c:when>
+    		<c:otherwise>
+    			<option value="menuNumber">메뉴번호</option>
+    			<option value="categoryName">카테고리</option>
+    			<option value="menuName">메뉴이름</option>
+    			<option value="menuCost">메뉴가격</option>
+    		</c:otherwise>
+    		</c:choose>
+		</select>
+		<select id="listSortOrderBy" name="listSortOrderBy" onchange="form.submit()">
+			<c:choose>
+    			<c:when test="${selectSort eq 'ASC'}">
+    				<option value="ASC" selected="selected">오름차순</option>
+    				<option value="DESC">내림차순</option>
+    			</c:when>
+    			<c:when test="${selectSort eq 'DESC'}">
+    				<option value="ASC">오름차순</option>
+    				<option value="DESC" selected="selected">내림차순</option>
+    			</c:when>
+    			<c:otherwise>
+    				<option value="ASC">오름차순</option>
+    				<option value="DESC">내림차순</option>
+    			</c:otherwise>
+    		</c:choose>
+		</select>
+	</label>
 </form>
 <table>
 	<tr>
@@ -74,6 +120,7 @@
 		<th>카테고리</th>
 		<th>이름</th>
 		<th>가격</th>
+		<th> </th>
 	</tr>
 	<c:forEach items="${menuList}" var="menu">
 	<tr>
@@ -81,6 +128,12 @@
 		<td><c:out value="${menu.categoryName}"></c:out></td>
 		<td><c:out value="${menu.menuName}"></c:out></td>
 		<td><c:out value="${menu.menuCost}원"></c:out></td>
+		<td>
+			<form action="/Restaurant/Master/Menu/UpdateMenu" method="get">
+				<input type="hidden" value="${menu.menuName}" name="updateMenuName">
+				<input id="updateSubmit" type="submit" value="수정, 삭제">
+			</form>
+		</td>
 	</tr>
 	</c:forEach>
 </table>

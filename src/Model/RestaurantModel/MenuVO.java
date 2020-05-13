@@ -7,6 +7,9 @@ public class MenuVO {
 	private int categoryNumber; //메뉴가격
 	private String categoryName;
 	
+	private MenuVO() {
+	}
+	
 	private MenuVO(int menuNumber, String menuName, int menuCost, int categoryNumber) {
 		this.menuNumber = menuNumber;
 		this.menuName = menuName;
@@ -25,6 +28,10 @@ public class MenuVO {
 	public static MenuVO getInstence(int menuNumber, String menuName, int menuCost, int categoryNumber, String categoryName) {
 		return new MenuVO(menuNumber, menuName, menuCost, categoryNumber, categoryName);
 	} //메뉴넘버 붙은 버전
+	
+	public static MenuVO getInstence() {
+		return new MenuVO();
+	} //단순히 MenuVO객체가 필요한 경우
 	
 	public static MenuVO getInstence(String menuName, int menuCost, int categoryNumber) {
 		return new MenuVO(0, menuName, menuCost, categoryNumber);

@@ -32,7 +32,12 @@ public class MenuMainServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/MenuMainPage.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
+			try {
+				response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
+			} catch (Exception e2) {
+				response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e2);
+			}
+			 
 		}
 	}
 

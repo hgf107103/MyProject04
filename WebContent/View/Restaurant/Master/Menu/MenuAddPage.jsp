@@ -10,10 +10,13 @@
 		text-align: center;
 	}
 	body {
-		width: 350px;
+		width: 550px;
 	}
 	*{
 		text-align: center;
+	}
+	input[type=button] {
+		cursor: pointer;
 	}
 </style>
 </head>

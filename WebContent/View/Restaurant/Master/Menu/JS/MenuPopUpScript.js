@@ -6,11 +6,10 @@ function MenuAddPopUp(myid) {
 			let check = confirm("메뉴 추가페이지를 띄울까요?");
 			
 			if(check) {
-				alert("실행합니다.");
 				
 				let url = "/Restaurant/Master/Menu/AddMenu";
 			    let name = "Menu Add";
-			    let option = "width = 365, height = 300, top = 100, left = 200, location = no";
+			    let option = "width = 515, height = 500, top = 100, left = 200, location = no";
 			    
 			    window.open(url, name, option);
 			} else {
@@ -41,11 +40,10 @@ function MenuShowPopUp(myid) {
 			let check = confirm("메뉴 확인 페이지를 띄울까요?");
 			
 			if(check) {
-				alert("실행합니다.");
 				
 				let url = "/Restaurant/Master/Menu/ShowMenu";
 			    let name = "Menu Show";
-			    let option = "width = 530, height = 600, top = 100, left = 200, location = no, scrollbars = yes, re";
+			    let option = "width = 590, height = 600, top = 100, left = 200, location = no, scrollbars = yes, re";
 			    
 			    window.open(url, name, option);
 			} else {
