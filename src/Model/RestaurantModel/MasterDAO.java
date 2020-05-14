@@ -129,7 +129,7 @@ public class MasterDAO {
     
     public boolean updateMenu(String name) {
     	try {
-    		String sql = "UPDATE SET ";
+    		String sql = "INSERT INTO menu (menuName, menuCost, categoryNumber) values ('" + mv.getMenuName() + "', " + mv.getMenuCost() + ", " + mv.getCategoryNumber() +")";
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -146,7 +146,7 @@ public class MasterDAO {
             cutConnect();
 			return true;
 		} catch (Exception e) {
-			return false;
+			// TODO: handle exception
 		}
     }
     
