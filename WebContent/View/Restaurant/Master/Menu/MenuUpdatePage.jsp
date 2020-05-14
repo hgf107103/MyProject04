@@ -29,10 +29,14 @@
 	input[type=button] {
 		cursor: pointer;
 	}
+	button {
+		cursor: pointer;
+	}
 </style>
 <script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuUpdateControllScript.js"></script>
 </head>
 <body>
+<button onclick="history.go(-1)">뒤로</button>
 <h1>메뉴수정</h1>
 <form action="/Restaurant/Master/Menu/UpdateMenu" method="post" name="UpdateMenuForm">
 	<fieldset>

@@ -21,7 +21,7 @@ public class MasterIndexServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/MasterMain.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			response.sendRedirect("/");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 		
 	}
@@ -31,7 +31,7 @@ public class MasterIndexServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/MasterMain.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			response.sendRedirect("/");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

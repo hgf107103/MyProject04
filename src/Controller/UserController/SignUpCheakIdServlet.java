@@ -16,7 +16,29 @@ public class SignUpCheakIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("/index.jsp");
+try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
+			String URL = "View/User/SignUpPopUp.jsp?id=" + request.getParameter("popId");
+			
+			UserDAO ud = UserDAO.getInstance();
+
+			boolean idCheak =  ud.idCheak(request.getParameter("popId"));
+			
+			if (idCheak) {
+				URL = URL + "&isIdCheakd=cheakok";
+				response.sendRedirect(URL);
+			} else {
+				URL = URL + "&isIdCheakd=cheakno";
+				response.sendRedirect(URL);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("아이디 중복검사 팝업 오류발생");
+			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,6 +63,7 @@ public class SignUpCheakIdServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			System.out.println("아이디 중복검사 팝업 오류발생");
+			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

@@ -63,6 +63,8 @@
 </style>
 </head>
 <body>
+<script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuDeleteControllScript.js"></script>
+
 <h1>메뉴 전체보기</h1>
 <hr>
 <form action="/Restaurant/Master/Menu/ShowMenu" method="post">
@@ -133,7 +135,17 @@
 		<td><c:out value="${menu.categoryName}"></c:out></td>
 		<td><c:out value="${menu.menuName}"></c:out></td>
 		<td><c:out value="${menu.menuCost}원"></c:out></td>
-		<td><a href="/Restaurant/Master/Menu/UpdateMenu?updateMenuName=${menu.menuName}">수정</a> | <a href="/Restaurant/Master/Menu/UpdateMenu?updateMenuName=${menu.menuName}">삭제</a></td>
+		<td>
+			<form action="/Restaurant/Master/Menu/DeleteMenu" style="display: none;" method="post" id="menuDeleteForm${menu.menuNumber}" name="menuDeleteForm">
+				<input type="hidden" value="${menu.menuNumber}" name="menuNumber">
+				<input type="hidden" value="${menu.menuName}" name="menuName">
+				<input type="hidden" value="${menu.menuCost}" name="menuCost">
+				<input type="hidden" value="${menu.categoryNumber}" name="categoryNumber">
+				<input type="hidden" value="${menu.categoryName}" name="categoryName">
+			</form>
+			<a href="/Restaurant/Master/Menu/UpdateMenu?updateMenuName=${menu.menuName}">수정</a> | 
+			<a href="#" onclick="deleteCheck(${menu.menuNumber}, '${menu.menuName}', ${menu.menuCost}, '${menu.categoryName}', ${menu.categoryNumber})">삭제</a>
+		</td>
 	</tr>
 	</c:forEach>
 </table>

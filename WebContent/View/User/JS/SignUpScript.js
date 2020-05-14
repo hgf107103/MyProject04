@@ -157,7 +157,7 @@ function SignUpIDCheckPopUp() {
 		if (id != '') {
 			if(SignUpIDRegExp()) {
 
-				var url = "/View/User/SignUpPopUp.jsp?id=" + id;
+				var url = "/IdCheak?popId=" + id;
 			    var name = "ID Check";
 			    var option = "width = 500, height = 500, top = 100, left = 200, location = no";
 			    	

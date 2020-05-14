@@ -38,11 +38,15 @@ public class AddMenuServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			
-			UserVO uv = (UserVO)request.getSession().getAttribute("mylogin");
-			System.out.println("uv °ª : " + uv.getId());
-			if(!uv.getId().equals("admin")) {
-				RequestDispatcher rd = request.getRequestDispatcher("/");
-				rd.forward(request, response);
+			if (request.getSession().getAttribute("mylogin") != null) {
+				UserVO uv = (UserVO)request.getSession().getAttribute("mylogin");
+				System.out.println("uv °ª : " + uv.getId());
+				if(!uv.getId().equals("admin")) {
+					response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullPointException");
+					return;
+				}
+			} else {
+				response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullPointException");
 				return;
 			}
 			

@@ -193,7 +193,8 @@ public class MasterDAO {
     
     public boolean deleteMenu(MenuVO mv) {
     	try {
-    		String sql = "SELECT * FROM menu WHERE menuNumber = " + mv.getMenuNumber() + " AND menuName = '" + mv.getMenuName() +" ' AND menuCost = " + mv.getMenuCost() + " AND categoryNumber = " + mv.getCategoryNumber();
+    		
+    		String sql = "DELETE FROM menu WHERE menuNumber = " + mv.getMenuNumber() + " AND menuName = '" + mv.getMenuName() +" ' AND menuCost = " + mv.getMenuCost() + " AND categoryNumber = " + mv.getCategoryNumber();
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -201,9 +202,21 @@ public class MasterDAO {
 
             conn = DriverManager.getConnection(url, uid, upass);
             System.out.println("DB 연동됨");
-    		
+            
+            pstmt = conn.prepareStatement(sql);
+            System.out.println("프리페어스테이트먼트 객체 생성됨");
+            
+            pstmt.execute();
+            System.out.println("메뉴 추가 쿼리 성공");
+            
+            DBAutoIncrementSort();
+            cutConnect();
             return true;
+            
 		} catch (Exception e) {
+			
+			cutConnect();
+			System.out.println("메뉴 추가 쿼리 오류 발생");
 			return false;
 		}
     }
@@ -293,7 +306,7 @@ public class MasterDAO {
     }
     
     //데이터베이스의 오토인크리먼트값 sort
-    public void DBAutoIncrementSort() {
+    private void DBAutoIncrementSort() {
 		try {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
