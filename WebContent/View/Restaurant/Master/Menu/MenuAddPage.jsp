@@ -10,7 +10,7 @@
 		text-align: center;
 	}
 	body {
-		width: 550px;
+		width: 500px;
 	}
 	*{
 		text-align: center;

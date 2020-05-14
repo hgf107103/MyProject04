@@ -5,7 +5,7 @@ function deleteCheck(number, name, cost, category, categoryNumber) {
 			
 			console.log("DeleteCheck_LOG : " + number + " / " + name + " / " + cost + " / " + category + " / " + categoryNumber);
 			
-			let check = confirm("메뉴 번호 : " + number + "번\n메뉴 이름 : " + name + "\n메뉴 가격 : " + cost + "\n카테고리 : " + category + "\n위 메뉴를 삭제하시겠습니까?");
+			let check = confirm("메뉴 번호 : " + number + "번\n메뉴 이름 : " + name + "\n메뉴 가격 : " + cost + "원\n카테고리 : " + category + "\n위 메뉴를 삭제하시겠습니까?");
 			
 			if(check) {
 				console.log("DeleteCheck_LOG : pass first check");

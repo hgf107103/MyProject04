@@ -1,0 +1,21 @@
+#headerButton {
+	margin-top: 10px;
+	font-size: 40px;
+	font-family: "Black Han Sans";
+	color: rgb(50, 200, 150);
+	background: none;
+	border: none;
+	padding: 10px;
+	transition: all ease 1s 0s;
+}
+#headerButton:hover {
+	color: rgb(255, 200, 200);
+	transition: all ease 1s 0s;
+}
+#everyFooter {
+	padding: 20px;
+	cursor: default;
+}
+#everyFooter {
+	font-size: 16px;
+}

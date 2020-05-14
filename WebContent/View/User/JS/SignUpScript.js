@@ -152,7 +152,7 @@ function SignUpCheak() {
 
 function SignUpIDCheckPopUp() {
 	try {
-		var id = document.getElementById("id").value;
+		var id = document.getElementById("popId").value;
 		
 		if (id != '') {
 			if(SignUpIDRegExp()) {
