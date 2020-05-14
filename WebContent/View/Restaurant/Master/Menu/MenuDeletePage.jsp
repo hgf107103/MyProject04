@@ -14,6 +14,6 @@
 <title>마스터 : 메뉴삭제</title>
 </head>
 <body>
-
+<h1>메뉴 삭제할깝숑?</h1>
 </body>
 </html>

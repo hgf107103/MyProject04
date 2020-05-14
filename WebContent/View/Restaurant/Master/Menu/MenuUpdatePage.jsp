@@ -37,9 +37,16 @@
 <form action="/Restaurant/Master/Menu/UpdateMenu" method="post" name="UpdateMenuForm">
 	<fieldset>
 		<legend>메뉴 추가</legend>
-		<label>메뉴 번호<input type="text" value="${updateMenu.menuNumber}" readonly="readonly"></label>
-		<label>메뉴 이름<br><input type="text" name="menuName" id="menuName" value="${updateMenu.menuName}" autocomplete="off" placeholder="메뉴 이름"></label><br>
-		<label>메뉴 가격<br><input type="number" min="0" max="500000" step="100" value="${updateMenu.menuCost}" name="menuCost" id="menuCost" placeholder="메뉴 가격"></label><br>
+		<label>메뉴 번호<br>
+			<input type="text" name="menuNumber" value="${updateMenu.menuNumber}" size="3" readonly="readonly" style="color: white; background-color: gray; border: none;"></label>
+		<br>
+		<br>
+		
+		<label>메뉴 이름<br>
+			<input type="text" name="menuName" id="menuName" value="${updateMenu.menuName}" autocomplete="off" placeholder="메뉴 이름"></label><br>
+		
+		<label>메뉴 가격<br>
+			<input type="number" min="0" max="500000" step="100" value="${updateMenu.menuCost}" name="menuCost" id="menuCost" placeholder="메뉴 가격">원</label><br>
 		<br>
 		<fieldset>
 			<legend>메뉴 카테고리</legend>
