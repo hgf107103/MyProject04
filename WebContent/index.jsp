@@ -22,16 +22,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	h1 {
+		margin: 20px auto;
+		margin-bottom: 40px;
 		font-size: 45px;
 		font-family: "Black Han Sans";
 		font-weight: normal;
 		color: black;
-		transition: all ease 0.5s 0s;
-	}
-	h1:hover {
 		cursor: default;
-		color: gray;
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
+	}
+	div {
+		text-align: center;
+		margin: auto;
+	}
+	div:hover > h1 {
+		color: rgb(20, 170, 120);
+		font-size: 55px;
+		text-shadow: 6px -6px 2px rgba(20, 170, 120, 0.3);
+		transition: all ease 1.5s 0s;
 	}
 	body {
 		width: 400px;
@@ -74,14 +82,16 @@
 </style>
 </head>
 <body>
-  <h1>레스토랑 프로젝트</h1>
-  <hr>
-  <section>
- <%if(session.getAttribute("mylogin") == null) {%>
-  <a href="/Login"><button>로그인</button></a><br>
-  <a href="/SignUp"><button>회원가입</button></a>
-  <%} else if(session.getAttribute("mylogin") != null) { %>
-  <button onclick="logoutEvent()">로그아웃</button><br>
+	<div>
+		<h1>레스토랑 프로젝트</h1>
+	</div>
+	<hr>
+	<section>
+ 	<%if(session.getAttribute("mylogin") == null) {%>
+  	<a href="/Login"><button>로그인</button></a><br>
+  	<a href="/SignUp"><button>회원가입</button></a>
+  	<%} else if(session.getAttribute("mylogin") != null) { %>
+  	<button onclick="logoutEvent()">로그아웃</button><br>
   		<%
   			UserVO nowLoginVO = (UserVO)session.getAttribute("mylogin");
   			if(nowLoginVO.getId().equals("admin")) {
@@ -90,8 +100,8 @@
   		<%} else {%>
   		<a href="/Restaurant/Guest"><button>레스토랑 : 게스트</button></a>
   		<%} %>
-  <%} %>
-  </section>
-<jsp:include page="/View/JspFooter.jsp"></jsp:include>
+  	<%} %>
+  	</section>
+	<jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>
 </html>

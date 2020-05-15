@@ -38,19 +38,34 @@ public class LoginServlet extends HttpServlet {
 			UserDAO ud = UserDAO.getInstance();
 			System.out.println("loginServlet : Created UserDTO");
 			
-			UserVO nowLogin = ud.login(request.getParameter("id"), request.getParameter("pwd"));
-			System.out.println("loginServlet : Created UserVO");
+			boolean check = ud.loginIdCheak(request.getParameter("id"));
 			
-			if (nowLogin != null) {
-				session.setAttribute("mylogin", nowLogin);
-				/*RequestDispatcher rd = request.getRequestDispatcher("/");
-				rd.forward(request, response);*/
-				response.sendRedirect("/");
+			if (check) {
+				UserVO nowLogin = ud.login(request.getParameter("id"), request.getParameter("pwd"));
+				System.out.println("loginServlet : Created UserVO");
+				
+				if (nowLogin != null) {
+					
+					session.setAttribute("mylogin", nowLogin);
+					PrintWriter out = response.getWriter();
+					out.print("<head></head><body><script>alert('로그인 되었습니다.'); location.href='/';</script></body>");
+				
+				} else {
+					
+					PrintWriter out = response.getWriter();
+					System.out.println("로그인 실패");
+					out.print("<head></head><body><script>alert('아이디와 비밀번호가 일치하지 않습니다.'); history.go(-1);</script></body>");
+				
+				}
 			} else {
+				
 				PrintWriter out = response.getWriter();
-				System.out.println("로그인 실패");
-				out.print("<head></head><body><script>alert('아이디와 비밀번호가 일치하지 않습니다.'); history.go(-1);</script></body>");
+				System.out.println("로그인 실패 : 아이디의 존재여부가 부정됨");
+				out.print("<head></head><body><script>alert('존재하지 않는 아이디입니다.'); history.go(-1);</script></body>");
+			
 			}
+			
+			
 		} catch (Exception e) {
 			response.sendRedirect("/");
 		}

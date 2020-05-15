@@ -99,9 +99,10 @@ public class UserDAO {
 		}
     }
 	
-	/*public boolean idCheak(UserVO uv) {
+	//로그인 아이디 검사용
+	public boolean loginIdCheak(String id) {
 		try {
-    		String sql = "SELECT * FROM user WHERE userid = '" + uv.getId() + "'";
+    		String sql = "SELECT * FROM user WHERE userid = '" + id + "'";
     		String userid = null;
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -121,22 +122,23 @@ public class UserDAO {
             
             cutConnect();
             
-            if (userid == null) {
-            	System.out.println("아이디 체크 이상없음");
+            if (userid.equals(id)) {
+            	System.out.println("존재하는 아이디");
             	return true;
 			} else {
-				System.out.println("아이디 체크 중복아이디 있음");
+				System.out.println("존재하지 않는 아이디");
 				return false;
 			}
             
 		} catch (Exception e) {
 			
 			cutConnect();
-			System.out.println("아이디 체크 오류 발생");
+			System.out.println("로그인 아이디 체크 오류 발생");
 			return false;
 		}
-	}*/
+	}
 	
+	//아래 함수는 회원가입 중복체크용
 	public boolean idCheak(String id) {
 		try {
     		String sql = "SELECT * FROM user WHERE userid = '" + id + "'";

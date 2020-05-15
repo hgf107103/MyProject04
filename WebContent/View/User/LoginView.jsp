@@ -30,6 +30,9 @@
 		color: rgb(255, 200, 200);
 		transition: all ease 1s 0s;
 	}
+	input[type=button]:focus {
+		outline: none;
+	}
 	form {
 		padding-top: 20px;
 		padding-bottom: 50px;
@@ -108,6 +111,9 @@
 		box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.25);
 		transition: all ease 1s 0s;
 	}
+	#loginButton:focus {
+		outline: none;
+	}
 </style>
 <script type="text/javascript">
 	function overIndex() {
@@ -134,7 +140,6 @@
 					alert("비밀번호를 입력하십시오");
 					return false;
 				}
-				
 			} else {
 				console.log("loginSubmit_NOT : Not Id Value ");
 				alert("아이디를 입력하십시오");
@@ -160,7 +165,7 @@ history.go(-1);
 <form action="/Login" id="loginForm" method="post">
 	<input type="text" id="id" name="id" placeholder="아이디를 입력하십시오" autocomplete="off"><br>
 	<input type="password" id="pwd" name="pwd" placeholder="비밀번호를 입력하십시오"><br>
-	<input id="loginButton" type="button" value="로그인">
+	<input id="loginButton" onclick="loginSubmit()" type="button" value="로그인">
 </form>
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>
