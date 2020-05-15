@@ -31,10 +31,16 @@
 		border: 1px solid gray;
 		transition: all ease 0.5s 0s;
 	}
+	input[type=text]:hover {
+		text-decoration: none;
+		border-radius: 25px;
+		transition: all ease 0.5s 0s;
+	}
 	input[type=text]:focus {
 		border-radius: 25px;
 		text-decoration: none;
-		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
+		border: 1px solid rgb(50, 200, 150);
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
 		transition: all ease 0.5s 0s;
 	}
 	input[type=password] {
@@ -49,29 +55,39 @@
 		border: 1px solid gray;
 		transition: all ease 0.5s 0s;
 	}
+	input[type=password]:hover {
+		text-decoration: none;
+		border-radius: 25px;
+		transition: all ease 0.5s 0s;
+	}
 	input[type=password]:focus {
 		border-radius: 25px;
 		text-decoration: none;
-		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
+		border: 1px solid rgb(50, 200, 150);
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
 		transition: all ease 0.5s 0s;
 	}
 	input[type=button] {
 		font-family: "Gamja Flower";
 		font-size: 23px;
-		width: 200px;
+		width: 50px;
+		height: 50px;
 		padding: 10px;
 		margin-top: 20px;
 		margin-bottom: 50px;
-		background: none;
+		background-color: black;
+		color: black;
 		border: 1px solid black;
 		cursor: pointer;
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
+		border-radius: 25px;
 	}
 	input[type=button]:hover {
-		border-radius: 25px;
+		border-radius: 0px;
+		width: 200px;
 		color: white;
 		background-color: black;
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
 	}
 	input[type=button]:focus {
 		outline: none;
@@ -81,6 +97,7 @@
 		margin-bottom: 30px;
 	}
 	form #sexRadio {
+		cursor: default;
 		display: inline-block;
 		font-family: "Black Han Sans";
 		font-size: 25px;
@@ -102,7 +119,9 @@
 		font-family: "Black Han Sans";
 		width: 200px;
 		font-size: 40px;
-		transition: all ease 0.5s 0s;
+		color: rgb(120,120,180);
+		cursor: default;
+		transition: all ease 1s 0s;
 	}
 	legend:hover {
 		color: rgb(50, 200, 150);
@@ -116,6 +135,7 @@
 		font-size: 25px;
 		font-family: "Gamja Flower";
 		padding: 0px 10px;
+		cursor: pointer;
 		color: rgb(245,245,245);
 		transition: all ease 1.5s 0s;
 	}

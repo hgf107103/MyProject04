@@ -70,7 +70,7 @@
 <div>
 	<h1>레스토랑 : 마스터</h1>
 	<a href="/Restaurant/Master/Menu"><button>메뉴 관리</button></a>
-	<button onclick="alert('아직기능없음');">테이블 관리</button>
+	<a href="/Restaurant/Master/Table"><button>테이블 관리</button></a>
 </div>
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>

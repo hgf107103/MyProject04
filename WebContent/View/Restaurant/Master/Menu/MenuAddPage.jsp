@@ -34,6 +34,7 @@
 		padding-top: 20px;
 		padding-bottom: 38px;
 		width: 70%;
+		transition: all ease 0.5s 0s;
 	}
 	body {
 		width: 500px;
@@ -55,7 +56,13 @@
 	input[type=text]:focus {
 		text-decoration: none;
 		border-radius: 25px;
-		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
+		border: 1px solid rgb(50, 200, 150);
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
+		transition: all ease 0.5s 0s;
+	}
+	input[type=text]:hover {
+		text-decoration: none;
+		border-radius: 25px;
 		transition: all ease 0.5s 0s;
 	}
 	input[type=number] {
@@ -71,7 +78,13 @@
 	input[type=number]:focus {
 		text-decoration: none;
 		border-radius: 25px;
-		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
+		border: 1px solid rgb(50, 200, 150);
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
+		transition: all ease 0.5s 0s;
+	}
+	input[type=number]:hover {
+		text-decoration: none;
+		border-radius: 25px;
 		transition: all ease 0.5s 0s;
 	}
 	input[type=button] {
@@ -81,6 +94,7 @@
 		width: 150px;
 		font-size: 25px;
 		margin: 11px 0px;
+		margin-right: 20px;
 		padding: 8px 0px;
 		padding-top: 10px;
 		font-family: "Black Han Sans";
@@ -96,12 +110,14 @@
 		outline: none;
 	}
 	input[type=reset] {
+	
 		cursor: pointer;
 		border: 1px solid black;
 		background-color: white;
 		width: 150px;
 		font-size: 25px;
 		margin: 10px 0px;
+		margin-left: 20px;
 		padding: 8px 0px;
 		padding-top: 10px;
 		font-family: "Black Han Sans";
@@ -136,6 +152,10 @@
 		cursor: pointer;
 		display: none;
 	}
+	#fieldTwo:hover {
+		border-radius: 25px;
+		transition: all ease 0.5s 0s;
+	}
 	#fieldTwo label {
 		font-family: "Gamja Flower";
 		font-size: 25px;
@@ -164,7 +184,7 @@
 	<fieldset id="fieldOne">
 		<legend id="legendOne">메뉴 추가</legend>
 		<label><span class="addSpan">메뉴 이름</span><br><input type="text" name="menuName" id="menuName" autocomplete="off" placeholder="메뉴 이름"></label><br>
-		<label><span class="addSpan">메뉴 가격</span><br><input type="number" min="0" max="500000" step="100" name="menuCost" id="menuCost" placeholder="메뉴 가격"></label><br>
+		<label><span class="addSpan">메뉴 가격 (원)</span><br><input type="number" min="0" max="500000" step="100" name="menuCost" id="menuCost" placeholder="메뉴 가격"></label><br>
 		<br>
 		<fieldset id="fieldTwo">
 			<legend id="legendTwo">메뉴 카테고리</legend>

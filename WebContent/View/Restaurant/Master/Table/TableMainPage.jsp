@@ -1,10 +1,17 @@
+<%@ page import="Model.UserModel.UserVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>레스토랑 : 게스트</title>
+<%
+	UserVO uv = (UserVO)session.getAttribute("mylogin");
+	if(!uv.getId().equals("admin")) {
+		response.sendRedirect("/");
+	}
+%>
+<title>마스터 : 메뉴 관련 페이지</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/View/JspHeaderCSS.css">
 <style type="text/css">
@@ -57,16 +64,20 @@
 		outline: none;
 	}
 </style>
+<script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuPopUpScript.js"></script>
 </head>
 <body>
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
 
 <div>
-	<h1>레스토랑 : 게스트</h1>
-	<button onclick="alert('미구현')">메뉴 주문</button>
-	<button onclick="alert('미구현')">주문 내역</button>
+	<h1>마스터 : 고객 관리</h1>
+	<button id="showTableButton" onclick="alert('아직 없음')">현재 테이블</button>
+	<br>
+	<button id="showUserButton" onclick="alert('아직 없음')">유저 명단</button>
+	<br>
+	<button id="showSellButton" onclick="alert('아직 없음')">가게 장부</button>
 </div>
-<jsp:include page="/View/JspFooter.jsp"></jsp:include>
 
+<jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>
 </html>

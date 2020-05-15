@@ -87,8 +87,9 @@
   			if(nowLoginVO.getId().equals("admin")) {
   		%>
   		<a href="/Restaurant/Master"><button>레스토랑 : 마스터</button></a><br>
+  		<%} else {%>
+  		<a href="/Restaurant/Guest"><button>레스토랑 : 게스트</button></a>
   		<%} %>
-  <a href="/Restaurant"><button>레스토랑 : 게스트</button></a>
   <%} %>
   </section>
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>

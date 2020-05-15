@@ -20,6 +20,7 @@
 #backButton {
 	margin: 0px;
 	padding: 0px;
+	cursor: pointer;
 	font-size: 23px;
 	font-family: "Gamja Flower";
 	font-weight: normal;

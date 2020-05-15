@@ -15,6 +15,6 @@
 </script>
 	<a href="/"><button id="headerButton" style="cursor: pointer;">Index</button></a>
 	<br>
-	<button id="backButton" onclick="back()">이전페이지로</button>
+	<button id="backButton" onclick="back()" style="cursor: pointer;">이전페이지로</button>
 </div>
 <hr>

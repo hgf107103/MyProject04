@@ -52,9 +52,15 @@
 		transition: all ease 0.5s 0s;
 	}
 	input[type=text]:focus {
-		border-radius: 25px;
 		text-decoration: none;
-		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
+		border-radius: 25px;
+		border: 1px solid rgb(50, 200, 150);
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
+		transition: all ease 0.5s 0s;
+	}
+	input[type=text]:hover {
+		text-decoration: none;
+		border-radius: 25px;
 		transition: all ease 0.5s 0s;
 	}
 	input[type=password] {
@@ -69,39 +75,78 @@
 		transition: all ease 0.5s 0s;
 	}
 	input[type=password]:focus {
-		border-radius: 25px;
 		text-decoration: none;
-		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
+		border-radius: 25px;
+		border: 1px solid rgb(50, 200, 150);
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
 		transition: all ease 0.5s 0s;
 	}
-	input[type=submit] {
+	input[type=password]:hover {
+		text-decoration: none;
+		border-radius: 25px;
+		transition: all ease 0.5s 0s;
+	}
+	#loginButton {
 		font-family: "Gamja Flower";
 		font-size: 23px;
-		width: 100px;
+		width: 50px;
 		padding: 10px;
 		margin-top: 30px;
 		background: none;
-		border: 1px solid black;
+		border: 1px solid rgb(200,200,200);
+		color: white;
 		cursor: pointer;
-		transition: all ease 0.5s 0s;
-	}
-	input[type=submit]:hover {
 		border-radius: 25px;
-		border: 1px solid rgb(130, 185, 130);
-		color: rgb(200, 255, 200);
-		background-color: rgb(200, 255, 200);
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
+	}
+	#loginButton:hover {
+		border-radius: 10px;
+		width: 150px;
+		color: white;
+		border: 1px solid black;
+		background-color: black;
+		box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.25);
+		transition: all ease 1s 0s;
 	}
 </style>
 <script type="text/javascript">
-function overIndex() {
-	console.log("Index Mouse On");
-	document.getElementById("indexbutton").value = 'Index';
-}
-function outIndex() {
-	console.log("Index Mouse Out");
-	document.getElementById("indexbutton").value = 'Login';
-}
+	function overIndex() {
+		console.log("Index Mouse On");
+		document.getElementById("indexbutton").value = 'Index';
+	}
+	function outIndex() {
+		console.log("Index Mouse Out");
+		document.getElementById("indexbutton").value = 'Login';
+	}
+	function loginSubmit() {
+		try {
+			let form = document.getElementById("loginForm");
+			let id = document.getElementById("id").value;
+			let pass = document.getElementById("pwd").value;
+			if (id != '') {
+				console.log("loginSubmit_LOG : Id Value " + id);
+				
+				if (pass != '') {
+					console.log("loginSubmit_LOG : Pass Value " + id);
+					form.submit();
+				} else {
+					console.log("loginSubmit_NOT : Not Pass Value ");
+					alert("비밀번호를 입력하십시오");
+					return false;
+				}
+				
+			} else {
+				console.log("loginSubmit_NOT : Not Id Value ");
+				alert("아이디를 입력하십시오");
+				return false;
+			}
+		} catch (e) {
+			console.log("loginSubmit_ERROR : ERROR " + e);
+			alert("로그인 오류가 발생했습니다.");
+			return false;
+		}
+		
+	}
 </script>
 </head>
 <body>
@@ -112,10 +157,10 @@ history.go(-1);
 </script>
 <%} %>
 <a href="/"><input type="button" value="Login" onmouseenter="overIndex()" onmouseout="outIndex()" id="indexbutton"></a>
-<form action="/Login" method="post">
-	<input type="text" name="id" placeholder="아이디를 입력하십시오" autocomplete="off"><br>
-	<input type="password" name="pwd" placeholder="비밀번호를 입력하십시오"><br>
-	<input type="submit" value="로그인">
+<form action="/Login" id="loginForm" method="post">
+	<input type="text" id="id" name="id" placeholder="아이디를 입력하십시오" autocomplete="off"><br>
+	<input type="password" id="pwd" name="pwd" placeholder="비밀번호를 입력하십시오"><br>
+	<input id="loginButton" type="button" value="로그인">
 </form>
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>

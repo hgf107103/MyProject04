@@ -43,7 +43,7 @@ function MenuShowPopUp(myid) {
 				
 				let url = "/Restaurant/Master/Menu/ShowMenu";
 			    let name = "Menu Show";
-			    let option = "width = 590, height = 600, top = 100, left = 200, location = no, scrollbars = yes, re";
+			    let option = "width = 590, height = 765, top = 100, left = 200, location = no, scrollbars = yes, re";
 			    
 			    window.open(url, name, option);
 			} else {
