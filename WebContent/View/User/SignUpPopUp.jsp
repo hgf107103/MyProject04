@@ -49,12 +49,14 @@
 	button:hover {
 		color: white;
 		background-color: black;
+		border-radius: 25px;
 		transition: all ease 0.5s 0s;
 	}
 	form {
 		padding-bottom: 10px;
 	}
 	input[type=text] {
+		text-align: center;
 		margin: 10px auto;
 		width: 200px;
 		padding: 10px 0px;
@@ -65,6 +67,7 @@
 		transition: all ease 0.5s 0s;
 	}
 	input[type=text]:focus {
+		border-radius: 25px;
 		text-decoration: none;
 		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
 		transition: all ease 0.5s 0s;
@@ -80,6 +83,7 @@
 		transition: all ease 0.5s 0s;
 	}
 	input[type=button]:hover {
+		border-radius: 25px;
 		color: white;
 		background-color: black;
 		transition: all ease 0.5s 0s;

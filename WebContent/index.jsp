@@ -55,9 +55,13 @@
 		transition: all ease 0.5s 0s;
 	}
 	button:hover {
+		border-radius: 25px;
 		background-color: black;
 		color: white;
 		transition: all ease 0.5s 0s;
+	}
+	button:focus {
+		outline: none;
 	}
 	section {
 		padding-top: 30px;

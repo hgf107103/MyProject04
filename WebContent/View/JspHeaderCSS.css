@@ -2,15 +2,40 @@
 	margin-top: 10px;
 	font-size: 40px;
 	font-family: "Black Han Sans";
+	font-weight: normal;
 	color: rgb(50, 200, 150);
 	background: none;
 	border: none;
-	padding: 10px;
+	padding-top: 10px;
 	transition: all ease 1s 0s;
 }
 #headerButton:hover {
 	color: rgb(255, 200, 200);
+	box-shadow: 0 0 0 0px rgb(255, 255, 255);
 	transition: all ease 1s 0s;
+}
+#headerButton:focus {
+		outline: none;
+	}
+#backButton {
+	margin: 0px;
+	padding: 0px;
+	font-size: 23px;
+	font-family: "Gamja Flower";
+	font-weight: normal;
+	color: rgb(230,230,230);
+	background: none;
+	border: none;
+	padding-bottom: 10px;
+	transition: all ease 0.5s 0s;
+}
+#backButton:hover {
+	color: rgb(0,0,0);
+	box-shadow: 0 0 0 0px rgb(255, 255, 255);
+	transition: all ease 0.5s 0s;
+}
+#backButton:focus {
+		outline: none;
 }
 #everyFooter {
 	padding: 20px;

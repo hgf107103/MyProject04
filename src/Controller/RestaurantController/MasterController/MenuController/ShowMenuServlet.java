@@ -50,8 +50,10 @@ public class ShowMenuServlet extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/ShowMenuPage.jsp");
 			rd.forward(request, response);
+			
 		} catch (Exception e) {
-			System.out.println("없대용!");
+			System.out.println("doGet ShowMenu오류");
+			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

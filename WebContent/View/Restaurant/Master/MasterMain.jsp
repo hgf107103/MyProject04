@@ -60,6 +60,9 @@
 		box-shadow: 0 0 0 3px rgba(180, 180, 180, 0.3);
 		transition: all ease 0.5s 0s;
 	}
+	button:focus {
+		outline: none;
+	}
 </style>
 </head>
 <body>
@@ -67,7 +70,7 @@
 <div>
 	<h1>레스토랑 : 마스터</h1>
 	<a href="/Restaurant/Master/Menu"><button>메뉴 관리</button></a>
-	<button>테이블 관리</button>
+	<button onclick="alert('아직기능없음');">테이블 관리</button>
 </div>
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 </body>

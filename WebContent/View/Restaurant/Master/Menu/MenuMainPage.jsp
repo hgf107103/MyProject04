@@ -60,6 +60,9 @@
 		box-shadow: 0 0 0 3px rgba(180, 180, 180, 0.3);
 		transition: all ease 0.5s 0s;
 	}
+	button:focus {
+		outline: none;
+	}
 </style>
 <script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuPopUpScript.js"></script>
 </head>

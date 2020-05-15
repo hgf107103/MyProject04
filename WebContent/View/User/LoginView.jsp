@@ -15,8 +15,9 @@
 		border-right: 1px solid black;
 		border-left: 1px solid black;
 	}
-	button {
+	input[type=button] {
 		margin-top: 10px;
+		cursor: pointer;
 		font-size: 40px;
 		font-family: "Black Han Sans";
 		color: rgb(50, 200, 150);
@@ -25,7 +26,7 @@
 		padding: 10px;
 		transition: all ease 1s 0s;
 	}
-	button:hover {
+	input[type=button]:hover {
 		color: rgb(255, 200, 200);
 		transition: all ease 1s 0s;
 	}
@@ -43,13 +44,15 @@
 		margin: 10px auto;
 		width: 250px;
 		padding: 10px 0px;
-		font-size: 18px;
+		font-family: "Gamja Flower";
+		font-size: 23px;
 		text-decoration: none;
 		outline: none;
 		border: 1px solid gray;
 		transition: all ease 0.5s 0s;
 	}
 	input[type=text]:focus {
+		border-radius: 25px;
 		text-decoration: none;
 		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
 		transition: all ease 0.5s 0s;
@@ -58,19 +61,22 @@
 		margin: 10px auto;
 		width: 250px;
 		padding: 10px 0px;
-		font-size: 18px;
+		font-family: "Gamja Flower";
+		font-size: 23px;
 		text-decoration: none;
 		outline: none;
 		border: 1px solid gray;
 		transition: all ease 0.5s 0s;
 	}
 	input[type=password]:focus {
+		border-radius: 25px;
 		text-decoration: none;
 		box-shadow: 0 0 0 5px rgba(180, 180, 180, 0.3);
 		transition: all ease 0.5s 0s;
 	}
 	input[type=submit] {
-		font-size: 18px;
+		font-family: "Gamja Flower";
+		font-size: 23px;
 		width: 100px;
 		padding: 10px;
 		margin-top: 30px;
@@ -80,12 +86,23 @@
 		transition: all ease 0.5s 0s;
 	}
 	input[type=submit]:hover {
-		border: 1px solid rgba(100, 100, 100, 0.3);
-		color: rgba(100, 100, 100, 0.3);
+		border-radius: 25px;
+		border: 1px solid rgb(130, 185, 130);
+		color: rgb(200, 255, 200);
 		background-color: rgb(200, 255, 200);
 		transition: all ease 0.5s 0s;
 	}
 </style>
+<script type="text/javascript">
+function overIndex() {
+	console.log("Index Mouse On");
+	document.getElementById("indexbutton").value = 'Index';
+}
+function outIndex() {
+	console.log("Index Mouse Out");
+	document.getElementById("indexbutton").value = 'Login';
+}
+</script>
 </head>
 <body>
 <% if (session.getAttribute("mylogin") != null) {%>
@@ -94,7 +111,7 @@ alert("이미 로그인 되어있음");
 history.go(-1);
 </script>
 <%} %>
-<a href="/"><button style="cursor: pointer;">Login</button></a>
+<a href="/"><input type="button" value="Login" onmouseenter="overIndex()" onmouseout="outIndex()" id="indexbutton"></a>
 <form action="/Login" method="post">
 	<input type="text" name="id" placeholder="아이디를 입력하십시오" autocomplete="off"><br>
 	<input type="password" name="pwd" placeholder="비밀번호를 입력하십시오"><br>
