@@ -64,14 +64,14 @@
 		outline: none;
 	}
 </style>
-<script type="text/javascript" src="/View/Restaurant/Master/Menu/JS/MenuPopUpScript.js"></script>
+<script type="text/javascript" src="/View/Restaurant/Master/Table/JS/TablePopUpScript.js"></script>
 </head>
 <body>
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
 
 <div>
 	<h1>마스터 : 고객 관리</h1>
-	<button id="showTableButton" onclick="alert('아직 없음')">현재 테이블</button>
+	<button id="showTableButton" onclick="TableShowPopUp('<%=uv.getId()%>')">테이블 상세</button>
 	<br>
 	<button id="showUserButton" onclick="alert('아직 없음')">유저 명단</button>
 	<br>

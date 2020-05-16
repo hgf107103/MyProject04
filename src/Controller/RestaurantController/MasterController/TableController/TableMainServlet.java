@@ -31,6 +31,7 @@ public class TableMainServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/TableMainPage.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {

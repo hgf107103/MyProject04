@@ -19,6 +19,9 @@ public class ShowMenuServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
 			MasterDAO md = MasterDAO.getInstance();
 			
 			request.setAttribute("menuList", md.showAllMenu("menuNumber", "ASC"));

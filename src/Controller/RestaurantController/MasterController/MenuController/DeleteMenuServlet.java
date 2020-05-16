@@ -24,6 +24,9 @@ public class DeleteMenuServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
 			System.out.println("잘못된 경로입니다.");
 			 response.sendRedirect("/Restaurant/Master/Menu/ShowMenu");
 			

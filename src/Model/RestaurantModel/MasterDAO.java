@@ -358,18 +358,6 @@ public class MasterDAO {
 			pstmt.executeUpdate();
 			System.out.println("mysql : 오더 데이터베이스 오토 인크리먼트 재갱신 완료");
 			
-			
-			sql1 = "ALTER TABLE rsmaster AUTO_INCREMENT=1";
-			sql2 = "SET @COUNT = 0";
-			sql3 = "UPDATE rsmaster SET idx = @COUNT:=@COUNT+1";
-			pstmt = conn.prepareStatement(sql1);
-			pstmt.executeUpdate();
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.executeUpdate();
-			pstmt = conn.prepareStatement(sql3);
-			pstmt.executeUpdate();
-			System.out.println("mysql : 카운터 데이터베이스 오토 인크리먼트 재갱신 완료\n");
-			
 			cutConnect();
 			
 		} catch (Exception e) {
@@ -378,5 +366,152 @@ public class MasterDAO {
 		}
 		
 	}
+    
+    
+    //이하 테이블 관련 데이터 엑세스 오브젝트 메소드
+    
+    public boolean addNewTable() {
+    	try {
+    		String sql = "INSERT INTO mytable () values ()";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            pstmt = conn.prepareStatement(sql);
+            pstmt.execute();
+            System.out.println("테이블 추가 쿼리 성공");
+            
+            DBAutoIncrementSort();
+            cutConnect();
+			return true;
+			
+		} catch (Exception e) {
+			System.out.println("테이블 추가 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public boolean deleteTableCheck() {
+    	try {
+    		String sql = "SELECT * FROM mytable ORDER BY tableNumber DESC LIMIT 1";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+            
+            while (rs.next()) {
+            	if (rs.getString("customersId") != null) {
+            		cutConnect();
+					return false;
+				}
+			}
+            
+            cutConnect();
+            return true;
+            
+		} catch (Exception e) {
+			System.out.println("테이블 삭제 체크 DAO 오류 발생 : " + e);
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public boolean deleteTable() {
+    	try {
+    		boolean check = deleteTableCheck();
+    		
+    		if (check) {
+				
+    			String sql = "DELETE FROM mytable ORDER BY tableNumber DESC LIMIT 1";
+        		System.out.println(sql);
+        		
+        		Class.forName("com.mysql.cj.jdbc.Driver");
+                System.out.println("드라이브 적재됨");
+
+                conn = DriverManager.getConnection(url, uid, upass);
+                System.out.println("DB 연동됨");
+                
+                pstmt = conn.prepareStatement(sql);
+                pstmt.execute();
+                System.out.println("테이블 삭제 쿼리 성공");
+                
+                DBAutoIncrementSort();
+    			cutConnect();
+        		return true;
+			} else {
+				System.out.println("테이블 삭제 DAO 오류 발생 : 마지막 테이블 손님 존재");
+				cutConnect();
+				return false;
+			}
+    		
+		} catch (Exception e) {
+			System.out.println("테이블 삭제 DAO 오류 발생 : " + e);
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public ArrayList<TableVO> showAllTable() {
+    	try {
+    		ArrayList<TableVO> list = new ArrayList<TableVO>();
+    		
+    		String sql = "SELECT t1.tableNumber, customersId, customersName, SUM((t2.orderCount - t2.orderDiscount) * t2.orderCost) AS costTotal FROM mytable AS t1 LEFT JOIN tableorder AS t2 ON t1.tableNumber = t2.tableNumber GROUP BY t1.tableNumber ORDER BY tableNumber";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+            
+            while (rs.next()) {
+            	int tableNumber = rs.getInt("tableNumber");
+            	
+            	if (rs.getString("customersId") == null) {
+					list.add(TableVO.getInstance(tableNumber, null, null, 0));
+				} else {
+					String customersId = rs.getString("customersId");
+					String customersName = rs.getString("customersName");
+					int costTotal = rs.getInt("costTotal");
+					list.add(TableVO.getInstance(tableNumber, customersId, customersName, costTotal));
+				}
+			}
+            
+            for (TableVO tableVO : list) {
+				System.out.println("테이블 넘버 : " + tableVO.getTableNumber());
+				System.out.println("고객 이름 : " + tableVO.getCustomersName());
+				System.out.println("고객 아이디 : " + tableVO.getCustomersId());
+				System.out.println("테이블 합계 : " + tableVO.getCostTotal());
+			}
+            cutConnect();
+            return list;
+			
+			
+		} catch (Exception e) {
+			System.out.println("메뉴 뷰어 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
     
 }

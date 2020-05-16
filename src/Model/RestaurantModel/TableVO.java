@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 public class TableVO {
 	private int tableNumber;
-	private String customers;
+	private String customersId;
+	private String customersName;
 	private int costTotal;
-	private int ownerCall;
 	
 	
-	private TableVO (int tableNumber, String customers, int costTotal, int ownerCall) {
-		setTableNumber(tableNumber);
-		setCustomers(customers);
-		setCostTotal(costTotal);
-		setOwnerCall(ownerCall);
+	
+	private TableVO(int tableNumber, String customersId, String customersName, int costTotal) {
+		this.tableNumber = tableNumber;
+		this.customersId = customersId;
+		this.customersName = customersName;
+		this.costTotal = costTotal;
 	}
 	
-	public TableVO getInstance(int tableNumber, String customers, int costTotal, int ownerCall) {
-		return new TableVO(tableNumber, customers, costTotal, ownerCall);
+	public static TableVO getInstance(int tableNumber, String customersId, String customersName, int costTotal) {
+		return new TableVO(tableNumber, customersId, customersName, costTotal);
 	}
 	
 	public int getTableNumber() {
@@ -26,23 +27,23 @@ public class TableVO {
 	public void setTableNumber(int tableNumber) {
 		this.tableNumber = tableNumber;
 	}
-	public String getCustomers() {
-		return customers;
+	public String getCustomersId() {
+		return customersId;
 	}
-	public void setCustomers(String customers) {
-		this.customers = customers;
+	public void setCustomersId(String customersId) {
+		this.customersId = customersId;
+	}
+	public String getCustomersName() {
+		return customersName;
+	}
+	public void setCustomersName(String customersName) {
+		this.customersName = customersName;
 	}
 	public int getCostTotal() {
 		return costTotal;
 	}
 	public void setCostTotal(int costTotal) {
 		this.costTotal = costTotal;
-	}
-	public int getOwnerCall() {
-		return ownerCall;
-	}
-	public void setOwnerCall(int ownerCall) {
-		this.ownerCall = ownerCall;
 	}
 	
 	
