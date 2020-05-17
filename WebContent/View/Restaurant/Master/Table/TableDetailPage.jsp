@@ -123,9 +123,8 @@
 	}
 	#backButton:hover {
 		color: black;
-		box-shadow: 0 0 0 500px rgba(50, 200, 150, 0.25);
-		transition: color ease 1.5s 0s;
-		transition: box-shadow ease 5s 0s;
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.25);
+		transition: all ease 1s 0s;
 	}
 	#backButton:focus {
 		outline: none;
