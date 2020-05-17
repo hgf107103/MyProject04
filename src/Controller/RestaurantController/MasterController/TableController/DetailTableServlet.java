@@ -11,48 +11,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Model.RestaurantModel.MasterDAO;
-import Model.RestaurantModel.TableVO;
+import Model.RestaurantModel.OrderVO;
 import Model.UserModel.UserVO;
 
 /**
- * Servlet implementation class ShowTableServlet
+ * Servlet implementation class DetailTableServlet
  */
-@WebServlet("/Restaurant/Master/Table/ShowTable")
-public class ShowTableServlet extends HttpServlet {
+@WebServlet("/Restaurant/Master/Table/ShowTable/Detail")
+public class DetailTableServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			
-			if (request.getSession().getAttribute("mylogin") != null) {
-				UserVO uv = (UserVO)request.getSession().getAttribute("mylogin");
-				System.out.println("uv 값 : " + uv.getId());
-				if(!uv.getId().equals("admin")) {
-					response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullPointException");
-					return;
-				}
-			} else {
-				response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullPointException");
-				return;
-			}
-			
-			MasterDAO md = MasterDAO.getInstance();
-			ArrayList<TableVO> list = md.showAllTable();
-			
-			request.setAttribute("tableList", list);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/TableShowPage.jsp");
-			rd.forward(request, response);
+			System.out.println("잘못된 경로입니다.");
+			 response.sendRedirect("/Restaurant/Master/Menu/ShowMenu");
 			
 		} catch (Exception e) {
-			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullpointException");
+			 System.out.println("doGet AddTable오류");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
-
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -73,15 +55,17 @@ public class ShowTableServlet extends HttpServlet {
 			}
 			
 			MasterDAO md = MasterDAO.getInstance();
-			ArrayList<TableVO> list = md.showAllTable();
+			ArrayList<OrderVO> list = md.showOneTableOrderList(request.getParameter("tableNumber"));
 			
-			request.setAttribute("tableList", list);
+			request.setAttribute("tableNumber", request.getParameter("tableNumber"));
+			request.setAttribute("orderList", list);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/TableShowPage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/TableDetailPage.jsp");
 			rd.forward(request, response);
 			
 		} catch (Exception e) {
-			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullpointException");
+			 System.out.println("doGet AddTable오류");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

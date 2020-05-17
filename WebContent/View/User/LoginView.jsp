@@ -92,23 +92,24 @@
 	#loginButton {
 		font-family: "Gamja Flower";
 		font-size: 23px;
+		font-weight: bold;
 		width: 50px;
 		padding: 10px;
 		margin-top: 30px;
 		background: none;
-		border: 1px solid rgb(200,200,200);
+		border: 1px solid rgb(50,200,150);
 		color: white;
 		cursor: pointer;
 		border-radius: 25px;
 		transition: all ease 1s 0s;
 	}
 	#loginButton:hover {
-		border-radius: 10px;
+		border-radius: 25px;
 		width: 150px;
-		color: white;
-		border: 1px solid black;
-		background-color: black;
-		box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.25);
+		color: rgb(50,200,150);
+		border: 1px solid rgb(50,200,150);
+		background-color: white;
+		box-shadow: 0 0 0 4px rgba(50, 200, 150, 0.25);
 		transition: all ease 1s 0s;
 	}
 	#loginButton:focus {

@@ -73,7 +73,7 @@
 	<h1>마스터 : 고객 관리</h1>
 	<button id="showTableButton" onclick="TableShowPopUp('<%=uv.getId()%>')">테이블 상세</button>
 	<br>
-	<button id="showUserButton" onclick="alert('아직 없음')">유저 명단</button>
+	<button id="showUserButton" onclick="UserShowPopUp('<%=uv.getId()%>')">유저 명단</button>
 	<br>
 	<button id="showSellButton" onclick="alert('아직 없음')">가게 장부</button>
 </div>

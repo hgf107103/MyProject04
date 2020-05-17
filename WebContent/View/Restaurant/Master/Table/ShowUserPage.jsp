@@ -5,15 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마스터 : 테이블 상세보기</title>
+<title>마스터 : 유저 명단</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
-	body{
-		width: 650px;
-		text-align: center;
+	body {
+		width: 550px;
 	}
 	h1 {
-		width: 420px;
+		text-align: center;
+		width: 250px;
 		cursor: default;
 		margin: 20px auto;
 		font-weight: normal;
@@ -62,31 +62,27 @@
 		border-collapse: collapse;
 		transition: all ease 1.5s 0s;
 	}
-	table tr:hover > td.orderNumberTd {
+	table tr:hover > td.userNumberTd {
 		color: rgb(40,168,40);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.orderNameTd {
+	table tr:hover > td.userIdTd {
 		color: rgb(255,100,100);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.orderCostTd {
+	table tr:hover > td.userPassTd {
 		color: rgb(100, 100, 255);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.orderCountTd {
+	table tr:hover > td.userNameTd {
 		color: rgb(168,40,168);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.orderDiscountTd {
+	table tr:hover > td.userSexTd {
 		color: rgb(100,150,200);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.orderTotalTd {
-		color: rgb(200,100,200);
-		transition: all ease 0.5s 0s;
-	}
-	td a.updateOrder {
+	td a.updateUser {
 		cursor: pointer;
 		font-family: "Gamja Flower";
 		font-weight: bold;
@@ -97,38 +93,16 @@
 		text-decoration: none;
 		transition: all ease 1s 0s;
 	}
-	table tr:hover > td a.updateOrder {
+	table tr:hover > td a.updateUser {
 		color: red;
 		transition: all ease 0.5s 0s;
 	}
-	td a.updateOrder:hover {
+	td a.updateUser:hover {
 		font-size: 23px;
 		transition: all ease 0.5s 0s;
 	}
-	td a.updateOrder:visited {
+	td a.updateUser:visited {
 		text-decoration: none;
-	}
-	#backButton {
-		margin-top: 20px;
-		padding: 5px 20px;
-		background-color: white;
-		font-size: 23px;
-		font-weight: bold;
-		cursor: pointer;
-		border-radius: 25px;
-		font-family: "Gamja Flower";
-		color: white;
-		border: 1px solid rgb(50,200,150);
-		transition: all ease 1.5s 0s;
-	}
-	#backButton:hover {
-		color: black;
-		box-shadow: 0 0 0 500px rgba(50, 200, 150, 0.25);
-		transition: color ease 1.5s 0s;
-		transition: box-shadow ease 5s 0s;
-	}
-	#backButton:focus {
-		outline: none;
 	}
 	div {
 		margin-top: 150px;
@@ -146,56 +120,53 @@
 </style>
 </head>
 <body>
-<input id="backButton" type="button" onclick="history.go(-1)" value="뒤로가기">
-<h1><span>${tableNumber}</span>번 테이블 주문 상세 내역</h1>
+<h1>전체 회원 정보</h1>
+<c:if test="${not empty userList}">
 <table>
-<c:if test="${not empty orderList}">
 	<tr>
 		<th>번호</th>
-		<th>메뉴이름</th>
-		<th>메뉴가격</th>
-		<th>주문개수</th>
-		<th>할인개수</th>
-		<th>총 합계</th>
-		<th>주문수정</th>
+		<th>아이디</th>
+		<th>비밀번호</th>
+		<th>이름</th>
+		<th>성별</th>
+		<th>수정</th>
 	</tr>
-	<c:forEach items="${orderList}" var="order" varStatus="status">
-		<tr>
-    		<td class="orderNumberTd">
-    			<c:out value="${status.index + 1}"></c:out>
-    		</td>
+	<c:forEach items="${userList}" var="user" varStatus="status">
+		<c:if test="${user.id ne 'admin' }">
+			<tr>
+    			<td class="userNumberTd">
+    				<c:out value="${status.index}"></c:out>
+    			</td>
     					
-    		<td class="orderNameTd">
-    			<c:out value="${order.orderName}"></c:out>
-    		</td>
+    			<td class="userIdTd">
+    				<c:out value="${user.id}"></c:out>
+    			</td>
     					
-    		<td class="orderCostTd">
-    			<c:out value="${order.orderCost}원"></c:out>
-    		</td>
+    			<td class="userPassTd">
+    				<c:out value="${user.pwd}"></c:out>
+    			</td>
     					
-    		<td class="orderCountTd">
-    			<c:out value="${order.orderCount}개"></c:out>
-    		</td>
+    			<td class="userNameTd">
+    				<c:out value="${user.name}님"></c:out>
+    			</td>
     		
-    		<td class="orderDiscountTd">
-    			<c:out value="${order.orderDiscount}개"></c:out>
-    		</td>
-    		
-    		<td class="orderTotalTd">
-    			<c:out value="${order.orderTotal}원"></c:out>
-    		</td>
+    			<td class="userSexTd">
+    				<c:out value="${user.sex}"></c:out>
+    			</td>
     					
-    		<td class="updateOrderTd">	
-    			<a class="updateOrder" href="#">주문수정</a>
-    		</td>	
-		</tr>
+    			<td class="userUpdateTd">	
+    				<a class="updateUser" href="#">정보수정</a>
+    			</td>
+			</tr>
+		</c:if>
 	</c:forEach>
+</table>
 </c:if>
-	<c:if test="${orderList eq null}">
+	<c:if test="${userList eq null}">
 		<div>
-			<h2>주문 내역이 없습니다!</h2>
+			<h2>회원 내역이 없습니다!</h2>
 		</div>
 	</c:if>
-</table>
+
 </body>
 </html>

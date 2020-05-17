@@ -114,7 +114,7 @@ public class AddMenuServlet extends HttpServlet {
 		} catch (Exception e) {
 
 			System.out.println("메뉴추가 서블릿 오류발생");
-			response.sendRedirect("/");
+			 response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

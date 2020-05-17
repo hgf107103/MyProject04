@@ -51,3 +51,28 @@ try {
 		return false;
 	}
 }
+
+function showDetailTableOrder(tableNumber) {
+	try {
+		
+		console.log("TableDetailForm" + tableNumber);
+		
+		let form = document.getElementById("TableDetailForm" + tableNumber);
+		let check = confirm("테이블 상세내역을 확인하겠습니까?");
+		
+		
+		if (check) {
+			console.log("ShowDetailTableOrder_LOG : Submit AddTableForm");
+			form.submit();
+		} else {
+			console.log("ShowDetailTableOrder_LOG : Cancel Submit AddTableForm");
+			alert("취소되었습니다.");
+			return false;
+		}
+		
+	} catch (e) {
+		console.log("ShowDetailTableOrder_ERROR : " + e);
+		alert("오류가 발생했습니다.\n" + e);
+		return false;
+	}
+}

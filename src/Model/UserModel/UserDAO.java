@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class UserDAO {
 	
@@ -174,6 +175,41 @@ public class UserDAO {
 			cutConnect();
 			System.out.println("아이디 체크 오류 발생");
 			return false;
+		}
+	}
+	
+	public ArrayList<UserVO> showAllUser() {
+		try {
+			
+			ArrayList<UserVO> list = new ArrayList<UserVO>();
+			
+			String sql = "SELECT * FROM user";
+    		String userid = null;
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            
+            while (rs.next()) {
+            	String name = rs.getString("name");
+            	String id = rs.getString("userid");
+            	String pass = rs.getString("userpass");
+            	String sex = rs.getString("sex");
+            	list.add(new UserVO(name, id, pass, sex));
+			}
+            
+            cutConnect();
+            return list;
+            
+		} catch (Exception e) {
+			cutConnect();
+			System.out.println("아이디 체크 오류 발생");
+			return null;
 		}
 	}
     

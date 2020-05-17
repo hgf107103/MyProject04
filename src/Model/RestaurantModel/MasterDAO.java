@@ -508,7 +508,62 @@ public class MasterDAO {
 			
 			
 		} catch (Exception e) {
-			System.out.println("메뉴 뷰어 DAO 오류 발생 : " + e);
+			System.out.println("테이블 리스트 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
+    
+    public ArrayList<OrderVO> showOneTableOrderList(String myTableNumber) {
+    	try {
+    		
+    		ArrayList<OrderVO> list = new ArrayList<OrderVO>();
+    		int count = 0;
+    		
+    		String sql = "SELECT *, (orderCount - orderDiscount) * orderCost AS orderTotal FROM tableorder WHERE tableNumber = " + myTableNumber;
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+			
+            while (rs.next()) {
+            	count++;
+            	int tableNumber = rs.getInt("tableNumber");
+            	String orderName = rs.getString("orderName");
+            	int orderCost = rs.getInt("orderCost");
+            	int orderCount = rs.getInt("orderCount");
+            	int orderDiscount = rs.getInt("orderDiscount");
+            	int orderTotal = rs.getInt("orderTotal");
+            	list.add(new OrderVO(tableNumber, orderName, orderCost, orderCount, orderDiscount, orderTotal));
+            	System.out.println("테이블넘버 : " + tableNumber);
+            	System.out.println(orderName);
+            	System.out.println(orderCost);
+            	System.out.println(orderCount);
+            	System.out.println(orderDiscount);
+            	System.out.println(orderTotal);
+			}
+            System.out.println("OrderVO 객체 생성됨");
+            
+            if (count > 0) {
+            	System.out.println("OrderVO 객체 전달됨");
+            	return list;
+			} else {
+				System.out.println("OrderVO 객체 리스트 없음, null 전달됨");
+				return null;
+			}
+            
+            
+		} catch (Exception e) {
+			System.out.println("테이블 상세보기 DAO 오류 발생 : " + e);
 			cutConnect();
 			return null;
 		}
