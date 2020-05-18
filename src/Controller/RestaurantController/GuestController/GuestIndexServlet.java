@@ -18,19 +18,19 @@ public class GuestIndexServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Guest/GuestMain.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Guest/GuestMainPage.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			response.sendRedirect("/");
+			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Guest/GuestMain.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Guest/GuestMainPage.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			response.sendRedirect("/");
+			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

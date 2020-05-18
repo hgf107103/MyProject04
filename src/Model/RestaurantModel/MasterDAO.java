@@ -469,7 +469,7 @@ public class MasterDAO {
     	try {
     		ArrayList<TableVO> list = new ArrayList<TableVO>();
     		
-    		String sql = "SELECT t1.tableNumber, customersId, customersName, SUM((t2.orderCount - t2.orderDiscount) * t2.orderCost) AS costTotal FROM mytable AS t1 LEFT JOIN tableorder AS t2 ON t1.tableNumber = t2.tableNumber GROUP BY t1.tableNumber ORDER BY tableNumber";
+    		String sql = "SELECT t1.tableNumber, customersId, customersName, SUM((t2.orderCount - t2.orderDiscount) * t2.orderCost) AS costTotal FROM mytable AS t1 LEFT JOIN tableorder AS t2 ON t1.tableNumber = t2.tableNumber GROUP BY t1.tableNumber ORDER BY tableNumber ASC";
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -568,5 +568,48 @@ public class MasterDAO {
 			return null;
 		}
     }
+    
+    public ArrayList<paymentHistoryVO> showAllPaymentHistory(){
+    	try {
+    		
+    		ArrayList<paymentHistoryVO> list = new ArrayList<paymentHistoryVO>();
+    		
+    		String sql = "";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+			
+            while (rs.next()) {
+            	int tableNumber = rs.getInt("tableNumber");
+            	String orderName = rs.getString("orderName");
+            	int orderCost = rs.getInt("orderCost");
+            	int orderCount = rs.getInt("orderCount");
+            	int orderDiscount = rs.getInt("orderDiscount");
+            	int orderTotal = rs.getInt("orderTotal");
+			}
+            System.out.println("paymentHistoryVO 객체 생성됨");
+            
+         
+            return list;
+			
+            
+            
+		} catch (Exception e) {
+			System.out.println("테이블 상세보기 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
+    	
     
 }
