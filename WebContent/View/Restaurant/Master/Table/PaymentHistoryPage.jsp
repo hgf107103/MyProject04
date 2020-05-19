@@ -6,9 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>마스터 : 결제 내역</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	body {
-		width: 550px;
+		width: 700px;
 	}
 	h1 {
 		text-align: center;
@@ -61,27 +62,27 @@
 		border-collapse: collapse;
 		transition: all ease 1.5s 0s;
 	}
-	table tr:hover > td.userNumberTd {
+	table tr:hover > td.payDateTd {
 		color: rgb(40,168,40);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.userIdTd {
+	table tr:hover > td.payNumberTd {
 		color: rgb(255,100,100);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.userPassTd {
+	table tr:hover > td.tableNumberTd {
 		color: rgb(100, 100, 255);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.userNameTd {
+	table tr:hover > td.customersNameTd {
 		color: rgb(168,40,168);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.userSexTd {
+	table tr:hover > td.payTotalTd {
 		color: rgb(100,150,200);
 		transition: all ease 0.5s 0s;
 	}
-	td a.updateUser {
+	td a.updatePay {
 		cursor: pointer;
 		font-family: "Gamja Flower";
 		font-weight: bold;
@@ -92,15 +93,15 @@
 		text-decoration: none;
 		transition: all ease 1s 0s;
 	}
-	table tr:hover > td a.updateUser {
+	table tr:hover > td a.updatePay {
 		color: red;
 		transition: all ease 0.5s 0s;
 	}
-	td a.updateUser:hover {
+	td a.updatePay:hover {
 		font-size: 23px;
 		transition: all ease 0.5s 0s;
 	}
-	td a.updateUser:visited {
+	td a.updatePay:visited {
 		text-decoration: none;
 	}
 	div {
@@ -125,35 +126,36 @@
 	<tr>
 		<th>날짜</th>
 		<th>주문번호</th>
-		<th>테이블 번호</th>
+		<th>테이블</th>
 		<th>이름</th>
 		<th>합계</th>
 		<th>상세보기</th>
 	</tr>
-	<c:forEach items="${paymentList}" var="payment" varStatus="status">
+	<c:forEach items="${paymentList}" var="pay" varStatus="status">
 			<tr>
     			<td class="payDateTd">
-    				<c:out value="${payment.payDate}"></c:out>
+    				<c:out value="${pay.payDate}"></c:out>
     			</td>
     					
     			<td class="payNumberTd">
-    				<c:out value="${payment.payNumber}"></c:out>
+    				<c:out value="${pay.payNumber}"></c:out>
     			</td>
     					
     			<td class="tableNumberTd">
-    				<c:out value="${payment.tableNumber}"></c:out>
+    				<c:out value="${pay.tableNumber}번"></c:out>
     			</td>
     					
-    			<td class="userNameTd">
-    				<c:out value="${payment.customersName}님"></c:out>
+    			<td class="customersNameTd">
+    				<c:out value="${pay.customersName}님"></c:out>
     			</td>
     		
-    			<td class="userSexTd">
-    				<c:out value="${payment.payTotal}"></c:out>
+    			<td class="payTotalTd">
+    				<c:out value="${pay.payTotal}원"></c:out>
     			</td>
     					
-    			<td class="userUpdateTd">	
-    				<a class="updateUser" href="#">정보수정</a>
+    			<td class="payUpdateTd">
+    				<form action=""></form>
+    				<a class="updatePay" href="#">정보수정</a>
     			</td>
 			</tr>
 	</c:forEach>
@@ -161,7 +163,7 @@
 </c:if>
 	<c:if test="${empty paymentList}">
 		<div>
-			<h2>회원 내역이 없습니다!</h2>
+			<h2>결재 내역이 없습니다!</h2>
 		</div>
 	</c:if>
 	

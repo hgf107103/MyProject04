@@ -62,3 +62,35 @@ function UserShowPopUp(myid) {
 		return false;
 	}
 }
+function paymentShowPopUp(myid) {
+	try {
+		console.log("PaymentShowPopUp_LOG : Menu Add PopUp OPEN ID : " + myid);
+		if(myid == 'admin') {
+			
+			let check = confirm("결제 내역 페이지를 띄울까요?");
+			
+			if(check) {
+				
+				let url = "/Restaurant/Master/Table/ShowPayment";
+				let name = "Payment Show";
+				let option = "width = 730, height = 700, top = 100, left = 200, location = no, scrollbars = yes, re";
+				
+				window.open(url, name, option);
+			} else {
+				alert("취소되었습니다.");
+				return false;
+			}
+			
+			
+		} else {
+			console.log("PaymentShowPopUp_NOT : You are not ADMIN");
+			alert("admin계정이 아닙니다.");
+			return false;
+		}
+		
+		
+	} catch (e) {
+		console.log("PaymentShowPopUp_ERROR : " + e);
+		return false;
+	}
+}

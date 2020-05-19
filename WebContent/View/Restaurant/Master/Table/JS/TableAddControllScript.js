@@ -22,28 +22,35 @@ function AddTable() {
 	
 }
 
-function DeleteTable() {
+function DeleteTable(listLength) {
 try {
-		
-		let form = document.getElementById("deleteTableForm");
-		let check = confirm("테이블을 삭제하시겠습니까?");
-		
-		if (check) {
-			let checkTwo = confirm("마지막으로 묻습니다.\n정말로 삭제하시겠습니까?")
-			if (checkTwo) {
-				console.log("AddTable_LOG : Submit AddTableForm");
-				form.submit();
-			}	else {
+		if (Number(listLength) > 1) {
+			let form = document.getElementById("deleteTableForm");
+			let check = confirm("테이블을 삭제하시겠습니까?");
+			
+			if (check) {
+				let checkTwo = confirm("마지막으로 묻습니다.\n정말로 삭제하시겠습니까?")
+				if (checkTwo) {
+					console.log("AddTable_LOG : Submit AddTableForm");
+					form.submit();
+				}	else {
+					console.log("AddTable_LOG : Cancel Submit AddTableForm");
+					alert("취소되었습니다.");
+					return false;
+				}
+				
+			} else {
 				console.log("AddTable_LOG : Cancel Submit AddTableForm");
 				alert("취소되었습니다.");
 				return false;
 			}
-			
 		} else {
-			console.log("AddTable_LOG : Cancel Submit AddTableForm");
-			alert("취소되었습니다.");
+			console.log("AddTable_LOG : Lack of listLength value");
+			alert("테이블은 최소 하나 이상 있어야 합니다.");
 			return false;
 		}
+	
+		
 		
 	} catch (e) {
 		console.log("AddTable_ERROR : " + e);

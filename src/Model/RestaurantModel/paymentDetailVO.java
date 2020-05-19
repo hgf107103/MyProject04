@@ -7,15 +7,17 @@ public class paymentDetailVO {
 	private int menuCost;
 	private int orderCount;
 	private int orderDiscount;
+	private int orderTotal;
 	
 	
 	
-	private paymentDetailVO(int payNumber, String menuName, int menuCost, int orderCount, int orderDiscount) {
+	public paymentDetailVO(int payNumber, String menuName, int menuCost, int orderCount, int orderDiscount, int orderTotal) {
 		this.payNumber = payNumber;
 		this.menuName = menuName;
 		this.menuCost = menuCost;
 		this.orderCount = orderCount;
 		this.orderDiscount = orderDiscount;
+		this.orderTotal = orderTotal;
 	}
 	
 	public int getPayNumber() {
@@ -47,6 +49,14 @@ public class paymentDetailVO {
 	}
 	public void setOrderDiscount(int orderDiscount) {
 		this.orderDiscount = orderDiscount;
+	}
+
+	public int getOrderTotal() {
+		return orderTotal;
+	}
+
+	public void setOrderTotal(int orderTotal) {
+		this.orderTotal = orderTotal;
 	}
 	
 	

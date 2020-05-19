@@ -11,7 +11,7 @@ public class paymentHistoryVO {
 	private String customersId;
 	private int payTotal;
 	
-	private paymentHistoryVO(Date payDate, int payNumber, int tableNumber, String customersName, String customersId) {
+	public paymentHistoryVO(Date payDate, int payNumber, int tableNumber, String customersName, String customersId) {
 		this.payDate = payDate;
 		this.payNumber = payNumber;
 		this.tableNumber = tableNumber;

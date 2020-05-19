@@ -14,10 +14,14 @@ import Model.RestaurantModel.MasterDAO;
 import Model.RestaurantModel.paymentHistoryVO;
 import Model.UserModel.UserVO;
 
-@WebServlet("/Restaurant/Master/Table/ShowPayment")
-public class ShowPaymentServlet extends HttpServlet {
+/**
+ * Servlet implementation class PaymentDetailServlet
+ */
+@WebServlet("/Restaurant/Master/Table/PaymentDetail")
+public class PaymentDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			if (request.getSession().getAttribute("mylogin") != null) {
@@ -47,6 +51,7 @@ public class ShowPaymentServlet extends HttpServlet {
 		}
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

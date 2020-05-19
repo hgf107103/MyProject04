@@ -75,7 +75,7 @@
 	<br>
 	<button id="showUserButton" onclick="UserShowPopUp('<%=uv.getId()%>')">유저 명단</button>
 	<br>
-	<button id="showSellButton" onclick="alert('아직 없음')">가게 장부</button>
+	<button id="showSellButton" onclick="paymentShowPopUp('<%=uv.getId()%>')">가게 장부</button>
 </div>
 
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>

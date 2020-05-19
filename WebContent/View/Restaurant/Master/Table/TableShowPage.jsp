@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -142,7 +143,7 @@
 	<input type="button" value="테이블 추가" onclick="AddTable()">
 </form>
 <form id="deleteTableForm" action="/Restaurant/Master/Table/DeleteTable" method="post">
-	<input type="button" value="테이블 삭제" onclick="DeleteTable()">
+	<input type="button" value="테이블 삭제" onclick="DeleteTable(${fn:length(tableList)})">
 </form>
 
 <table>

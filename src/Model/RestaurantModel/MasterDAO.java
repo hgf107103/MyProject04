@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MasterDAO {
 	
@@ -555,9 +556,11 @@ public class MasterDAO {
             
             if (count > 0) {
             	System.out.println("OrderVO 객체 전달됨");
+            	cutConnect();
             	return list;
 			} else {
 				System.out.println("OrderVO 객체 리스트 없음, null 전달됨");
+				cutConnect();
 				return null;
 			}
             
@@ -569,12 +572,12 @@ public class MasterDAO {
 		}
     }
     
-    public ArrayList<paymentHistoryVO> showAllPaymentHistory(){
+    public ArrayList<paymentHistoryVO> showAllPaymentHistory(String order, String orderSet){
     	try {
     		
     		ArrayList<paymentHistoryVO> list = new ArrayList<paymentHistoryVO>();
     		
-    		String sql = "";
+    		String sql = "SELECT * FROM paymentHistory AS t1 LEFT JOIN (SELECT payNumber, SUM((orderCount - orderDiscount) * menuCost) AS payTotal FROM paymentDetails GROUP BY payNumber) AS t2 ON t1.payNumber = t2.payNumber ORDER BY " + order + " " + orderSet + ", HistoryNumber ASC";
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -590,22 +593,75 @@ public class MasterDAO {
             System.out.println("리설트 객체 생성됨");
 			
             while (rs.next()) {
+            	Date payDate = rs.getDate("payDate");
+            	int payNumber = rs.getInt("t1.payNumber");
             	int tableNumber = rs.getInt("tableNumber");
-            	String orderName = rs.getString("orderName");
-            	int orderCost = rs.getInt("orderCost");
-            	int orderCount = rs.getInt("orderCount");
-            	int orderDiscount = rs.getInt("orderDiscount");
-            	int orderTotal = rs.getInt("orderTotal");
+            	String customersName = rs.getString("customersName");
+            	String customersId = rs.getString("customersId");
+            	int payTotal = rs.getInt("payTotal");
+            	System.out.println(payDate);
+            	System.out.println(payNumber);
+            	System.out.println(tableNumber);
+            	System.out.println(customersName);
+            	System.out.println(customersId);
+            	System.out.println(payTotal);
+            	paymentHistoryVO pvinct = new paymentHistoryVO(payDate, payNumber, tableNumber, customersName, customersId);
+            	pvinct.setPayTotal(payTotal);
+            	list.add(pvinct);
+            	
 			}
             System.out.println("paymentHistoryVO 객체 생성됨");
             
-         
+            cutConnect();
             return list;
 			
             
             
 		} catch (Exception e) {
-			System.out.println("테이블 상세보기 DAO 오류 발생 : " + e);
+			System.out.println("결제내역 히스토리 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
+    
+    public ArrayList<paymentDetailVO> showPaymentDetail (int myPayNumber) {
+try {
+    		
+    		ArrayList<paymentDetailVO> list = new ArrayList<paymentDetailVO>();
+    		
+    		String sql = "SELECT *, (orderCount - orderDiscount) * menuCost AS orderTotal FROM paymentDetails WHERE payNumber = " + myPayNumber;
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+			
+            while (rs.next()) {
+            	int payNumber = rs.getInt("payNumber");
+            	String menuName = rs.getString("menuName");
+            	int menuCost = rs.getInt("menuCost");
+            	int orderCount = rs.getInt("orderCount");
+            	int orderDiscount = rs.getInt("orderDiscount");
+            	int orderTotal = rs.getInt("orderTotal");
+            	list.add(new paymentDetailVO(payNumber, menuName, menuCost, orderCount, orderDiscount, orderTotal));
+			}
+            System.out.println("paymentDetailVO 객체 생성됨");
+            
+            cutConnect();
+            return list;
+			
+            
+            
+		} catch (Exception e) {
+			System.out.println("결제내역 상세보기 DAO 오류 발생 : " + e);
 			cutConnect();
 			return null;
 		}

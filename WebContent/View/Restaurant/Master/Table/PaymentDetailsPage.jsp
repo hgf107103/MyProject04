@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마스터 : 유저 명단</title>
+<title>마스터 : 결제 상세 내역</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	body {
-		width: 550px;
+		width: 700px;
 	}
 	h1 {
 		text-align: center;
@@ -62,27 +62,27 @@
 		border-collapse: collapse;
 		transition: all ease 1.5s 0s;
 	}
-	table tr:hover > td.userNumberTd {
+	table tr:hover > td.payDateTd {
 		color: rgb(40,168,40);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.userIdTd {
+	table tr:hover > td.payNumberTd {
 		color: rgb(255,100,100);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.userPassTd {
+	table tr:hover > td.tableNumberTd {
 		color: rgb(100, 100, 255);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.userNameTd {
+	table tr:hover > td.customersNameTd {
 		color: rgb(168,40,168);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.userSexTd {
+	table tr:hover > td.payTotalTd {
 		color: rgb(100,150,200);
 		transition: all ease 0.5s 0s;
 	}
-	td a.updateUser {
+	td a.updatePay {
 		cursor: pointer;
 		font-family: "Gamja Flower";
 		font-weight: bold;
@@ -93,20 +93,19 @@
 		text-decoration: none;
 		transition: all ease 1s 0s;
 	}
-	table tr:hover > td a.updateUser {
+	table tr:hover > td a.updatePay {
 		color: red;
 		transition: all ease 0.5s 0s;
 	}
-	td a.updateUser:hover {
+	td a.updatePay:hover {
 		font-size: 23px;
 		transition: all ease 0.5s 0s;
 	}
-	td a.updateUser:visited {
+	td a.updatePay:visited {
 		text-decoration: none;
 	}
 	div {
 		margin-top: 150px;
-		text-align: center;
 	}
 	div h2{
 		cursor:default;
@@ -121,53 +120,56 @@
 </style>
 </head>
 <body>
-<h1>전체 회원 정보</h1>
-<c:if test="${not empty userList}">
+<h1>가게 결제 내역</h1>
+<c:if test="${not empty paymentList}">
 <table>
 	<tr>
-		<th>번호</th>
-		<th>아이디</th>
-		<th>비밀번호</th>
-		<th>이름</th>
-		<th>성별</th>
-		<th>수정</th>
+		<th>주문번호</th>
+		<th>메뉴이름</th>
+		<th>가격</th>
+		<th>주문개수</th>
+		<th>할인개수</th>
+		<th>총합</th>
 	</tr>
-	<c:forEach items="${userList}" var="user" varStatus="status">
-		<c:if test="${user.id ne 'admin' }">
+	<c:forEach items="${payDetailList}" var="pay" varStatus="status">
 			<tr>
-    			<td class="userNumberTd">
-    				<c:out value="${status.index}"></c:out>
+    			<td class="payDateTd">
+    				<c:out value="${pay.payNumber}"></c:out>
     			</td>
     					
-    			<td class="userIdTd">
-    				<c:out value="${user.id}"></c:out>
+    			<td class="payNumberTd">
+    				<c:out value="${pay.menuName}"></c:out>
     			</td>
     					
-    			<td class="userPassTd">
-    				<c:out value="${user.pwd}"></c:out>
+    			<td class="tableNumberTd">
+    				<c:out value="${pay.menuCost}원"></c:out>
     			</td>
     					
-    			<td class="userNameTd">
-    				<c:out value="${user.name}님"></c:out>
+    			<td class="orderCountTd">
+    				<c:out value="${pay.orderCount}개"></c:out>
     			</td>
     		
-    			<td class="userSexTd">
-    				<c:out value="${user.sex}"></c:out>
+    			<td class="orderDiscountTd">
+    				<c:out value="${pay.orderDiscount}개"></c:out>
+    			</td>
+    			
+    			<td class="payTotalTd">
+    				<c:out value="${pay.orderTotal}개"></c:out>
     			</td>
     					
-    			<td class="userUpdateTd">	
-    				<a class="updateUser" href="#">정보수정</a>
+    			<td class="payUpdateTd">
+    				<form action=""></form>
+    				<a class="updatePay" href="#">정보수정</a>
     			</td>
 			</tr>
-		</c:if>
 	</c:forEach>
 </table>
 </c:if>
-	<c:if test="${userList eq null}">
+	<c:if test="${empty paymentList}">
 		<div>
-			<h2>회원 내역이 없습니다!</h2>
+			<h2>결재 내역이 없습니다!</h2>
 		</div>
 	</c:if>
-
+	
 </body>
 </html>
