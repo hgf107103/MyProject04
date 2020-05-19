@@ -48,8 +48,36 @@ public class ShowPaymentServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			if (request.getSession().getAttribute("mylogin") != null) {
+				UserVO uv = (UserVO)request.getSession().getAttribute("mylogin");
+				System.out.println("uv 값 : " + uv.getId());
+				if(!uv.getId().equals("admin")) {
+					response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullPointException");
+					return;
+				}
+			} else {
+				response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullPointException");
+				return;
+			}
+			
+			System.out.println("정렬 : " + request.getParameter("listSortOrderBy"));
+			System.out.println("필드 : " + request.getParameter("listSort"));
+			
+			MasterDAO md = MasterDAO.getInstance();
+			ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"));
+			
+			request.setAttribute("selectName", request.getParameter("listSort"));
+			request.setAttribute("selectSort", request.getParameter("listSortOrderBy"));
+			request.setAttribute("paymentList", list);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/PaymentHistoryPage.jsp");
+			rd.forward(request, response);	
+			
+		} catch (Exception e) {
+			System.out.println("paymentServlet ERROR : " + e);
+			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullpointException");
+		}
 	}
 
 }

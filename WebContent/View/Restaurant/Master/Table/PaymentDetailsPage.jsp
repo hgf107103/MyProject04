@@ -9,20 +9,55 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	body {
+		text-align: right;
 		width: 700px;
 	}
 	h1 {
+		margin: auto;
 		text-align: center;
-		width: 250px;
+		width: 300px;
 		cursor: default;
 		margin: 20px auto;
+	}
+	h1 span {
 		font-weight: normal;
 		font-size: 40px;
 		font-family: "Black Han Sans";
+		transition: all ease 1.5s 0s;
+	}
+	span.headTitle:hover {
+		color: rgb(20, 170, 120);
+		transition: all ease 2s 0s;
+	}
+	span.payNumber:hover {
+		color: rgb(100,100,100);
 		transition: all ease 1s 0s;
 	}
-	h1:hover {
-		color: rgb(50, 200, 150);
+	
+	h3 {
+		cursor: default;
+		width: 400px;
+		border-radius: 30px;
+		margin: auto;
+		margin-bottom: 30px;
+		font-family: "Gamja Flower";
+		text-align: center;
+		font-size: 30px;
+		background-color: black;
+		color: white;
+		padding: 10px;
+		transition: all ease 1s 0s;
+	}
+	h3 span {
+		color: black;
+		transition: all ease 3s 0s;
+	}
+	h3:hover {
+		box-shadow: 0 0 0 5px rgba(100,100,100, 0.4);
+		transition: all ease 1s 0s;
+	}
+	h3:hover > span {
+		color: white;
 		transition: all ease 1s 0s;
 	}
 	table {
@@ -62,19 +97,19 @@
 		border-collapse: collapse;
 		transition: all ease 1.5s 0s;
 	}
-	table tr:hover > td.payDateTd {
+	table tr:hover > td.menuNameTd {
 		color: rgb(40,168,40);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.payNumberTd {
+	table tr:hover > td.menuCostTd {
 		color: rgb(255,100,100);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.tableNumberTd {
+	table tr:hover > td.orderCountTd {
 		color: rgb(100, 100, 255);
 		transition: all ease 0.5s 0s;
 	}
-	table tr:hover > td.customersNameTd {
+	table tr:hover > td.orderDiscountTd {
 		color: rgb(168,40,168);
 		transition: all ease 0.5s 0s;
 	}
@@ -82,30 +117,9 @@
 		color: rgb(100,150,200);
 		transition: all ease 0.5s 0s;
 	}
-	td a.updatePay {
-		cursor: pointer;
-		font-family: "Gamja Flower";
-		font-weight: bold;
-		font-size: 20px;
-		background: none;
-		border: none;
-		color: black;
-		text-decoration: none;
-		transition: all ease 1s 0s;
-	}
-	table tr:hover > td a.updatePay {
-		color: red;
-		transition: all ease 0.5s 0s;
-	}
-	td a.updatePay:hover {
-		font-size: 23px;
-		transition: all ease 0.5s 0s;
-	}
-	td a.updatePay:visited {
-		text-decoration: none;
-	}
 	div {
 		margin-top: 150px;
+		text-align: center;
 	}
 	div h2{
 		cursor:default;
@@ -117,31 +131,51 @@
 		color: red;
 		transition: all ease 0.5s 0s;
 	}
+	#backButton {
+		display: inline-block;
+		margin-top: 20px;
+		margin: auto;
+		padding: 5px 20px;
+		background-color: white;
+		font-size: 23px;
+		font-weight: bold;
+		cursor: pointer;
+		border-radius: 25px;
+		font-family: "Gamja Flower";
+		color: white;
+		border: 1px solid rgb(50,200,150);
+		transition: all ease 1.5s 0s;
+	}
+	#backButton:hover {
+		color: black;
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.25);
+		transition: all ease 1s 0s;
+	}
+	#backButton:focus {
+		outline: none;
+	}
 </style>
 </head>
 <body>
-<h1>가게 결제 내역</h1>
-<c:if test="${not empty paymentList}">
+<input id="backButton" type="button" onclick="history.go(-1)" value="뒤로가기">
+<h1><span class="headTitle">결제번호</span><br><span class="payNumber"><c:out value="${payHistory.payNumber}"></c:out></span></h1>
+<h3>총 합계 금액 : <span><c:out value="${payHistory.payTotal}"></c:out></span> 원</h3>
+<c:if test="${not empty payDetailList}">
 <table>
 	<tr>
-		<th>주문번호</th>
 		<th>메뉴이름</th>
-		<th>가격</th>
+		<th>가격(1개)</th>
 		<th>주문개수</th>
 		<th>할인개수</th>
-		<th>총합</th>
+		<th>주문 가격 합계</th>
 	</tr>
 	<c:forEach items="${payDetailList}" var="pay" varStatus="status">
-			<tr>
-    			<td class="payDateTd">
-    				<c:out value="${pay.payNumber}"></c:out>
-    			</td>
-    					
-    			<td class="payNumberTd">
+			<tr>		
+    			<td class="menuNameTd">
     				<c:out value="${pay.menuName}"></c:out>
     			</td>
     					
-    			<td class="tableNumberTd">
+    			<td class="menuCostTd">
     				<c:out value="${pay.menuCost}원"></c:out>
     			</td>
     					
@@ -156,16 +190,11 @@
     			<td class="payTotalTd">
     				<c:out value="${pay.orderTotal}개"></c:out>
     			</td>
-    					
-    			<td class="payUpdateTd">
-    				<form action=""></form>
-    				<a class="updatePay" href="#">정보수정</a>
-    			</td>
 			</tr>
 	</c:forEach>
 </table>
 </c:if>
-	<c:if test="${empty paymentList}">
+	<c:if test="${empty payDetailList}">
 		<div>
 			<h2>결재 내역이 없습니다!</h2>
 		</div>

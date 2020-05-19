@@ -1,7 +1,9 @@
 package Controller.RestaurantController.MasterController.TableController;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Model.RestaurantModel.MasterDAO;
+import Model.RestaurantModel.paymentDetailVO;
 import Model.RestaurantModel.paymentHistoryVO;
 import Model.UserModel.UserVO;
 
@@ -38,11 +41,18 @@ public class PaymentDetailServlet extends HttpServlet {
 			
 			
 			MasterDAO md = MasterDAO.getInstance();
-			ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory("t1.payNumber", "ASC");
+			ArrayList<paymentDetailVO> list = md.showPaymentDetail(request.getParameter("payNumber"));
 			
-			request.setAttribute("paymentList", list);
+			SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+			Date payDetailDate = fm.parse(request.getParameter("payDate"));
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/PaymentHistoryPage.jsp");
+			paymentHistoryVO pv = new paymentHistoryVO(payDetailDate, Integer.parseInt(request.getParameter("payNumber")), Integer.parseInt(request.getParameter("tableNumber")), request.getParameter("customersName"), request.getParameter("customersId"));
+			pv.setPayTotal(Integer.parseInt(request.getParameter("payTotal")));
+			
+			request.setAttribute("payHistory", pv);
+			request.setAttribute("payDetailList", list);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/PaymentDetailsPage.jsp");
 			rd.forward(request, response);	
 			
 		} catch (Exception e) {

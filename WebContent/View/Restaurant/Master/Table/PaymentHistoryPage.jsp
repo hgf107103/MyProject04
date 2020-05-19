@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	body {
+		text-align: center;
 		width: 700px;
 	}
 	h1 {
@@ -28,6 +29,7 @@
 	table {
 		width: 100%;
 		margin: auto;
+		margin-top: 20px;
 		border-collapse: collapse;
 	}
 	
@@ -106,6 +108,7 @@
 	}
 	div {
 		margin-top: 150px;
+		text-align: center;
 	}
 	div h2{
 		cursor:default;
@@ -117,15 +120,117 @@
 		color: red;
 		transition: all ease 0.5s 0s;
 	}
+	select {
+		border-radius: 0px;
+		
+		width: 30%;
+		padding: 5px;
+		cursor: pointer;
+		text-align: right;
+		font-family: "Gamja Flower";
+		font-size: 23px;
+		font-weight: bold;
+		border: 1px solid black;
+		background-color: white;
+		color: black;
+		transition: all ease 1s 0s;
+		margin: 10px 10px;
+	}
+	select:hover {
+		border-radius: 25px;
+		transition: all ease 1s 0s;
+	}
+	select:focus {
+		outline: none;
+		border-radius: 25px;
+		border: 1px solid rgb(50,200,150);
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
+		transition: all ease 1s 0s;
+	}
+	option {
+		font-family: "Gamja Flower";
+		font-size: 20px;
+		font-weight: bold;
+		background-color: white;
+		color: black;
+	}
+	option:checked {
+		color: red;
+	}
 </style>
+<script type="text/javascript" src="/View/Restaurant/Master/Table/JS/PaymentShowControllerScript.js"></script>
 </head>
 <body>
 <h1>가게 결제 내역</h1>
 <c:if test="${not empty paymentList}">
+<form action="/Restaurant/Master/Table/ShowPayment" method="post">
+    	<select id="listSort" name="listSort" onchange="form.submit()">
+    		<c:choose>
+    		<c:when test="${selectName eq 'payDate'}">
+    			<option value="payDate" selected="selected">날짜</option>
+    			<option value="t1.payNumber">결제번호</option>
+    			<option value="tableNumber">테이블번호</option>
+    			<option value="customersName">고객이름</option>
+    			<option value="payTotal">합계</option>
+    		</c:when>
+    		<c:when test="${selectName eq 't1.payNumber'}">
+    		    <option value="payDate">날짜</option>
+    			<option value="t1.payNumber" selected="selected">결제번호</option>
+    			<option value="tableNumber">테이블번호</option>
+    			<option value="customersName">고객이름</option>
+    			<option value="payTotal">합계</option>
+    		</c:when>
+    		<c:when test="${selectName eq 'tableNumber'}">
+    		    <option value="payDate">날짜</option>
+    			<option value="t1.payNumber">결제번호</option>
+    			<option value="tableNumber" selected="selected">테이블번호</option>
+    			<option value="customersName">고객이름</option>
+    			<option value="payTotal">합계</option>
+    		</c:when>
+    		<c:when test="${selectName eq 'customersName'}">
+    		    <option value="payDate">날짜</option>
+    			<option value="t1.payNumber">결제번호</option>
+    			<option value="tableNumber">테이블번호</option>
+    			<option value="customersName" selected="selected">고객이름</option>
+    			<option value="payTotal">합계</option>
+    		</c:when>
+    		<c:when test="${selectName eq 'payTotal'}">
+    		    <option value="payDate">날짜</option>
+    			<option value="t1.payNumber">결제번호</option>
+    			<option value="tableNumber">테이블번호</option>
+    			<option value="customersName">고객이름</option>
+    			<option value="payTotal" selected="selected">합계</option>
+    		</c:when>
+    		<c:otherwise>
+    			<option value="payDate">날짜</option>
+    			<option value="t1.payNumber">결제번호</option>
+    			<option value="tableNumber">테이블번호</option>
+    			<option value="customersName">고객이름</option>
+    			<option value="payTotal">합계</option>
+    		</c:otherwise>
+    		</c:choose>
+		</select>
+		<select id="listSortOrderBy" name="listSortOrderBy" onchange="form.submit()">
+			<c:choose>
+    			<c:when test="${selectSort eq 'ASC'}">
+    				<option value="ASC" selected="selected">오름차순</option>
+    				<option value="DESC">내림차순</option>
+    			</c:when>
+    			<c:when test="${selectSort eq 'DESC'}">
+    				<option value="ASC">오름차순</option>
+    				<option value="DESC" selected="selected">내림차순</option>
+    			</c:when>
+    			<c:otherwise>
+    				<option value="ASC">오름차순</option>
+    				<option value="DESC">내림차순</option>
+    			</c:otherwise>
+    		</c:choose>
+		</select>
+</form>
 <table>
 	<tr>
 		<th>날짜</th>
-		<th>주문번호</th>
+		<th>결제번호</th>
 		<th>테이블</th>
 		<th>이름</th>
 		<th>합계</th>
@@ -154,8 +259,14 @@
     			</td>
     					
     			<td class="payUpdateTd">
-    				<form action=""></form>
-    				<a class="updatePay" href="#">정보수정</a>
+    				<form action="/Restaurant/Master/Table/PaymentDetail" style="display: none;" method="get" id="detail${pay.payNumber}">
+    					<input type="hidden" value="${pay.payDate}" name="payDate">
+    					<input type="hidden" value="${pay.payNumber}" name="payNumber">
+    					<input type="hidden" value="${pay.tableNumber}" name="tableNumber">
+    					<input type="hidden" value="${pay.customersName}" name="customersName">
+    					<input type="hidden" value="${pay.payTotal}" name="payTotal">
+    				</form>
+    				<a class="updatePay" href="#" onclick="paymentDetailShow('${pay.payNumber}')">상세보기</a>
     			</td>
 			</tr>
 	</c:forEach>

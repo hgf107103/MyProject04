@@ -624,8 +624,8 @@ public class MasterDAO {
 		}
     }
     
-    public ArrayList<paymentDetailVO> showPaymentDetail (int myPayNumber) {
-try {
+    public ArrayList<paymentDetailVO> showPaymentDetail (String myPayNumber) {
+    	try {
     		
     		ArrayList<paymentDetailVO> list = new ArrayList<paymentDetailVO>();
     		
@@ -652,13 +652,17 @@ try {
             	int orderDiscount = rs.getInt("orderDiscount");
             	int orderTotal = rs.getInt("orderTotal");
             	list.add(new paymentDetailVO(payNumber, menuName, menuCost, orderCount, orderDiscount, orderTotal));
+            	System.out.println(payNumber);
+            	System.out.println(menuName);
+            	System.out.println(menuCost);
+            	System.out.println(orderCount);
+            	System.out.println(orderDiscount);
 			}
+            
             System.out.println("paymentDetailVO 객체 생성됨");
             
             cutConnect();
             return list;
-			
-            
             
 		} catch (Exception e) {
 			System.out.println("결제내역 상세보기 DAO 오류 발생 : " + e);
