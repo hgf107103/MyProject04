@@ -181,6 +181,7 @@
 
 <h1>메뉴 전체보기</h1>
 <form action="/Restaurant/Master/Menu/ShowMenu" method="post">
+	<input type="hidden" name="pageNumber" value="${param.pageNumber}">
     	<select id="listSort" name="listSort" onchange="form.submit()">
     		<c:choose>
     		<c:when test="${selectName eq 'menuNumber'}">

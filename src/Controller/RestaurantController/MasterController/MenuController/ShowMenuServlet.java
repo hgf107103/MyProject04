@@ -51,12 +51,16 @@ public class ShowMenuServlet extends HttpServlet {
 			request.setAttribute("selectName", request.getParameter("listSort"));
 			request.setAttribute("selectSort", request.getParameter("listSortOrderBy"));
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/ShowMenuPage.jsp");
+			System.out.println("리퀘스트 셋 에트리뷰트 끝 : " + request.getParameter("listSort"));
+			System.out.println("리퀘스트 셋 에트리뷰트 끝 : " + request.getParameter("listSortOrderBy"));
+			System.out.println("리퀘스트 셋 에트리뷰트 끝 : " + request.getParameter("pageNumber"));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Menu/ShowMenuPage.jsp?pageNumber=" + request.getParameter("pageNumber"));
 			rd.forward(request, response);
 			
 		} catch (Exception e) {
 			System.out.println("doGet ShowMenu오류");
-			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
+			//response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 

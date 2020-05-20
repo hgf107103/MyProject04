@@ -15,7 +15,6 @@
 	h1 {
 		margin: auto;
 		text-align: center;
-		width: 300px;
 		cursor: default;
 		margin: 20px auto;
 	}
@@ -158,7 +157,7 @@
 </head>
 <body>
 <input id="backButton" type="button" onclick="history.go(-1)" value="뒤로가기">
-<h1><span class="headTitle">결제번호</span><br><span class="payNumber"><c:out value="${payHistory.payNumber}"></c:out></span></h1>
+<h1><span class="payNumber"><c:out value="${payHistory.customersName}"></c:out>고객님</span><br><span class="headTitle">결제번호</span> <span class="payNumber"><c:out value="${payHistory.payNumber}"></c:out></span></h1>
 <h3>총 합계 금액 : <span><c:out value="${payHistory.payTotal}"></c:out></span> 원</h3>
 <c:if test="${not empty payDetailList}">
 <table>

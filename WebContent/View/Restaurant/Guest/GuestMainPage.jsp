@@ -62,7 +62,7 @@
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
 
 <div>
-	<h1>레스토랑 : 게스트</h1>
+	<h1>테이블 번호 : ${nowTable.tableNumber}<br>${nowLoginVO.name} 고객님</h1>
 	<button onclick="alert('미구현')">메뉴 주문</button>
 	<button onclick="alert('미구현')">주문 내역</button>
 </div>
