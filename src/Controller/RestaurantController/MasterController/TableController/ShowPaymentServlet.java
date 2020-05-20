@@ -1,7 +1,11 @@
 package Controller.RestaurantController.MasterController.TableController;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,9 +38,13 @@ public class ShowPaymentServlet extends HttpServlet {
 			
 			
 			MasterDAO md = MasterDAO.getInstance();
-			ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory("t1.payNumber", "ASC");
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	        Date date = new Date();
+			
+			ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory("t1.payNumber", "ASC", df.format(date));
 			
 			request.setAttribute("paymentList", list);
+			request.setAttribute("todayDate", df.format(date));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/PaymentHistoryPage.jsp");
 			rd.forward(request, response);	
@@ -63,13 +71,21 @@ public class ShowPaymentServlet extends HttpServlet {
 			
 			System.out.println("정렬 : " + request.getParameter("listSortOrderBy"));
 			System.out.println("필드 : " + request.getParameter("listSort"));
+			System.out.println("날짜 : " + request.getParameter("listDay"));
+			
+			Calendar cal = Calendar.getInstance();
+	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	        Date date = new Date();
+	        
+	        
+	        
 			
 			MasterDAO md = MasterDAO.getInstance();
-			ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"));
+			//ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"));
 			
 			request.setAttribute("selectName", request.getParameter("listSort"));
 			request.setAttribute("selectSort", request.getParameter("listSortOrderBy"));
-			request.setAttribute("paymentList", list);
+			//request.setAttribute("paymentList", list);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/PaymentHistoryPage.jsp");
 			rd.forward(request, response);	

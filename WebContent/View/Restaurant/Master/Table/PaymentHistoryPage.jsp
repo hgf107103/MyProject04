@@ -1,3 +1,4 @@
+<%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -122,11 +123,10 @@
 	}
 	select {
 		border-radius: 0px;
-		
 		width: 30%;
 		padding: 5px;
 		cursor: pointer;
-		text-align: right;
+		text-align: center;
 		font-family: "Gamja Flower";
 		font-size: 23px;
 		font-weight: bold;
@@ -135,6 +135,10 @@
 		color: black;
 		transition: all ease 1s 0s;
 		margin: 10px 10px;
+	}
+	select#listDay {
+		width: 50%;
+		transition: all ease 1s 0s;
 	}
 	select:hover {
 		border-radius: 25px;
@@ -226,6 +230,54 @@
     			</c:otherwise>
     		</c:choose>
 		</select>
+		<br>
+		<select id="listDay" name="listDay" onchange="form.submit()">
+    		<c:choose>
+    		<c:when test="${selectDay eq 'dateAll'}">
+    			<option value="dateAll" selected="selected">전체기간</option>
+    			<option value="dateToday">오늘</option>
+    			<option value="dateWeek">일주일 이내</option>
+    			<option value="dateMonth">한달 이내</option>
+    			<option value="dateYear">일년 이내</option>
+    		</c:when>
+    		<c:when test="${selectDay eq 'dateToday'}">
+    		    <option value="dateAll">전체기간</option>
+    			<option value="dateToday" selected="selected">오늘</option>
+    			<option value="dateWeek">일주일 이내</option>
+    			<option value="dateMonth">한달 이내</option>
+    			<option value="dateYear">일년 이내</option>
+    		</c:when>
+    		<c:when test="${selectDay eq 'dateWeek'}">
+    		    <option value="dateAll">전체기간</option>
+    			<option value="dateToday">오늘</option>
+    			<option value="dateWeek" selected="selected">일주일 이내</option>
+    			<option value="dateMonth">한달 이내</option>
+    			<option value="dateYear">일년 이내</option>
+    		</c:when>
+    		<c:when test="${selectDay eq 'dateMonth'}">
+    		    <option value="dateAll">전체기간</option>
+    			<option value="dateToday">오늘</option>
+    			<option value="dateWeek">일주일 이내</option>
+    			<option value="dateMonth" selected="selected">한달 이내</option>
+    			<option value="dateYear">일년 이내</option>
+    		</c:when>
+    		<c:when test="${selectDay eq 'dateYear'}">
+    		    <option value="dateAll">전체기간</option>
+    			<option value="dateToday">오늘</option>
+    			<option value="dateWeek">일주일 이내</option>
+    			<option value="dateMonth">한달 이내</option>
+    			<option value="dateYear" selected="selected">일년 이내</option>
+    		</c:when>
+    		<c:otherwise>
+    			<option value="dateAll">전체기간</option>
+    			<option value="dateToday">오늘</option>
+    			<option value="dateWeek">일주일 이내</option>
+    			<option value="dateMonth">한달 이내</option>
+    			<option value="dateYear">일년 이내</option>
+    		</c:otherwise>
+    		</c:choose>
+		</select>
+		<!-- 위 셀렉트는 날자 기준을 더 잡는 -->
 </form>
 <table>
 	<tr>

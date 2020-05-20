@@ -572,12 +572,12 @@ public class MasterDAO {
 		}
     }
     
-    public ArrayList<paymentHistoryVO> showAllPaymentHistory(String order, String orderSet){
+    public ArrayList<paymentHistoryVO> showAllPaymentHistory(String order, String orderSet, String orderDate){
     	try {
     		
     		ArrayList<paymentHistoryVO> list = new ArrayList<paymentHistoryVO>();
     		
-    		String sql = "SELECT * FROM paymentHistory AS t1 LEFT JOIN (SELECT payNumber, SUM((orderCount - orderDiscount) * menuCost) AS payTotal FROM paymentDetails GROUP BY payNumber) AS t2 ON t1.payNumber = t2.payNumber ORDER BY " + order + " " + orderSet + ", HistoryNumber ASC";
+    		String sql = "SELECT * FROM paymentHistory AS t1 LEFT JOIN (SELECT payNumber, SUM((orderCount - orderDiscount) * menuCost) AS payTotal FROM paymentDetails GROUP BY payNumber) AS t2 ON t1.payNumber = t2.payNumber WHERE payDate <= '" + orderDate + "' ORDER BY " + order + " " + orderSet + ", HistoryNumber ASC";
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
