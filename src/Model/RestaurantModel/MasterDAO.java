@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MasterDAO {
@@ -572,12 +575,12 @@ public class MasterDAO {
 		}
     }
     
-    public ArrayList<paymentHistoryVO> showAllPaymentHistory(String order, String orderSet, String orderDate){
+    public ArrayList<paymentHistoryVO> showAllPaymentHistory(String order, String orderSet){
     	try {
     		
     		ArrayList<paymentHistoryVO> list = new ArrayList<paymentHistoryVO>();
     		
-    		String sql = "SELECT * FROM paymentHistory AS t1 LEFT JOIN (SELECT payNumber, SUM((orderCount - orderDiscount) * menuCost) AS payTotal FROM paymentDetails GROUP BY payNumber) AS t2 ON t1.payNumber = t2.payNumber WHERE payDate <= '" + orderDate + "' ORDER BY " + order + " " + orderSet + ", HistoryNumber ASC";
+    		String sql = "SELECT * FROM paymentHistory AS t1 LEFT JOIN (SELECT payNumber, SUM((orderCount - orderDiscount) * menuCost) AS payTotal FROM paymentDetails GROUP BY payNumber) AS t2 ON t1.payNumber = t2.payNumber ORDER BY " + order + " " + orderSet + ", HistoryNumber ASC";
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -599,12 +602,55 @@ public class MasterDAO {
             	String customersName = rs.getString("customersName");
             	String customersId = rs.getString("customersId");
             	int payTotal = rs.getInt("payTotal");
-            	System.out.println(payDate);
-            	System.out.println(payNumber);
-            	System.out.println(tableNumber);
-            	System.out.println(customersName);
-            	System.out.println(customersId);
-            	System.out.println(payTotal);
+            	paymentHistoryVO pvinct = new paymentHistoryVO(payDate, payNumber, tableNumber, customersName, customersId);
+            	pvinct.setPayTotal(payTotal);
+            	list.add(pvinct);
+            	
+			}
+            System.out.println("paymentHistoryVO 객체 생성됨");
+            
+            cutConnect();
+            return list;
+			
+            
+            
+		} catch (Exception e) {
+			System.out.println("결제내역 히스토리 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
+    
+    //일주일치 내역만 리턴
+    public ArrayList<paymentHistoryVO> showSetTimePaymentHistory(String order, String orderSet, String date) {
+    	try {
+	        
+			System.out.println("showWeekPaymentHistory 날짜 : " + date);
+	        
+    		ArrayList<paymentHistoryVO> list = new ArrayList<paymentHistoryVO>();
+    		
+    		String sql = "SELECT * FROM paymentHistory AS t1 LEFT JOIN (SELECT payNumber, SUM((orderCount - orderDiscount) * menuCost) AS payTotal FROM paymentDetails GROUP BY payNumber) AS t2 ON t1.payNumber = t2.payNumber WHERE payDate >= '" + date + "' ORDER BY " + order + " " + orderSet + ", HistoryNumber ASC";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+			
+            while (rs.next()) {
+            	Date payDate = rs.getDate("payDate");
+            	int payNumber = rs.getInt("t1.payNumber");
+            	int tableNumber = rs.getInt("tableNumber");
+            	String customersName = rs.getString("customersName");
+            	String customersId = rs.getString("customersId");
+            	int payTotal = rs.getInt("payTotal");
             	paymentHistoryVO pvinct = new paymentHistoryVO(payDate, payNumber, tableNumber, customersName, customersId);
             	pvinct.setPayTotal(payTotal);
             	list.add(pvinct);

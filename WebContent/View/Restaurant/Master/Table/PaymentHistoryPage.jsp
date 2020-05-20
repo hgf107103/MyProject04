@@ -166,7 +166,7 @@
 </head>
 <body>
 <h1>가게 결제 내역</h1>
-<c:if test="${not empty paymentList}">
+
 <form action="/Restaurant/Master/Table/ShowPayment" method="post">
     	<select id="listSort" name="listSort" onchange="form.submit()">
     		<c:choose>
@@ -216,17 +216,17 @@
 		</select>
 		<select id="listSortOrderBy" name="listSortOrderBy" onchange="form.submit()">
 			<c:choose>
-    			<c:when test="${selectSort eq 'ASC'}">
-    				<option value="ASC" selected="selected">오름차순</option>
-    				<option value="DESC">내림차순</option>
-    			</c:when>
-    			<c:when test="${selectSort eq 'DESC'}">
+			<c:when test="${selectSort eq 'DESC'}">
+					<option value="DESC" selected="selected">내림차순</option>
     				<option value="ASC">오름차순</option>
-    				<option value="DESC" selected="selected">내림차순</option>
+    			</c:when>
+    			<c:when test="${selectSort eq 'ASC'}">
+    				<option value="DESC">내림차순</option>
+    				<option value="ASC" selected="selected">오름차순</option>
     			</c:when>
     			<c:otherwise>
+    			    <option value="DESC">내림차순</option>
     				<option value="ASC">오름차순</option>
-    				<option value="DESC">내림차순</option>
     			</c:otherwise>
     		</c:choose>
 		</select>
@@ -279,6 +279,7 @@
 		</select>
 		<!-- 위 셀렉트는 날자 기준을 더 잡는 -->
 </form>
+<c:if test="${not empty paymentList}">
 <table>
 	<tr>
 		<th>날짜</th>

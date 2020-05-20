@@ -59,8 +59,9 @@ public class DetailTableServlet extends HttpServlet {
 			
 			request.setAttribute("tableNumber", request.getParameter("tableNumber"));
 			request.setAttribute("orderList", list);
+			request.getParameter("pageNumber");
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/TableDetailPage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/TableDetailPage.jsp?pageNumber=" + request.getParameter("pageNumber"));
 			rd.forward(request, response);
 			
 		} catch (Exception e) {

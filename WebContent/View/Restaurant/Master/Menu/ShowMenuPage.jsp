@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -24,8 +25,6 @@
 	}
 	h1:hover {
 		color: rgb(20, 170, 120);
-		font-size: 60px;
-		text-shadow: 6px -6px 2px rgba(20, 170, 120, 0.3);
 		transition: all ease 1s 0s;
 	}
 	table {
@@ -153,6 +152,28 @@
 		color: red;
 		transition: all ease 0.5s 0s;
 	}
+	div {
+		text-align: center;
+		margin-top: 15px;
+		cursor: default;
+		font-family: "Black Han Sans";
+		font-size: 23px;
+	}
+	div span {
+		font-weight: bold;
+	}
+	div a{
+		text-decoration: none;
+		color: black;
+		transition: all ease 0.5s 0s;
+	}
+	div a:hover {
+		color: rgb(20, 170, 120);
+		transition: all ease 0.5s 0s;
+	}
+	div a:visited {
+		text-decoration: none;
+	}
 </style>
 </head>
 <body>
@@ -219,7 +240,7 @@
 		<th>가격</th>
 		<th>처리</th>
 	</tr>
-	<c:forEach items="${menuList}" var="menu">
+	<c:forEach items="${menuList}" var="menu" begin="${((param.pageNumber - 1) * 10)}" end="${((param.pageNumber - 1) * 10) + 9}">
 	<tr>
 		<td class="menuNumberTd"><c:out value="${menu.menuNumber}"></c:out></td>
 		<td class="categoryNameTd"><c:out value="${menu.categoryName}"></c:out></td>
@@ -238,6 +259,31 @@
 		</td>
 	</tr>
 	</c:forEach>
+	
 </table>
+<div>
+	<c:if test="${param.pageNumber > 1}">
+		<a href="/Restaurant/Master/Menu/ShowMenu?pageNumber=${param.pageNumber - 1}">뒤로</a>
+	</c:if>
+	<c:if test="${param.pageNumber > 0}">
+	<c:forEach var="num" begin="${param.pageNumber - ((param.pageNumber - 1) % 10)}" end="${(param.pageNumber - ((param.pageNumber - 1) % 10)) + 9}" varStatus="now">
+		<c:if test="${num <= (fn:length(menuList) / 10)+(1-((fn:length(menuList) / 10)%1))%1}">
+			
+			
+			<c:if test="${num == param.pageNumber}">
+				<span style="color: red;">${num}</span>
+			</c:if>
+			
+			<c:if test="${num != param.pageNumber}">
+				<a href="/Restaurant/Master/Menu/ShowMenu?pageNumber=${num}">${num}</a>
+			</c:if>
+			
+		</c:if>
+	</c:forEach>
+	</c:if>
+	<c:if test="${param.pageNumber < (fn:length(menuList) / 10)+(1-((fn:length(menuList) / 10)%1))%1}">
+				<a href="/Restaurant/Master/Menu/ShowMenu?pageNumber=${param.pageNumber + 1}">앞으로</a>
+	</c:if>
+</div>
 </body>
 </html>

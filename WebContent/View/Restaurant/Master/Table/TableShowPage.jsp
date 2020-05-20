@@ -135,6 +135,28 @@
 	td a.noValue:visited {
 		text-decoration: none;
 	}
+	div {
+		text-align: center;
+		margin-top: 15px;
+		cursor: default;
+		font-family: "Black Han Sans";
+		font-size: 23px;
+	}
+	div span {
+		font-weight: bold;
+	}
+	div a{
+		text-decoration: none;
+		color: black;
+		transition: all ease 0.5s 0s;
+	}
+	div a:hover {
+		color: rgb(20, 170, 120);
+		transition: all ease 0.5s 0s;
+	}
+	div a:visited {
+		text-decoration: none;
+	}
 </style>
 <script type="text/javascript" src="/View/Restaurant/Master/Table/JS/TableAddControllScript.js"></script>
 </head>
@@ -154,7 +176,7 @@
 		<th>계산 합계</th>
 		<th>상세정보</th>
 	</tr>
-	<c:forEach items="${tableList}" var="table">
+	<c:forEach items="${tableList}" var="table" begin="${((param.pageNumber - 1) * 5)}" end="${((param.pageNumber - 1) * 5) + 4}">
 		<tr>
 			
 				<c:choose>
@@ -195,6 +217,7 @@
     							<input type="hidden" name="customersId" value="${table.customersId}">
     							<input type="hidden" name="customersName" value="${table.customersName}">
     							<input type="hidden" name="costTotal" value="${table.tableNumber}">
+    							<input type="hidden" name="pageNumber" value="1">
     						</form>
     						<a class="showDetailLink" href="#" onclick="showDetailTableOrder('${table.tableNumber}')">보기</a>
     					</td>
@@ -204,5 +227,29 @@
 		</tr>
 	</c:forEach>
 </table>
+<div>
+	<c:if test="${param.pageNumber > 1}">
+		<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${param.pageNumber - 1}">뒤로</a>
+	</c:if>
+	<c:if test="${param.pageNumber > 0}">
+	<c:forEach var="num" begin="${param.pageNumber - ((param.pageNumber - 1) % 5)}" end="${(param.pageNumber - ((param.pageNumber - 1) % 5)) + 4}" varStatus="now">
+		<c:if test="${num <= (fn:length(tableList) / 5)+(1-((fn:length(tableList) / 5)%1))%1}">
+			
+			
+			<c:if test="${num == param.pageNumber}">
+				<span style="color: red;">${num}</span>
+			</c:if>
+			
+			<c:if test="${num != param.pageNumber}">
+				<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${num}">${num}</a>
+			</c:if>
+			
+		</c:if>
+	</c:forEach>
+	</c:if>
+	<c:if test="${param.pageNumber < (fn:length(tableList) / 5)+(1-((fn:length(tableList) / 5)%1))%1}">
+				<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${param.pageNumber + 1}">앞으로</a>
+	</c:if>
+</div>
 </body>
 </html>

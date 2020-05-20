@@ -7,9 +7,9 @@ function TableShowPopUp(myid) {
 			
 			if(check) {
 				
-				let url = "/Restaurant/Master/Table/ShowTable";
+				let url = "/Restaurant/Master/Table/ShowTable?pageNumber=1";
 			    let name = "Table Show";
-			    let option = "width = 680, height = 700, top = 100, left = 200, location = no, scrollbars = yes, re";
+			    let option = "width = 665, height = 475, top = 100, left = 200, location = no, scrollbars = yes, re";
 			    
 			    window.open(url, name, option);
 			} else {

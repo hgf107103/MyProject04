@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -129,26 +130,49 @@
 	#backButton:focus {
 		outline: none;
 	}
-	div {
-		margin-top: 150px;
+	div#notListDiv {
+		margin-top: 130px;
 	}
-	div h2{
+	div#notListDiv h2{
 		cursor:default;
 		font-size: 35px;
 		font-family: "Gamja Flower";
 		transition: all ease 1s 0s;
 	}
-	div h2:hover {
+	div#notListDiv h2:hover {
 		color: red;
 		transition: all ease 0.5s 0s;
+	}
+	div#pageNumberDiv {
+		text-align: center;
+		margin-top: 15px;
+		cursor: default;
+		font-family: "Black Han Sans";
+		font-size: 23px;
+	}
+	div#pageNumberDiv span {
+		font-weight: bold;
+	}
+	div#pageNumberDiv a{
+		text-decoration: none;
+		color: black;
+		transition: all ease 0.5s 0s;
+	}
+	div#pageNumberDiv a:hover {
+		color: rgb(20, 170, 120);
+		transition: all ease 0.5s 0s;
+	}
+	div#pageNumberDiv a:visited {
+		text-decoration: none;
 	}
 </style>
 </head>
 <body>
 <input id="backButton" type="button" onclick="history.go(-1)" value="뒤로가기">
 <h1><span>${tableNumber}</span>번 테이블 주문 상세 내역</h1>
-<table>
+
 <c:if test="${not empty orderList}">
+	<table>
 	<tr>
 		<th>번호</th>
 		<th>메뉴이름</th>
@@ -158,7 +182,7 @@
 		<th>총 합계</th>
 		<th>주문수정</th>
 	</tr>
-	<c:forEach items="${orderList}" var="order" varStatus="status">
+	<c:forEach items="${orderList}" var="order" begin="${((param.pageNumber - 1) * 5)}" end="${((param.pageNumber - 1) * 5) + 4}" varStatus="status">
 		<tr>
     		<td class="orderNumberTd">
     			<c:out value="${status.index + 1}"></c:out>
@@ -189,12 +213,37 @@
     		</td>	
 		</tr>
 	</c:forEach>
+	</table>
 </c:if>
 	<c:if test="${orderList eq null}">
-		<div>
+		<div id="notListDiv">
 			<h2>주문 내역이 없습니다!</h2>
 		</div>
 	</c:if>
-</table>
+
+<div id="pageNumberDiv">
+	<c:if test="${param.pageNumber > 1}">
+		<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${param.pageNumber - 1}">뒤로</a>
+	</c:if>
+	<c:if test="${param.pageNumber > 0}">
+	<c:forEach var="num" begin="${param.pageNumber - ((param.pageNumber - 1) % 5)}" end="${(param.pageNumber - ((param.pageNumber - 1) % 5)) + 4}" varStatus="now">
+		<c:if test="${num <= (fn:length(orderList) / 5)+(1-((fn:length(orderList) / 5)%1))%1}">
+			
+			
+			<c:if test="${num == param.pageNumber}">
+				<span style="color: red;">${num}</span>
+			</c:if>
+			
+			<c:if test="${num != param.pageNumber}">
+				<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${num}">${num}</a>
+			</c:if>
+			
+		</c:if>
+	</c:forEach>
+	</c:if>
+	<c:if test="${param.pageNumber < (fn:length(orderList) / 5)+(1-((fn:length(orderList) / 5)%1))%1}">
+				<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${param.pageNumber + 1}">앞으로</a>
+	</c:if>
+</div>
 </body>
 </html>

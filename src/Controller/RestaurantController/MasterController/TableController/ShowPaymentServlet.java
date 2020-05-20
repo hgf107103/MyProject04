@@ -38,13 +38,10 @@ public class ShowPaymentServlet extends HttpServlet {
 			
 			
 			MasterDAO md = MasterDAO.getInstance();
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	        Date date = new Date();
 			
-			ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory("t1.payNumber", "ASC", df.format(date));
+			ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory("t1.payNumber", "DESC");
 			
 			request.setAttribute("paymentList", list);
-			request.setAttribute("todayDate", df.format(date));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/PaymentHistoryPage.jsp");
 			rd.forward(request, response);	
@@ -72,20 +69,50 @@ public class ShowPaymentServlet extends HttpServlet {
 			System.out.println("정렬 : " + request.getParameter("listSortOrderBy"));
 			System.out.println("필드 : " + request.getParameter("listSort"));
 			System.out.println("날짜 : " + request.getParameter("listDay"));
+	        
+			MasterDAO md = MasterDAO.getInstance();
+			ArrayList<paymentHistoryVO> list = null;
 			
 			Calendar cal = Calendar.getInstance();
 	        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	        Date date = new Date();
+	        cal.setTime(date);
+	        System.out.println("ShowPaymentServlet : 날짜 세트");
 	        
-	        
-	        
-			
-			MasterDAO md = MasterDAO.getInstance();
-			//ArrayList<paymentHistoryVO> list = md.showAllPaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"));
+	        switch (request.getParameter("listDay")) {
+				case "dateAll": {
+					list = md.showAllPaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"));
+					break;
+				}
+				case "dateToday": {
+					list = md.showSetTimePaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"), df.format(date));
+					break;
+				}
+				case "dateWeek": {
+					cal.add(Calendar.DAY_OF_WEEK_IN_MONTH, -1);
+					list = md.showSetTimePaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"), df.format(cal.getTime()));
+					break;
+				}
+				case "dateMonth": {
+					cal.add(Calendar.MONTH, -1);
+					list = md.showSetTimePaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"), df.format(cal.getTime()));
+					break;
+				}
+				case "dateYear": {
+					cal.add(Calendar.YEAR, -1);
+					list = md.showSetTimePaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"), df.format(cal.getTime()));
+					break;
+				}
+				default: {
+					list = md.showAllPaymentHistory(request.getParameter("listSort"), request.getParameter("listSortOrderBy"));
+					break;
+				}
+			}
 			
 			request.setAttribute("selectName", request.getParameter("listSort"));
 			request.setAttribute("selectSort", request.getParameter("listSortOrderBy"));
-			//request.setAttribute("paymentList", list);
+			request.setAttribute("selectDay", request.getParameter("listDay"));
+			request.setAttribute("paymentList", list);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/PaymentHistoryPage.jsp");
 			rd.forward(request, response);	
