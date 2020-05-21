@@ -1,6 +1,7 @@
 package Controller.RestaurantController.GuestController.TableController;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -24,6 +25,10 @@ public class ShowDisableTableServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
 			HttpSession session = request.getSession();
 			UserVO uv = (UserVO)session.getAttribute("mylogin");
 			
@@ -37,12 +42,48 @@ public class ShowDisableTableServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			System.out.println("DisableTable : ERROR - " + e);
+			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
+			HttpSession session = request.getSession();
+			UserVO uv = (UserVO)session.getAttribute("mylogin");
+			
+			System.out.println("SELECT TABLE SERVLET : START");
+			System.out.println(request.getParameter("selectTableNumber"));
+			System.out.println(uv.getId());
+			
+			GuestDAO gd = GuestDAO.getInstance();
+			boolean check = gd.checkTable(uv.getId());
+			
+			if (check) {
+				
+				boolean selectTableCheck = gd.selectTable(uv, request.getParameter("selectTableNumber"));
+				
+				if (selectTableCheck) {
+					PrintWriter out = response.getWriter();
+					out.print("<head></head><body><script>alert('착석 성공했습니다.'); self.close(); window.opener.location.href='/Restaurant/Guest';</script></body>");
+				}else {
+					PrintWriter out = response.getWriter();
+					out.print("<head></head><body><script>alert('착석실패했습니다.'); history.go(-1);</script></body>");
+				}
+				
+				
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("<head></head><body><script>alert('이미 착석해 있는 아이디 입니다.'); history.go(-1);</script></body>");
+			}
+			
+		} catch (Exception e) {
+			System.out.println("DisableTable : ERROR - " + e);
+			response.sendRedirect("/View/JspError.jsp?nowErrorMessage=" + e);
+		}
 	}
 
 }

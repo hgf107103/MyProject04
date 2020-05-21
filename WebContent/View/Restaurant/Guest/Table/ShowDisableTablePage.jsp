@@ -85,6 +85,7 @@
 		text-decoration: none;
 	}
 </style>
+<script type="text/javascript" src="/View/Restaurant/Guest/Table/JS/SelectTableScript.js"></script>
 </head>
 <body>
 <h1>테이블 선택</h1>
@@ -95,7 +96,10 @@
 	</c:if>
 	<c:if test="${table.customersId eq null}">
 		<td>
-			<button class="disableTable">
+			<form action="/Restaurant/Guest/DisableTable" id="selectTableForm${table.tableNumber}" method="post" style="display: none;">
+				<input type="hidden" name="selectTableNumber" value="${table.tableNumber}">
+			</form>
+			<button class="disableTable" onclick="SelectDisableTable('${table.tableNumber}')">
 				<span>${table.tableNumber}번 테이블</span><br>
 				비어있음
 			</button>
@@ -104,7 +108,7 @@
 	
 	<c:if test="${table.customersId ne null}">
 		<td>
-			<button class="EnableTable" disabled="disabled">
+			<button class="EnableTable" disabled="disabled" onclick="alert('누군가 사용중인 테이블은 선택 할 수 없습니다.')">
 				<span>${table.tableNumber}번 테이블</span><br>
 				${table.customersName}님<br>사용중
 			</button>

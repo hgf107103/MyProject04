@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import Model.UserModel.UserVO;
+
 public class GuestDAO {
 	
 	private Connection conn = null;
@@ -97,6 +99,68 @@ public class GuestDAO {
 			return null;
 		}
     }
+    
+    public boolean selectTable(UserVO uv, String tableNumber) {
+    	try {
+			String sql = "UPDATE mytable SET customersId = '" + uv.getId() + "', customersName = '" + uv.getName() + "' WHERE tableNumber = " + tableNumber;
+			System.out.println(sql);
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            pstmt = conn.prepareStatement(sql);
+            pstmt.execute();
+            System.out.println("테이블 착석 DAO 완료 : " + tableNumber + " " + uv.getId());
+            
+			cutConnect();
+			return true;
+			
+    	} catch (Exception e) {
+    		System.out.println("테이블 착석 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public boolean checkTable(String id) {
+    	try {
+    		String sql = "SELECT * FROM mytable WHERE customersId = '" + id + "' LIMIT 1";
+    		System.out.println(sql);
+    		
+    		boolean check = true;
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+            	check = false;
+			}
+            
+            System.out.println("테이블 착석 체크 DAO 완료 : " + check);
+			cutConnect();
+			
+			return check;
+			
+		} catch (Exception e) {
+			System.out.println("테이블 착석 체크 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public boolean checkNowOrder(String tableNumber) {
+    	
+    }
 	
 	private void DBAutoIncrementSort() {
 		try {
@@ -109,24 +173,10 @@ public class GuestDAO {
             
 			System.out.println("mysql : 데이터베이스 오토 인크리먼트 재갱신 시작");
 			
-			String sql1 = "ALTER TABLE menu AUTO_INCREMENT=1";
+			String sql1 = "ALTER TABLE mytable AUTO_INCREMENT=1";
 			String sql2 = "SET @COUNT = 0";
-			String sql3 = "UPDATE menu SET menuNumber = @COUNT:=@COUNT+1";
-			String sql4 = "ALTER TABLE menu AUTO_INCREMENT=@COUNT:=@COUNT+1";
-			PreparedStatement pstmt = conn.prepareStatement(sql1);
-			pstmt.executeUpdate();
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.executeUpdate();
-			pstmt = conn.prepareStatement(sql3);
-			pstmt.executeUpdate();
-			System.out.println("mysql : 메뉴 데이터베이스 오토 인크리먼트 재갱신 완료");
-			
-			
-			
-			sql1 = "ALTER TABLE mytable AUTO_INCREMENT=1";
-			sql2 = "SET @COUNT = 0";
-			sql3 = "UPDATE mytable SET tableNumber = @COUNT:=@COUNT+1";
-			sql4 = "ALTER TABLE mytable AUTO_INCREMENT=7";
+			String sql3 = "UPDATE mytable SET tableNumber = @COUNT:=@COUNT+1";
+			String sql4 = "ALTER TABLE mytable AUTO_INCREMENT=7";
 			pstmt = conn.prepareStatement(sql1);
 			pstmt.executeUpdate();
 			pstmt = conn.prepareStatement(sql2);
