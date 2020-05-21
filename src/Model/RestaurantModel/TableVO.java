@@ -9,6 +9,11 @@ public class TableVO {
 	private int costTotal;
 	
 	
+	public TableVO(int tableNumber, String customersId, String customersName) {
+		this.tableNumber = tableNumber;
+		this.customersId = customersId;
+		this.customersName = customersName;
+	}
 	
 	private TableVO(int tableNumber, String customersId, String customersName, int costTotal) {
 		this.tableNumber = tableNumber;

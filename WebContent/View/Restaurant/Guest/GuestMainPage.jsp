@@ -65,6 +65,8 @@
 	<h1>테이블 번호 : ${nowTable.tableNumber}<br>${nowLoginVO.name} 고객님</h1>
 	<button onclick="alert('미구현')">메뉴 주문</button>
 	<button onclick="alert('미구현')">주문 내역</button>
+	<br>
+	<button onclick="alert('미구현')">결제하고 떠나기</button>
 </div>
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 

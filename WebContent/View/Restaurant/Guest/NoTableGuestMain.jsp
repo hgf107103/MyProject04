@@ -57,14 +57,38 @@
 		outline: none;
 	}
 </style>
+<script type="text/javascript">
+	function exitGuest() {
+		let check = confirm("퇴장 하시겠습니까?");
+		
+		if(check) {
+			let checkTwo = confirm("로그아웃 하시겠습니까?");
+			
+			if (checkTwo) {
+				alert("로그아웃 되었습니다.");
+				location.href="/Logout";
+			} else {
+				alert("메인화면으로 돌아갑니다.");
+				location.href="/";
+			}
+			
+		} else {
+			alert("퇴장을 취소합니다.");
+			return false;
+		}
+	}
+</script>
+<script type="text/javascript" src="/View/Restaurant/Guest/JS/GuestPopUpControllScript.js"></script>
 </head>
 <body>
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
 
 <div>
 	<h1>${nowLoginVO.id}<br>${nowLoginVO.name} 고객님<br>현재 선택된 자리 없음</h1>
-	<button onclick="alert('미구현')">자리 선택</button>
+	<button onclick="EnableTableShowPopUp('${nowLoginVO.name}')">자리 선택</button>
+	<button onclick="exitGuest()">퇴장</button>
 </div>
+
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 
 </body>

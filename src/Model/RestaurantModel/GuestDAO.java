@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class GuestDAO {
 	
@@ -50,10 +51,48 @@ public class GuestDAO {
 				tv = TableVO.getInstance(tableNumber, customersId, customersName, costTotal);
 			}
             
+			cutConnect();
             return tv;
             
 		} catch (Exception e) {
 			System.out.println("게스트 테이블 불러오기 DAO 오류 발생");
+			cutConnect();
+			return null;
+		}
+    }
+    
+    public ArrayList<TableVO> getDisableTableList() {
+    	try {
+    		ArrayList<TableVO> list = new ArrayList<TableVO>();
+    		
+    		String sql = "SELECT * FROM mytable ORDER BY tableNumber ASC";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+            	int tableNumber = rs.getInt("tableNumber");
+            	String customersId = rs.getString("customersId");
+            	String customersName = rs.getString("customersName");
+            	list.add(new TableVO(tableNumber, customersId, customersName));
+            	System.out.println(tableNumber + " : " + customersId);
+			}
+            
+            System.out.println("전체 테이블 불러오기 DAO 완료");
+			cutConnect();
+            return list;
+            
+		} catch (Exception e) {
+			
+			System.out.println("전체 테이블 불러오기 DAO 오류 발생");
 			cutConnect();
 			return null;
 		}
