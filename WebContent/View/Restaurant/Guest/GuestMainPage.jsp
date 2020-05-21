@@ -57,6 +57,22 @@
 		outline: none;
 	}
 </style>
+<script type="text/javascript">
+	function outTableScript() {
+		try {
+			let form = document.getElementById("tableOutForm");
+			let check = confirm("퇴실하시겠습니까?");
+			
+			if (check) {
+				form.submit();
+			} else {
+				alert("퇴실 취소되었습니다.");
+			}
+		} catch (e) {
+			console.log("SelectDisableTable_ERROR : " + e);
+		}
+	}
+</script>
 </head>
 <body>
 <jsp:include page="/View/JspHeader.jsp"></jsp:include>
@@ -66,7 +82,13 @@
 	<button onclick="alert('미구현')">메뉴 주문</button>
 	<button onclick="alert('미구현')">주문 내역</button>
 	<br>
-	<button onclick="alert('미구현')">결제하고 떠나기</button>
+	<button onclick="alert('미구현')">결제</button>
+	
+	<form action="/Restaurant/Guest/OutTable" method="post" id="tableOutForm" style="display: none;">
+		<input type="hidden" name="tableNumber" value="${nowTable.tableNumber}">
+	</form>
+	
+	<button onclick="outTableScript()">퇴실</button>
 </div>
 <jsp:include page="/View/JspFooter.jsp"></jsp:include>
 

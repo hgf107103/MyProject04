@@ -158,8 +158,62 @@ public class GuestDAO {
 		}
     }
     
+    public boolean tableOut(String tableNumber) {
+    	try {
+			String sql = "UPDATE mytable SET customersId = null, customersName = null WHERE tableNumber = " + tableNumber;
+			System.out.println(sql);
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            pstmt = conn.prepareStatement(sql);
+            pstmt.execute();
+            System.out.println("테이블 퇴실 DAO 완료 : " + tableNumber);
+            
+			cutConnect();
+			return true;
+			
+    	} catch (Exception e) {
+    		System.out.println("테이블 퇴실 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
     public boolean checkNowOrder(String tableNumber) {
-    	
+    	try {
+    		String sql = "SELECT * FROM tableorder WHERE tableNumber = " + tableNumber;
+    		System.out.println(sql);
+    		
+    		boolean check = true;
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+            	check = false;
+			}
+            
+            System.out.println("테이블 퇴실 전 체크 DAO 완료 : " + check);
+			cutConnect();
+			
+			return check;
+			
+		} catch (Exception e) {
+			System.out.println("테이블 퇴실 전 체크 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
     }
 	
 	private void DBAutoIncrementSort() {
