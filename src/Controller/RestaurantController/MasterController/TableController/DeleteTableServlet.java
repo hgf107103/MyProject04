@@ -63,7 +63,7 @@ public class DeleteTableServlet extends HttpServlet {
 			if(check) {
 				
 				PrintWriter out = response.getWriter();
-				out.print("<head></head><body><script>alert('테이블 삭제 성공했습니다.'); location.href = '/Restaurant/Master/Table/ShowTable';</script></body>");
+				out.print("<head></head><body><script>alert('테이블 삭제 성공했습니다.'); location.href = '/Restaurant/Master/Table/ShowTable?pageNumber=1';</script></body>");
 				
 			} else {
 				System.out.println("테이블추가 서블릿 실패");

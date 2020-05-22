@@ -1,10 +1,12 @@
 package Model.RestaurantModel;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Model.UserModel.UserVO;
@@ -17,9 +19,9 @@ public class GuestDAO {
     private ResultSet rs = null;
 
     //private String url="jdbc:mysql://117.17.113.248:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
-    private String url="jdbc:mysql://27.96.134.5:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
-    private String uid="hgf107103";
-    private String upass="Hwt0147258!";
+    private static final String url="jdbc:mysql://27.96.134.5:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    private static final String uid="hgf107103";
+    private static final String upass="Hwt0147258!";
     
     private GuestDAO() {}
     
@@ -211,6 +213,145 @@ public class GuestDAO {
 			
 		} catch (Exception e) {
 			System.out.println("테이블 퇴실 전 체크 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public ArrayList<OrderVO> getTableAllOrder(String myTableNumber) {
+    	try {
+    		System.out.println("getTableAllOrder 시작");
+    		ArrayList<OrderVO> list = new ArrayList<OrderVO>();
+    		
+    		String sql = "SELECT *, (orderCount - orderDiscount)*orderCost AS orderTotal FROM tableorder WHERE tableNumber = " + myTableNumber;
+    		System.out.println(sql);
+    		
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			System.out.println("드라이브 적재됨");
+			
+			conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+    
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+            	int tableNumber = rs.getInt("tableNumber");
+            	String orderName = rs.getString("orderName");
+            	int orderCost = rs.getInt("orderCost");
+            	int orderCount = rs.getInt("orderCount");
+            	int orderDiscount = rs.getInt("orderDiscount");
+            	int orderTotal = rs.getInt("orderTotal");
+            	list.add(new OrderVO(tableNumber, orderName, orderCost, orderCount, orderDiscount, orderTotal));
+			}
+            
+            System.out.println("테이블 오더 리스트 반환 DAO 완료");
+			cutConnect();
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("테이블 오더 리스트 DAO 오류 발생");
+			cutConnect();
+			return null;
+		}
+    }
+    
+    public boolean CompletePayment(String tableNumber) {
+    		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            
+			String sql = "DELETE FROM tableorder WHERE tableNumber = " + tableNumber;
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			boolean check = pstmt.execute();
+	        
+			System.out.println("주문내역 삭제 실행됨 : " + check);
+			
+            System.out.println("주문내역 삭제 DAO 완료");
+            
+			cutConnect();
+			return check;
+		} catch (Exception e) {
+			System.out.println("주문내역 삭제 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    public boolean SaveGuestPaymentHistory(paymentHistoryVO ph) {
+    	try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            
+			String sql = "INSERT INTO paymentHistory (payDate, payNumber, tableNumber, customersName, customersId) VALUES (?,?,?,?,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+			
+			pstmt.setString(1, simple.format(ph.getPayDate()));
+			pstmt.setInt(2, ph.getPayNumber());
+			pstmt.setInt(3, ph.getTableNumber());
+			pstmt.setString(4, ph.getCustomersName());
+			pstmt.setString(5, ph.getCustomersId());
+			
+			boolean check = pstmt.execute();
+	        
+			System.out.println("결제내역 히스토리 저장 실행됨 : " + check);
+			
+            System.out.println("결제내역 히스토리 저장 DAO 완료");
+            
+			cutConnect();
+			return check;
+		} catch (Exception e) {
+			System.out.println("결제내역 히스토리 저장 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public boolean SaveGuestPaymentDetail(ArrayList<paymentDetailVO> list) {
+    	try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            for (paymentDetailVO pv : list) {
+				String sql = "INSERT INTO paymentDetails (payNumber, menuName, menuCost, orderCount, orderDiscount) VALUES (?,?,?,?,?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, pv.getPayNumber());
+				pstmt.setString(2, pv.getMenuName());
+				pstmt.setInt(3, pv.getMenuCost());
+				pstmt.setInt(4, pv.getOrderCount());
+				pstmt.setInt(5, pv.getOrderDiscount());
+				
+	            boolean check = pstmt.execute();
+	            
+	            System.out.println("결제내역 디테일 저장 실행됨 : " + check);
+			}
+            System.out.println("결제내역 디테일 저장 DAO 완료");
+            
+			cutConnect();
+			return true;
+		} catch (Exception e) {
+			System.out.println("결제내역 디테일 저장 DAO 오류 발생");
 			cutConnect();
 			return false;
 		}
