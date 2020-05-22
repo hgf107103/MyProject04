@@ -155,11 +155,23 @@
 		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
 		transition: all ease 1s 0s;
 	}
+	button:focus {
+		outline: none;
+	}
 </style>
 <script type="text/javascript">
 	function completePayment() {
-		let fomr = document.getElementById("CompletePaymentForm");
-		let check = confirm("전체 내역 결제 하시겠습니까?")
+		let form = document.getElementById("CompletePaymentForm");
+		let check = confirm("전체 내역 결제 하시겠습니까?");
+		
+		if (check) {
+			console.log("CompletePayment_LOG : confirm payment");
+			form.submit();
+		} else {
+			console.log("CompletePayment_LOG : denai payment");
+			alert("결제 취소되었습니다.");
+		}
+		
 	}
 </script>
 </head>
@@ -222,7 +234,7 @@
 		<input type="hidden" name="customersId" value="${mylogin.id}">
 		<input type="hidden" name="customersName" value="${mylogin.name}">
 	</form>
-	<button onclick="">전부결제</button>
+	<button onclick="completePayment()">전부결제</button>
 </section>
 </c:if>
 <c:if test="${orderList eq null}">

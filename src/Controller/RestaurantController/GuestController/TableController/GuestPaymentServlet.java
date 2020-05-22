@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import Model.RestaurantModel.GuestDAO;
 import Model.RestaurantModel.OrderVO;
+import Model.UserModel.UserVO;
 
 @WebServlet("/Restaurant/Guest/Payment")
 public class GuestPaymentServlet extends HttpServlet {
@@ -43,8 +44,15 @@ public class GuestPaymentServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			
-			HttpSession session = request.getSession();
+			if (request.getSession().getAttribute("mylogin") != null) {
+				UserVO uv = (UserVO)request.getSession().getAttribute("mylogin");
+				System.out.println("게스트 서블릿 현재 로그인 : " + uv.getId());
+			}
 			
+			
+			System.out.println(request.getParameter("tableNumber"));
+			System.out.println(request.getParameter("customersId"));
+			System.out.println(request.getParameter("customersName"));
 			
 		} catch (Exception e) {
 			System.out.println("CompletePaymentServlet ERROR : " + e);
