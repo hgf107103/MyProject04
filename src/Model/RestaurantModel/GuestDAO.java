@@ -270,21 +270,100 @@ public class GuestDAO {
 			String sql = "DELETE FROM tableorder WHERE tableNumber = " + tableNumber;
 			
 			pstmt = conn.prepareStatement(sql);
-			
-			boolean check = pstmt.execute();
+			pstmt.execute();
 	        
-			System.out.println("주문내역 삭제 실행됨 : " + check);
-			
+			System.out.println("주문내역 삭제 실행됨");
             System.out.println("주문내역 삭제 DAO 완료");
             
 			cutConnect();
-			return check;
+			return true;
 		} catch (Exception e) {
 			System.out.println("주문내역 삭제 DAO 오류 발생");
 			cutConnect();
 			return false;
 		}
     }
+    
+    public int getTodayPayNumber() {
+    	try {
+    		
+    		int result = 0;
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = new java.util.Date();
+            
+			String sql = "SELECT COUNT(*) + 1 AS count FROM paymentHistory WHERE payDate = '" + sf.format(date) + "' LIMIT 1";
+			System.out.println(sql);
+			st = conn.createStatement();
+			
+			rs = st.executeQuery(sql);
+			
+			while (rs.next()) {
+				result = rs.getInt("count");
+			}
+			
+			SimpleDateFormat resultFormat = new SimpleDateFormat("yyyyMMdd");
+
+            String answer = resultFormat.format(date) + result;
+			
+            System.out.println("주문번호 조회 DAO 완료 : " +	answer);
+            
+            
+			cutConnect();
+			return Integer.parseInt(answer);
+			
+		} catch (Exception e) {
+			System.out.println("주문번호 조회 DAO 오류 발생");
+			cutConnect();
+			return 0;
+		}
+    }
+   
+    //디테일리스트를 불러오는 메소드
+    public ArrayList<paymentDetailVO> GetPaymentDetailList (String tableNumber, int payNumber) {
+    	try {
+    		
+    		ArrayList<paymentDetailVO> list = new ArrayList<paymentDetailVO>();
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+			String sql = "SELECT *, (orderCount - orderDiscount) * orderCost AS orderTotal FROM tableorder WHERE tableNumber = " + tableNumber;
+			System.out.println(sql);
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			
+			while (rs.next()) {
+				String menuName = rs.getString("orderName");
+				int menuCost = rs.getInt("orderCost");
+				int orderCount = rs.getInt("orderCount");
+				int orderDiscount = rs.getInt("orderDiscount");
+				int orderTotal = rs.getInt("orderTotal");
+				
+				list.add(new paymentDetailVO(payNumber, menuName, menuCost, orderCount, orderDiscount, orderTotal));
+			}
+			System.out.println("디테일 리스트 저장 DAO 완료");
+			
+			return list;
+    		
+		} catch (Exception e) {
+			System.out.println("디테일 리스트 저장 DAO 오류 발생");
+			cutConnect();
+			return null;
+		}
+    }
+    
+    //히스토리 저장 메소드
     public boolean SaveGuestPaymentHistory(paymentHistoryVO ph) {
     	try {
 			
@@ -296,25 +375,36 @@ public class GuestDAO {
             
             
 			String sql = "INSERT INTO paymentHistory (payDate, payNumber, tableNumber, customersName, customersId) VALUES (?,?,?,?,?)";
+			System.out.println(sql);
 			
 			pstmt = conn.prepareStatement(sql);
+			System.out.println("prepareStatement 생성됨");
 			
 			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
 			
 			pstmt.setString(1, simple.format(ph.getPayDate()));
-			pstmt.setInt(2, ph.getPayNumber());
-			pstmt.setInt(3, ph.getTableNumber());
-			pstmt.setString(4, ph.getCustomersName());
-			pstmt.setString(5, ph.getCustomersId());
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + simple.format(ph.getPayDate()));
 			
-			boolean check = pstmt.execute();
+			pstmt.setInt(2, ph.getPayNumber());
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + ph.getPayNumber());
+			
+			pstmt.setInt(3, ph.getTableNumber());
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + ph.getTableNumber());
+			
+			pstmt.setString(4, ph.getCustomersName());
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + ph.getCustomersName());
+			
+			pstmt.setString(5, ph.getCustomersId());
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + ph.getCustomersId());
+			
+			pstmt.execute();
 	        
-			System.out.println("결제내역 히스토리 저장 실행됨 : " + check);
+			System.out.println("결제내역 히스토리 저장 실행됨");
 			
             System.out.println("결제내역 히스토리 저장 DAO 완료");
             
 			cutConnect();
-			return check;
+			return true;
 		} catch (Exception e) {
 			System.out.println("결제내역 히스토리 저장 DAO 오류 발생");
 			cutConnect();
@@ -322,6 +412,7 @@ public class GuestDAO {
 		}
     }
     
+    //디테일 저장 메소드
     public boolean SaveGuestPaymentDetail(ArrayList<paymentDetailVO> list) {
     	try {
 			
@@ -341,10 +432,10 @@ public class GuestDAO {
 				pstmt.setInt(3, pv.getMenuCost());
 				pstmt.setInt(4, pv.getOrderCount());
 				pstmt.setInt(5, pv.getOrderDiscount());
-				
-	            boolean check = pstmt.execute();
 	            
-	            System.out.println("결제내역 디테일 저장 실행됨 : " + check);
+				pstmt.execute();
+				
+	            System.out.println("결제내역 디테일 저장 실행됨");
 			}
             System.out.println("결제내역 디테일 저장 DAO 완료");
             
@@ -354,6 +445,49 @@ public class GuestDAO {
 			System.out.println("결제내역 디테일 저장 DAO 오류 발생");
 			cutConnect();
 			return false;
+		}
+    }
+    
+    //메뉴를 불러오는 메소드
+    public ArrayList<MenuVO> showAllMenu(String order, String orderSort)	{
+    	try {
+    		ArrayList<MenuVO> list = new ArrayList<MenuVO>();
+    		
+    		String sql = "SELECT * FROM menu AS t1 LEFT JOIN menucategory AS t2 ON t1.categoryNumber = t2.categoryNumber ORDER BY " + order + " " + orderSort;
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+            
+            while (rs.next()) {
+            	int menuNumber = rs.getInt("menuNumber");
+            	String menuName = rs.getString("menuName");
+            	int menuCost = rs.getInt("menuCost");
+            	int categoryNumber = rs.getInt("categoryNumber");
+            	String categoryName = rs.getString("categoryName");
+            	MenuVO mv = MenuVO.getInstence(menuNumber, menuName, menuCost, categoryNumber, categoryName);
+            	list.add(mv);
+			}
+            
+            System.out.println(list.toString());
+            cutConnect();
+            
+            return list;
+			
+			
+		} catch (Exception e) {
+			System.out.println("메뉴 뷰어 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
 		}
     }
 	

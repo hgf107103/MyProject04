@@ -158,6 +158,13 @@
 	button:focus {
 		outline: none;
 	}
+	h3 {
+		margin: auto;
+		margin-top: 20px;
+		font-family: "Gamja Flower";
+		font-size: 30px;
+		text-align: center;
+	}
 </style>
 <script type="text/javascript">
 	function completePayment() {
@@ -185,28 +192,27 @@
 		<th>가격</th>
 		<th>할인</th>
 		<th>도합</th>
-		<th>결제</th>
 	</tr>
-	<c:forEach items="${orderList}" var="order" varStatus="status" begin="${((pageNumber - 1) * 5)}" end="${((pageNumber - 1) * 5) + 4}">
+	<c:set var="allTotal" value="0"></c:set>
+	<c:forEach items="${orderList}" var="order" varStatus="status" begin="${((pageNumber - 1) * 4)}" end="${((pageNumber - 1) * 4) + 3}">
 	<tr>
 		<td class="orderNumberTd"><c:out value="${status.count * pageNumber}"></c:out></td>
 		<td class="orderNameTd"><c:out value="${order.orderName}"></c:out></td>
 		<td class="orderCostTd"><c:out value="${order.orderCount * order.orderCost}원"></c:out></td>
 		<td class="orderDiscostTd"><c:out value="-${order.orderDiscount * order.orderCost}원"></c:out></td>
 		<td class="orderTotalTd"><c:out value="${(order.orderCount - order.orderDiscount) * order.orderCost}원"></c:out></td>
-		<td>
-			<a href="#">결제</a>
-		</td>
+		
+		<c:set var="allTotal" value="${allTotal + (order.orderCount - order.orderDiscount) * order.orderCost}"></c:set>
 	</tr>
 	</c:forEach>
-	
 </table>
+<h3>전체 합계 금액 : <c:out value="${allTotal}"></c:out></h3>
 <div>
 	<c:if test="${pageNumber > 1}">
 		<a href="/Restaurant/Guest/Payment?pageNumber=${pageNumber - 1}&tableNumber${tableNumber}">뒤로</a>
 	</c:if>
 	<c:if test="${pageNumber > 0}">
-	<c:forEach var="num" begin="${pageNumber - ((pageNumber - 1) % 5)}" end="${(pageNumber - ((pageNumber - 1) % 5)) + 9}" varStatus="now">
+	<c:forEach var="num" begin="${pageNumber - ((pageNumber - 1) % 5)}" end="${(pageNumber - ((pageNumber - 1) % 5)) + 4}" varStatus="now">
 		<c:if test="${num <= (fn:length(orderList) / 5)+(1-((fn:length(orderList) / 5)%1))%1}">
 			
 			
