@@ -74,7 +74,6 @@
 	}
 	function paymentScript(tableNumber, pageNumber) {
 		try {
-			let form = document.getElementById("paymentForm");
 			let check = confirm("주문내역을 확인하시겠습니까?");
 			
 			if (check) {
@@ -91,6 +90,26 @@
 			console.log("SelectDisableTable_ERROR : " + e);
 		}
 	}
+	
+	function newOrderScript() {
+		try {
+			let check = confirm("새 주문을 하시겠습니까?");
+			
+			if (check) {
+				
+				let url = "/Restaurant/Guest/Order?pageNumber=1";
+			    let name = "Order Show";
+			    let option = "width = 550, height = 550, top = 100, left = 200, location = no, scrollbars = yes, re";
+			    window.open(url, name, option);
+			    
+			} else {
+				alert("취소되었습니다.");
+			}
+		} catch (e) {
+			console.log("SelectDisableTable_ERROR : " + e);
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -98,7 +117,7 @@
 
 <div>
 	<h1>테이블 번호 : ${nowTable.tableNumber}<br>${nowLoginVO.name} 고객님</h1>
-	<button onclick="alert('미구현')">메뉴 주문</button>
+	<button onclick="newOrderScript()">메뉴 주문</button>
 	<br>
 	<button onclick="paymentScript('${nowTable.tableNumber}', '1')">내역/결제</button>
 	<br>

@@ -490,6 +490,85 @@ public class GuestDAO {
 			return null;
 		}
     }
+    
+    public ArrayList<String> getCategoryList() {
+    	try {
+			
+    		ArrayList<String> list = new ArrayList<String>();
+    		String sql = "SELECT * FROM menucategory";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+            
+            while (rs.next()) {
+            	String categoryName = rs.getString("categoryName");
+            	list.add(categoryName);
+			}
+            
+            System.out.println("카테고리 리스트 DAO 완료");
+            cutConnect();
+            
+            return list;
+    		
+		} catch (Exception e) {
+			System.out.println("카테고리 리스트 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
+    
+    public ArrayList<MenuVO> showAllCategoryMenu(String name) {
+    	try {
+			
+    		ArrayList<MenuVO> list = new ArrayList<MenuVO>();
+    		String sql = "SELECT * FROM menu AS t1 LEFT JOIN menucategory AS t2 ON t1.categoryNumber = t2.categoryNumber WHERE categoryName = '" + name + "'";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+            
+            while (rs.next()) {
+            	
+            	int menuNumber = rs.getInt("menuNumber");
+            	String menuName = rs.getString("menuName");
+            	int menuCost = rs.getInt("menuCost");
+            	int categoryNumber = rs.getInt("t1.categoryNumber");
+            	String categoryName = rs.getString("categoryName");
+            	
+            	list.add(MenuVO.getInstence(menuNumber, menuName, menuCost, categoryNumber, categoryName));
+            	
+			}
+            
+            System.out.println("메뉴 리스트 불러오기 DAO 완료");
+            cutConnect();
+            
+            return list;
+    		
+		} catch (Exception e) {
+			System.out.println("메뉴 리스트 불러오기 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
 	
 	private void DBAutoIncrementSort() {
 		try {
