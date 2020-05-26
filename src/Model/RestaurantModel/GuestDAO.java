@@ -607,6 +607,110 @@ public class GuestDAO {
 			return null;
 		}
     }
+    
+    public boolean checkOrderName(String tableNumber, String orderName) {
+    	try {
+    		boolean check = true;
+    		
+    		String sql = "SELECT * FROM tableorder WHERE tableNumber = " + tableNumber + " AND orderName = '" + orderName + "' LIMIT 1";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+            	check = false;
+			}
+            
+            System.out.println("현 주문내역 리턴 DAO 완료");
+			cutConnect();
+			
+			return check;
+			
+		} catch (Exception e) {
+			System.out.println("현 주문내역 리턴 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public boolean oldOrderPlus(String plusCount, String tableNumber, String orderName) {
+    	try {
+			String sql = "UPDATE tableorder AS t1 SET orderCount = t1.orderCount + " + plusCount + " WHERE tableNumber = " + tableNumber + " AND orderName = '" + orderName + "'";
+			System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            pstmt = conn.prepareStatement(sql);
+			System.out.println("prepareStatement 생성됨");
+			
+			pstmt.execute();
+            
+            System.out.println("이전 주문내역 추가주문 DAO 완료");
+			cutConnect();
+    		return true;
+    		
+    	} catch (Exception e) {
+    		
+    		System.out.println("이전 주문내역 추가주문 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
+    
+    public boolean newOrderPlus(String orderName, String orderCost, String orderCount, String tableNumber, String categoryNumber) {
+    	try {
+    		
+    		String sql = "INSERT INTO tableorder (tableNumber, orderName, orderCost, orderCount, categoryNumber) VALUES (?,?,?,?,?)";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            pstmt = conn.prepareStatement(sql);
+			System.out.println("prepareStatement 생성됨");
+			
+			pstmt.setInt(1, Integer.parseInt(tableNumber));
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + tableNumber);
+			
+			pstmt.setString(2, orderName);;
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + tableNumber);
+			
+			pstmt.setInt(3, Integer.parseInt(orderCost));
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + tableNumber);
+			
+			pstmt.setInt(4, Integer.parseInt(orderCount));
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + tableNumber);
+			
+			pstmt.setInt(5, Integer.parseInt(categoryNumber));
+			System.out.println("prepareStatement 쿼리에 값 저장됨 : " + tableNumber);
+			
+			pstmt.execute();
+            
+            System.out.println("현 주문내역 리턴 DAO 완료");
+			cutConnect();
+    		return true;
+    		
+		} catch (Exception e) {
+			System.out.println("현 주문내역 리턴 DAO 오류 발생");
+			cutConnect();
+			return false;
+		}
+    }
 	
 	private void DBAutoIncrementSort() {
 		try {

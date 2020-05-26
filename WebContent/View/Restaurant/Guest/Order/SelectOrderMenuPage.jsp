@@ -198,12 +198,21 @@
 			document.getElementById("menuCountText").value = "0개";
 		}
 	}
+	
+	function newOrderServletCheck() {
+		try {
+			let form = document.getElementById("newOrderForm");
+			form.submit();
+		} catch (e) {
+			// TODO: handle exception
+		}
+	}
 </script>
 </head>
 <body>
 
 <input type="button" value="뒤로가기" onclick="history.go(-1)">
-<h1>${categoryName}메뉴 보기</h1>
+<h1>${categoryName}메뉴 보기${categoryNumber}</h1>
 <select id="menuSelect" onchange="menuDetailsSet()">
 	<c:forEach items="${menuList}" var="menu">
 		<option>${menu.menuName}</option>
@@ -211,14 +220,16 @@
 </select>
 <br>
 <br>
-<form action="" method="get">
-	<label>선택한 메뉴 이름<br><input type="text" id="menuNameText" readonly="readonly" value="${menuList[0].menuName}"></label><br>
-	<label>선택한 메뉴 가격<br><input type="text" id="menuCostText" readonly="readonly" value="${menuList[0].menuCost}원"></label><br>
-	<label>현재 주문된 개수<br><input type="text" id="menuCountText" readonly="readonly" value="${orderList[0].orderCount - orderList[0].orderDiscount}개"></label><br>
+<form action="/Restaurant/Guest/Order/NewOrder" method="post" id="newOrderForm">
+	<label>선택한 메뉴 이름<br><input type="text" name="orderName" id="menuNameText" readonly="readonly" value="${menuList[0].menuName}"></label><br>
+	<label>선택한 메뉴 가격<br><input type="text" name="orderCost" id="menuCostText" readonly="readonly" value="${menuList[0].menuCost}원"></label><br>
+	<label>현재 주문된 개수<br><input type="text" name="orderCount" id="menuCountText" readonly="readonly" value="${orderList[0].orderCount - orderList[0].orderDiscount}개"></label><br>
 	<br>
-	<label>추가 주문 개수 (최대 50)<br><input type="number" id="newOrderCount" step="1" min="0" max="50" value="0">개</label><br>
+	<label>추가 주문 개수 (최대 50)<br><input type="number" id="newOrderCount" name="newOrderCount" step="1" min="0" max="50" value="0">개</label><br>
 	<br>
-	<input type="button" class="submitButton" value="주문하기">
+	<input type="hidden" name="tableNumber" value="${param.tableNumber}">
+	<input type="hidden" name="categoryNumber" value="${menuList[0].categoryNumber}">
+	<input type="button" class="submitButton" onclick="newOrderServletCheck()" value="주문하기">
 </form>
 </body>
 </html>
