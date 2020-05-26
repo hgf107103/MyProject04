@@ -97,9 +97,9 @@
 			
 			if (check) {
 				
-				let url = "/Restaurant/Guest/Order?pageNumber=1";
+				let url = "/Restaurant/Guest/Order?pageNumber=1&tableNumber=${nowTable.tableNumber}";
 			    let name = "Order Show";
-			    let option = "width = 550, height = 550, top = 100, left = 200, location = no, scrollbars = yes, re";
+			    let option = "width = 550, height = 650, top = 100, left = 200, location = no, scrollbars = yes, re";
 			    window.open(url, name, option);
 			    
 			} else {

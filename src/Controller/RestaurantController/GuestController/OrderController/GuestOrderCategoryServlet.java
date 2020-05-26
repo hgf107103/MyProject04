@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Model.RestaurantModel.GuestDAO;
 import Model.RestaurantModel.MenuVO;
+import Model.RestaurantModel.OrderVO;
 
 
 @WebServlet("/Restaurant/Guest/Order")
@@ -50,9 +51,11 @@ public class GuestOrderCategoryServlet extends HttpServlet {
 			GuestDAO gd = GuestDAO.getInstance();
 			
 			ArrayList<MenuVO> list = gd.showAllCategoryMenu(request.getParameter("categoryName"));
+			ArrayList<OrderVO> orderList = gd.showMyOrder(request.getParameter("tableNumber"), request.getParameter("categoryName"));
 			
 			request.setAttribute("categoryName", request.getParameter("categoryName"));
 			request.setAttribute("menuList", list);
+			request.setAttribute("orderList", orderList);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Guest/Order/SelectOrderMenuPage.jsp");
 			rd.forward(request, response);

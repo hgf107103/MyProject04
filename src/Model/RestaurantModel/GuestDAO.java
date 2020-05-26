@@ -569,6 +569,44 @@ public class GuestDAO {
 			return null;
 		}
     }
+    
+    public ArrayList<OrderVO> showMyOrder(String tableNumber, String categoryName) {
+    	try {
+    		ArrayList<OrderVO> list = new ArrayList<OrderVO>();
+    		String sql = "SELECT * FROM tableorder AS t1 LEFT JOIN menucategory AS t2 ON t1.categoryNumber = t2.categoryNumber WHERE tableNumber = " + tableNumber + " AND categoryName = '" + categoryName + "'";
+    		System.out.println(sql);
+    		
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("드라이브 적재됨");
+
+            conn = DriverManager.getConnection(url, uid, upass);
+            System.out.println("DB 연동됨");
+            
+            st = conn.createStatement();
+            System.out.println("스테이트먼트 객체 생성됨");
+            
+            rs = st.executeQuery(sql);
+            System.out.println("리설트 객체 생성됨");
+            
+            while (rs.next()) {
+        		String orderName = rs.getString("orderName");
+        		int orderCount = rs.getInt("orderCount");
+        		int orderDiscount = rs.getInt("orderDiscount");
+        		
+        		list.add(new OrderVO(orderName, orderCount, orderDiscount));
+			}
+            
+            System.out.println("메뉴 리스트 불러오기 DAO 완료");
+            cutConnect();
+            
+            return list;
+    		
+		} catch (Exception e) {
+			System.out.println("메뉴 리스트 불러오기 DAO 오류 발생 : " + e);
+			cutConnect();
+			return null;
+		}
+    }
 	
 	private void DBAutoIncrementSort() {
 		try {

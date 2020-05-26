@@ -12,6 +12,8 @@
 	body {
 		width: 535px;
 		text-align: center;
+		border-bottom: 1px solid black;
+		padding-bottom: 10px;
 	}
 	h1 {
 		text-align: center;
@@ -108,6 +110,7 @@
 		<td>
 			<form action="/Restaurant/Guest/Order" method="post" id="showMenuForm${status.count}">
 				<input type="hidden" name="categoryName" value="${category}">
+				<input type="hidden" name="tableNumber" value="${param.tableNumber}">
 			</form>
 			<button class="newOrderCategory" onclick="showMenuScript('${status.count}')">
 				<span>${category}</span>

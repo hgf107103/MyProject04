@@ -11,15 +11,19 @@ public class OrderVO {
 	
 	
 	
-	public OrderVO(int tableNumber, String orderName, int orderCost, int orderCount, int orderDiscount,
-			int orderTotal) {
-		super();
+	public OrderVO(int tableNumber, String orderName, int orderCost, int orderCount, int orderDiscount, int orderTotal) {
 		this.tableNumber = tableNumber;
 		this.orderName = orderName;
 		this.orderCost = orderCost;
 		this.orderCount = orderCount;
 		this.orderDiscount = orderDiscount;
 		this.orderTotal = orderTotal;
+	}
+	
+	public OrderVO(String orderName, int orderCount, int orderDiscount) {
+		this.orderName = orderName;
+		this.orderCount = orderCount;
+		this.orderDiscount = orderDiscount;
 	}
 	
 	public int getTableNumber() {
