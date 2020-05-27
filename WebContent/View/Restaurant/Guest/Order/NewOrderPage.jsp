@@ -124,18 +124,18 @@
 	<c:if test="${param.pageNumber > (fn:length(categoryList) / 5)+(1-((fn:length(categoryList) / 5)%1))%1}">
 		<script type="text/javascript">
 			alert('마지막 페이지로 이동됩니다.');
-			location.href = '/Restaurant/Guest/Order?pageNumber=' + ${(fn:length(categoryList) / 5)+(1-((fn:length(categoryList) / 5)%1))%1};
+			location.href = '/Restaurant/Guest/Order?pageNumber=' + ${(fn:length(categoryList) / 5)+(1-((fn:length(categoryList) / 5)%1))%1} + '&tableNumber=$' + {param.tableNumber};
 		</script>
 	</c:if>
 	<c:if test="${param.pageNumber < 1}">
 		<script type="text/javascript">
 			alert('첫 페이지로 이동됩니다.');
-			location.href = '/Restaurant/Guest/Order?pageNumber=1';
+			location.href = '/Restaurant/Guest/Order?pageNumber=1&tableNumber=${param.tableNumber}';
 		</script>
 	</c:if>
 <div>
 	<c:if test="${param.pageNumber > 1}">
-		<a href="/Restaurant/Guest/Order?pageNumber=${param.pageNumber - 1}">뒤로</a>
+		<a href="/Restaurant/Guest/Order?pageNumber=${param.pageNumber - 1}&tableNumber=${param.tableNumber}">뒤로</a>
 	</c:if>
 	<c:if test="${param.pageNumber > 0}">
 	<c:forEach var="num" begin="${param.pageNumber - ((param.pageNumber - 1) % 5)}" end="${(param.pageNumber - ((param.pageNumber - 1) % 5)) + 4}" varStatus="now">
@@ -147,14 +147,14 @@
 			</c:if>
 			
 			<c:if test="${num != param.pageNumber}">
-				<a href="/Restaurant/Guest/Order?pageNumber=${num}">${num}</a>
+				<a href="/Restaurant/Guest/Order?pageNumber=${num}&tableNumber=${param.tableNumber}">${num}</a>
 			</c:if>
 			
 		</c:if>
 	</c:forEach>
 	</c:if>
 	<c:if test="${param.pageNumber < (fn:length(categoryList) / 5)+(1-((fn:length(categoryList) / 5)%1))%1}">
-				<a href="/Restaurant/Guest/Order?pageNumber=${param.pageNumber + 1}">앞으로</a>
+				<a href="/Restaurant/Guest/Order?pageNumber=${param.pageNumber + 1}&tableNumber=${param.tableNumber}">앞으로</a>
 	</c:if>
 </body>
 </html>

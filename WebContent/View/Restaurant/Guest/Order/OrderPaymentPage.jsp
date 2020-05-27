@@ -10,11 +10,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	body {
-		width: 625px;
+		width: 635px;
 	}
 	h1 {
 		font-family: "Black Han Sans";
-		margin: 40px auto;
+		margin: 25px auto;
 		text-align: center;
 		font-size: 40px;
 		font-weight: normal;
@@ -63,12 +63,12 @@
 		border-collapse: collapse;
 		transition: all ease 1.5s 0s;
 	}
-	table tr:hover > td.orderNumberTd {
+	table tr:hover > td.orderCountTd {
 		color: rgb(30,180,130);
 		transition: all ease 0.5s 0s;
 	}
 	table tr:hover > td.orderNameTd {
-		color: rgb(40,155,180);
+		color: rgb(0,0,0);
 		transition: all ease 0.5s 0s;
 	}
 	table tr:hover > td.orderCostTd {
@@ -164,6 +164,7 @@
 		font-family: "Gamja Flower";
 		font-size: 30px;
 		text-align: center;
+		cursor: default;
 	}
 </style>
 <script type="text/javascript">
@@ -185,35 +186,39 @@
 <body>
 <h1>${tableNumber}번 테이블 주문내역</h1>
 <c:if test="${orderList ne null}">
+<c:set var="allTotal" value="0"></c:set>
+<c:forEach items="${orderList}" var="order">
+		<c:set var="allTotal" value="${allTotal + (order.orderCount - order.orderDiscount) * order.orderCost}"></c:set>
+	</c:forEach>
 <table>
 	<tr>
-		<th>번호</th>
 		<th>이름</th>
-		<th>가격</th>
+		<th>수량</th>
+		<th>가격(1인)</th>
 		<th>할인</th>
 		<th>도합</th>
 	</tr>
-	<c:set var="allTotal" value="0"></c:set>
+	
+	
 	<c:forEach items="${orderList}" var="order" varStatus="status" begin="${((pageNumber - 1) * 4)}" end="${((pageNumber - 1) * 4) + 3}">
 	<tr>
-		<td class="orderNumberTd"><c:out value="${status.count * pageNumber}"></c:out></td>
 		<td class="orderNameTd"><c:out value="${order.orderName}"></c:out></td>
-		<td class="orderCostTd"><c:out value="${order.orderCount * order.orderCost}원"></c:out></td>
+		<td class="orderCountTd"><c:out value="${order.orderCount - order.orderDiscount}"></c:out>개</td>
+		<td class="orderCostTd"><c:out value="${order.orderCost}원"></c:out></td>
 		<td class="orderDiscostTd"><c:out value="-${order.orderDiscount * order.orderCost}원"></c:out></td>
 		<td class="orderTotalTd"><c:out value="${(order.orderCount - order.orderDiscount) * order.orderCost}원"></c:out></td>
 		
-		<c:set var="allTotal" value="${allTotal + (order.orderCount - order.orderDiscount) * order.orderCost}"></c:set>
 	</tr>
 	</c:forEach>
 </table>
-<h3>전체 합계 금액 : <c:out value="${allTotal}"></c:out></h3>
+<h3>모든 내역 합계 금액 : <c:out value="${allTotal}"></c:out>원</h3>
 <div>
 	<c:if test="${pageNumber > 1}">
-		<a href="/Restaurant/Guest/Payment?pageNumber=${pageNumber - 1}&tableNumber${tableNumber}">뒤로</a>
+		<a href="/Restaurant/Guest/Payment?pageNumber=${pageNumber - 1}&tableNumber=${tableNumber}">뒤로</a>
 	</c:if>
 	<c:if test="${pageNumber > 0}">
-	<c:forEach var="num" begin="${pageNumber - ((pageNumber - 1) % 5)}" end="${(pageNumber - ((pageNumber - 1) % 5)) + 4}" varStatus="now">
-		<c:if test="${num <= (fn:length(orderList) / 5)+(1-((fn:length(orderList) / 5)%1))%1}">
+	<c:forEach var="num" begin="${pageNumber - ((pageNumber - 1) % 4)}" end="${(pageNumber - ((pageNumber - 1) % 4)) + 4}" varStatus="now">
+		<c:if test="${num <= (fn:length(orderList) / 4)+(1-((fn:length(orderList) / 4)%1))%1}">
 			
 			
 			<c:if test="${num == pageNumber}">
@@ -221,14 +226,14 @@
 			</c:if>
 			
 			<c:if test="${num != pageNumber}">
-				<a href="/Restaurant/Guest/Payment?pageNumber=${num}&tableNumber${tableNumber}">${num}</a>
+				<a href="/Restaurant/Guest/Payment?pageNumber=${num}&tableNumber=${tableNumber}">${num}</a>
 			</c:if>
 			
 		</c:if>
 	</c:forEach>
 	</c:if>
-	<c:if test="${pageNumber < (fn:length(orderList) / 5)+(1-((fn:length(orderList) / 5)%1))%1}">
-				<a href="/Restaurant/Guest/Payment?pageNumber=${pageNumber + 1}&tableNumber${tableNumber}">앞으로</a>
+	<c:if test="${pageNumber < (fn:length(orderList) / 4)+(1-((fn:length(orderList) / 4)%1))%1}">
+				<a href="/Restaurant/Guest/Payment?pageNumber=${pageNumber + 1}&tableNumber=${tableNumber}">앞으로</a>
 	</c:if>
 	<c:if test="${empty orderList}">
 	<h2>주문 내역이 없습니다!</h2>

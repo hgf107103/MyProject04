@@ -688,16 +688,16 @@ public class GuestDAO {
 			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + tableNumber);
 			
 			pstmt.setString(2, orderName);;
-			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + tableNumber);
+			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + orderName);
 			
 			pstmt.setInt(3, Integer.parseInt(orderCost));
-			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + tableNumber);
+			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + orderCost);
 			
 			pstmt.setInt(4, Integer.parseInt(orderCount));
-			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + tableNumber);
+			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + orderCount);
 			
 			pstmt.setInt(5, Integer.parseInt(categoryNumber));
-			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + tableNumber);
+			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + categoryNumber);
 			
 			pstmt.execute();
             

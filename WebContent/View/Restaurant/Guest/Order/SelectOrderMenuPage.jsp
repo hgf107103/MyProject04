@@ -179,15 +179,15 @@
 		console.log("선택한 메뉴 가격 : " + costList[select]);
 		
 		document.getElementById("menuNameText").value = nameList[select];
-		document.getElementById("menuCostText").value = costList[select] + "원";
-		document.getElementById("newOrderCount").value = 0;
+		document.getElementById("menuCostText").value = costList[select];
+		document.getElementById("newOrderCount").value = 1;
 		
 		
 		orderNameList.forEach(function(elt, i, array) {
 			if (elt == nameList[select]) {
 				console.log(i + " : " + elt + " == " + nameList[select]);
 				console.log(elt + " : " + (Number(orderCountList[i]) - Number(orderDiscountList[i])));
-				document.getElementById("menuCountText").value = Number(orderCountList[i]) - Number(orderDiscountList[i]) + "개";
+				document.getElementById("menuCountText").value = Number(orderCountList[i]) - Number(orderDiscountList[i]);
 				check = false;
 			}
 		});
@@ -195,7 +195,7 @@
 		console.log("체크 : " + check);
 		
 		if (check) {
-			document.getElementById("menuCountText").value = "0개";
+			document.getElementById("menuCountText").value = "1";
 		}
 	}
 	
@@ -222,10 +222,10 @@
 <br>
 <form action="/Restaurant/Guest/Order/NewOrder" method="post" id="newOrderForm">
 	<label>선택한 메뉴 이름<br><input type="text" name="orderName" id="menuNameText" readonly="readonly" value="${menuList[0].menuName}"></label><br>
-	<label>선택한 메뉴 가격<br><input type="text" name="orderCost" id="menuCostText" readonly="readonly" value="${menuList[0].menuCost}원"></label><br>
-	<label>현재 주문된 개수<br><input type="text" name="orderCount" id="menuCountText" readonly="readonly" value="${orderList[0].orderCount - orderList[0].orderDiscount}개"></label><br>
+	<label>선택한 메뉴 가격<br><input type="text" name="orderCost" id="menuCostText" readonly="readonly" value="${menuList[0].menuCost}">원</label><br>
+	<label>현재 주문된 개수<br><input type="text" name="orderCount" id="menuCountText" readonly="readonly" value="${orderList[0].orderCount - orderList[0].orderDiscount}">개</label><br>
 	<br>
-	<label>추가 주문 개수 (최대 50)<br><input type="number" id="newOrderCount" name="newOrderCount" step="1" min="0" max="50" value="0">개</label><br>
+	<label>추가 주문 개수 (최대 50)<br><input type="number" id="newOrderCount" name="newOrderCount" step="1" min="1" max="50" value="1">개</label><br>
 	<br>
 	<input type="hidden" name="tableNumber" value="${param.tableNumber}">
 	<input type="hidden" name="categoryNumber" value="${menuList[0].categoryNumber}">
