@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	body {
-		width: 550px;
+		width: 600px;
 	}
 	h1 {
 		text-align: center;
@@ -51,6 +51,7 @@
 		transition: all ease 1s 0s;
 	}
 	table td {
+		text-overflow: ellipsis;
 		font-family: "Gamja Flower";
 		font-size: 23px;
 		text-align: center;
@@ -83,6 +84,7 @@
 		transition: all ease 0.5s 0s;
 	}
 	td a.updateUser {
+		text-overflow: ellipsis;
 		cursor: pointer;
 		font-family: "Gamja Flower";
 		font-weight: bold;

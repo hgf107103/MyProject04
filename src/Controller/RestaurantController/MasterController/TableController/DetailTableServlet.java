@@ -27,8 +27,27 @@ public class DetailTableServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			
-			System.out.println("잘못된 경로입니다.");
-			 response.sendRedirect("/Restaurant/Master/Menu/ShowMenu");
+			if (request.getSession().getAttribute("mylogin") != null) {
+				UserVO uv = (UserVO)request.getSession().getAttribute("mylogin");
+				System.out.println("uv 값 : " + uv.getId());
+				if(!uv.getId().equals("admin")) {
+					response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullPointException");
+					return;
+				}
+			} else {
+				response.sendRedirect("/View/JspError.jsp?nowErrorMessage=NullPointException");
+				return;
+			}
+			
+			MasterDAO md = MasterDAO.getInstance();
+			ArrayList<OrderVO> list = md.showOneTableOrderList(request.getParameter("tableNumber"));
+			
+			request.setAttribute("tableNumber", request.getParameter("tableNumber"));
+			request.setAttribute("orderList", list);
+			request.getParameter("pageNumber");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/View/Restaurant/Master/Table/TableDetailPage.jsp?pageNumber=" + request.getParameter("pageNumber"));
+			rd.forward(request, response);
 			
 		} catch (Exception e) {
 			 System.out.println("doGet AddTable오류");

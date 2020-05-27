@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	body{
-		width: 650px;
+		width: 685px;
 		text-align: center;
 	}
 	h1 {
@@ -168,13 +168,12 @@
 </style>
 </head>
 <body>
-<input id="backButton" type="button" onclick="history.go(-1)" value="뒤로가기">
+<input id="backButton" type="button" onclick="location.href='/Restaurant/Master/Table/ShowTable?pageNumber=1';" value="뒤로가기">
 <h1><span>${tableNumber}</span>번 테이블 주문 상세 내역</h1>
 
 <c:if test="${not empty orderList}">
 	<table>
 	<tr>
-		<th>번호</th>
 		<th>메뉴이름</th>
 		<th>메뉴가격</th>
 		<th>주문개수</th>
@@ -184,9 +183,6 @@
 	</tr>
 	<c:forEach items="${orderList}" var="order" begin="${((param.pageNumber - 1) * 5)}" end="${((param.pageNumber - 1) * 5) + 4}" varStatus="status">
 		<tr>
-    		<td class="orderNumberTd">
-    			<c:out value="${status.index + 1}"></c:out>
-    		</td>
     					
     		<td class="orderNameTd">
     			<c:out value="${order.orderName}"></c:out>
@@ -223,7 +219,7 @@
 
 <div id="pageNumberDiv">
 	<c:if test="${param.pageNumber > 1}">
-		<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${param.pageNumber - 1}">뒤로</a>
+		<a href="/Restaurant/Master/Table/ShowTable/Detail?pageNumber=${param.pageNumber - 1}&tableNumber=${tableNumber}">뒤로</a>
 	</c:if>
 	<c:if test="${param.pageNumber > 0}">
 	<c:forEach var="num" begin="${param.pageNumber - ((param.pageNumber - 1) % 5)}" end="${(param.pageNumber - ((param.pageNumber - 1) % 5)) + 4}" varStatus="now">
@@ -235,14 +231,14 @@
 			</c:if>
 			
 			<c:if test="${num != param.pageNumber}">
-				<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${num}">${num}</a>
+				<a href="/Restaurant/Master/Table/ShowTable/Detail?pageNumber=${num}&tableNumber=${tableNumber}">${num}</a>
 			</c:if>
 			
 		</c:if>
 	</c:forEach>
 	</c:if>
 	<c:if test="${param.pageNumber < (fn:length(orderList) / 5)+(1-((fn:length(orderList) / 5)%1))%1}">
-				<a href="/Restaurant/Master/Table/ShowTable?pageNumber=${param.pageNumber + 1}">앞으로</a>
+				<a href="/Restaurant/Master/Table/ShowTable/Detail?pageNumber=${param.pageNumber + 1}&tableNumber=${tableNumber}">앞으로</a>
 	</c:if>
 </div>
 </body>

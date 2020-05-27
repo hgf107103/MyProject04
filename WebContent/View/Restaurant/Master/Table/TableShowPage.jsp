@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
 	body{
-		width: 650px;
+		width: 685px;
 		text-align: center;
 	}
 	form {

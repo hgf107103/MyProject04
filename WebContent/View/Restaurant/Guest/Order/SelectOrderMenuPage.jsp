@@ -90,7 +90,7 @@
 		text-decoration: none;
 		outline: none;
 		border: 1px solid gray;
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
 	}
 	input[type=text]:focus {
 		text-decoration: none;
@@ -98,7 +98,7 @@
 		color: red;
 		border: 1px solid red;
 		box-shadow: 0 0 0 5px rgba(255,0,0, 0.2);
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
 	}
 	input[type=text]:hover {
 		text-decoration: none;
@@ -114,14 +114,14 @@
 		text-decoration: none;
 		outline: none;
 		border: 1px solid gray;
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
 	}
 	input[type=number]:focus {
 		text-decoration: none;
 		border-radius: 25px;
 		border: 1px solid rgb(50, 200, 150);
 		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
 	}
 	input[type=number]:hover {
 		text-decoration: none;
@@ -140,7 +140,7 @@
 		padding-top: 10px;
 		font-family: "Gamja Flower";
 		font-weight: bold;
-		transition: all ease 0.5s 0s;
+		transition: all ease 1s 0s;
 	}
 	input[type=button].submitButton:hover{
 		color: white;
@@ -150,6 +150,25 @@
 	}
 	input[type=button].submitButton:focus {
 		outline: none;
+	}
+	#backButton {
+		width: 130px;
+		margin: 10px auto;
+		cursor: pointer;
+		background-color: white;
+		color: black;
+		font-family: "Gamja Flower";
+		border: 1px solid black;
+		font-size: 23px;
+		font-weight: bold;
+		padding: 8px 0px;
+		transition: all ease 1s 0s;
+	}
+	#backButton:hover {
+		border-radius: 25px;
+		border: 1px solid rgb(50,200,150);
+		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.3);
+		transition: all ease 1s 0s;
 	}
 </style>
 <script type="text/javascript">
@@ -211,7 +230,7 @@
 </head>
 <body>
 
-<input type="button" value="뒤로가기" onclick="history.go(-1)">
+<input id="backButton" type="button" value="뒤로가기" onclick="history.go(-1)">
 <h1>${categoryName}메뉴 보기${categoryNumber}</h1>
 <select id="menuSelect" onchange="menuDetailsSet()">
 	<c:forEach items="${menuList}" var="menu">

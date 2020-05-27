@@ -9,7 +9,7 @@ function TableShowPopUp(myid) {
 				
 				let url = "/Restaurant/Master/Table/ShowTable?pageNumber=1";
 			    let name = "Table Show";
-			    let option = "width = 665, height = 475, top = 100, left = 200, location = no, scrollbars = yes, re";
+			    let option = "width = 700, height = 600, top = 100, left = 200, location = no, scrollbars = yes, re";
 			    
 			    window.open(url, name, option);
 			} else {
@@ -41,7 +41,7 @@ function UserShowPopUp(myid) {
 				
 				let url = "/Restaurant/Master/Table/ShowUser";
 				let name = "User Show";
-				let option = "width = 575, height = 700, top = 100, left = 200, location = no, scrollbars = yes, re";
+				let option = "width = 615, height = 700, top = 100, left = 200, location = no, scrollbars = yes, re";
 				
 				window.open(url, name, option);
 			} else {
