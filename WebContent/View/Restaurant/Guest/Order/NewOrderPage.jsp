@@ -101,7 +101,7 @@
 </script>
 </head>
 <body>
-<h1>테이블 선택</h1>
+<h1>카테고리 선택</h1>
 <table>
 <c:forEach items="${categoryList}" var="category" varStatus="status" begin="${((param.pageNumber - 1) * 4)}" end="${((param.pageNumber - 1) * 4) + 3}">
 	<c:if test="${status.count % 2 == 1}">

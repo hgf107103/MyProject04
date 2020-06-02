@@ -9,6 +9,9 @@
 <title>게스트 : 테이블 선택</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gamja+Flower&display=swap" rel="stylesheet">
 <style type="text/css">
+	*:focus {
+		outline: none;
+	}
 	body {
 		width: 535px;
 		text-align: center;
@@ -46,6 +49,9 @@
 		color: rgb(20, 170, 120);
 		box-shadow: 0 0 0 5px rgba(50, 200, 150, 0.2);
 		transition: all ease 0.5s 0s;
+	}
+	button.disableTable:focus {
+		outline:none;
 	}
 	
 	button.EnableTable {
