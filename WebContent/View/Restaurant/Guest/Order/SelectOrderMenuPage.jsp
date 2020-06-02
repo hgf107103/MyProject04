@@ -214,7 +214,7 @@
 		console.log("체크 : " + check);
 		
 		if (check) {
-			document.getElementById("menuCountText").value = "1";
+			document.getElementById("menuCountText").value = "0";
 		}
 	}
 	
