@@ -126,10 +126,10 @@
 </c:forEach>
 </table>
 
-	<c:if test="${param.pageNumber > (fn:length(tableList) / 5)+(1-((fn:length(tableList) / 5)%1))%1}">
+	<c:if test="${param.pageNumber > (fn:length(tableList) / 4)+(1-((fn:length(tableList) / 4)%1))%1}">
 		<script type="text/javascript">
 			alert('마지막 페이지로 이동됩니다.');
-			location.href = '/Restaurant/Guest/DisableTable?pageNumber=' + ${(fn:length(tableList) / 5)+(1-((fn:length(tableList) / 5)%1))%1};
+			location.href = '/Restaurant/Guest/DisableTable?pageNumber=' + ${(fn:length(tableList) / 4)+(1-((fn:length(tableList) / 4)%1))%1};
 		</script>
 	</c:if>
 	<c:if test="${param.pageNumber < 1}">
@@ -144,7 +144,7 @@
 	</c:if>
 	<c:if test="${param.pageNumber > 0}">
 	<c:forEach var="num" begin="${param.pageNumber - ((param.pageNumber - 1) % 5)}" end="${(param.pageNumber - ((param.pageNumber - 1) % 5)) + 4}" varStatus="now">
-		<c:if test="${num <= (fn:length(tableList) / 5)+(1-((fn:length(tableList) / 5)%1))%1}">
+		<c:if test="${num <= (fn:length(tableList) / 4)+(1-((fn:length(tableList) / 4)%1))%1}">
 			
 			
 			<c:if test="${num == param.pageNumber}">
@@ -158,7 +158,7 @@
 		</c:if>
 	</c:forEach>
 	</c:if>
-	<c:if test="${param.pageNumber < (fn:length(tableList) / 5)+(1-((fn:length(tableList) / 5)%1))%1}">
+	<c:if test="${param.pageNumber < (fn:length(tableList) / 4)+(1-((fn:length(tableList) / 4)%1))%1}">
 				<a href="/Restaurant/Guest/DisableTable?pageNumber=${param.pageNumber + 1}">앞으로</a>
 	</c:if>
 </div>
