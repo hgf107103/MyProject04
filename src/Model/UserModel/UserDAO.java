@@ -15,7 +15,8 @@ public class UserDAO {
     private ResultSet rs = null;
     
     //private String url="jdbc:mysql://117.17.113.248:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
-    private String url="jdbc:mysql://27.96.134.5/postboard?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    //private String url="jdbc:mysql://27.96.134.5/postboard?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    private static final String url="jdbc:mysql://localhost:33115/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
     private String uid="hgf107103";
     private String upass="Hwt0147258!";
     private UserVO uv = null;
@@ -109,9 +110,10 @@ public class UserDAO {
     		Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("드라이브 적재됨");
 
+            System.out.println(sql);
+            
             conn = DriverManager.getConnection(url, uid, upass);
             System.out.println("DB 연동됨");
-            
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             System.out.println("아이디 체크 쿼리실행완료");
@@ -134,7 +136,7 @@ public class UserDAO {
 		} catch (Exception e) {
 			
 			cutConnect();
-			System.out.println("로그인 아이디 체크 오류 발생");
+			System.out.println("로그인 아이디 체크 오류 발생" + e);
 			return false;
 		}
 	}

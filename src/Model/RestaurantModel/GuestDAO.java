@@ -19,7 +19,8 @@ public class GuestDAO {
     private ResultSet rs = null;
 
     //private String url="jdbc:mysql://117.17.113.248:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
-    private static final String url="jdbc:mysql://27.96.134.5:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    //private static final String url="jdbc:mysql://27.96.134.5:3306/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+    private static final String url="jdbc:mysql://localhost:33115/restaurant?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
     private static final String uid="hgf107103";
     private static final String upass="Hwt0147258!";
     
@@ -672,7 +673,7 @@ public class GuestDAO {
     public boolean newOrderPlus(String orderName, String orderCost, String orderCount, String tableNumber, String categoryNumber) {
     	try {
     		
-    		String sql = "INSERT INTO tableorder (tableNumber, orderName, orderCost, orderCount, categoryNumber) VALUES (?,?,?,?,?)";
+    		String sql = "INSERT INTO tableorder (tableNumber, orderName, orderCost, orderCount, orderDiscount, categoryNumber) VALUES (?,?,?,?,?,?)";
     		System.out.println(sql);
     		
     		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -696,7 +697,10 @@ public class GuestDAO {
 			pstmt.setInt(4, Integer.parseInt(orderCount));
 			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + orderCount);
 			
-			pstmt.setInt(5, Integer.parseInt(categoryNumber));
+			pstmt.setInt(5, 0);
+			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : orderDiscount = 0");
+			
+			pstmt.setInt(6, Integer.parseInt(categoryNumber));
 			System.out.println("prepareStatement Äõ¸®¿¡ °ª ÀúÀåµÊ : " + categoryNumber);
 			
 			pstmt.execute();

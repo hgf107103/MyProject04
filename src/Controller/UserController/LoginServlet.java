@@ -37,6 +37,7 @@ public class LoginServlet extends HttpServlet {
 			
 			UserDAO ud = UserDAO.getInstance();
 			System.out.println("loginServlet : Created UserDTO");
+			System.out.println(request.getParameter("id"));
 			
 			boolean check = ud.loginIdCheak(request.getParameter("id"));
 			

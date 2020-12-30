@@ -73,7 +73,7 @@ function SignUpPWDRegExp() {
 			} else {
 				
 				console.log("SignUpPWDRegExp_not : this password did not pass the RegExp : " + pwd);
-				alert("비밀번호는 반드시 영문과 숫자로만 이루어지며 특수기호도 포함할 수 있습니다.\n길이는 6자리 이상 15자리 이하여야 합니다.");
+				alert("비밀번호는 반드시 영문과 숫자가 포함되어야 하며 특수기호도 포함할 수 있습니다.\n길이는 6자리 이상 15자리 이하여야 합니다.");
 				return false;
 			}
 			

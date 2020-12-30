@@ -153,6 +153,11 @@
 		}
 		
 	}
+	function enterkey() {
+        if (window.event.keyCode == 13 ) {
+        	loginSubmit();
+        }
+    }
 </script>
 </head>
 <body>
@@ -163,8 +168,8 @@ history.go(-1);
 </script>
 <%} %>
 <a href="/"><input type="button" value="Login" onmouseenter="overIndex()" onmouseout="outIndex()" id="indexbutton"></a>
-<form action="/Login" id="loginForm" method="post">
-	<input type="text" id="id" name="id" placeholder="아이디를 입력하십시오" autocomplete="off"><br>
+<form action="/Login" onkeyup="enterkey()" id="loginForm" method="post">
+	<input type="text" id="id" onkeyup="enterkey()" name="id" placeholder="아이디를 입력하십시오" autocomplete="off"><br>
 	<input type="password" id="pwd" name="pwd" placeholder="비밀번호를 입력하십시오"><br>
 	<input id="loginButton" onclick="loginSubmit()" type="button" value="로그인">
 </form>
